@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- pinch-zoom left enabled on purpose: several pilgrims are 60+ -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Private family trip. Contains names, ages and live PNRs — keep out of search. -->
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+  <title>🎫 Yatra Ticket Vault | Departure & Return (Char Dham 2026)</title>
+  <meta name="theme-color" content="#D4611A">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🙏</text></svg>">
+
+  <!-- Google Fonts: Baloo 2, Kalam, Caveat, Special Elite -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Caveat:wght@600;700&family=Kalam:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --paper: #F2E8C9;
+      --paper-card: #FAF4E1;
+      --ink: #2C1A06;
+      --saffron: #D4611A;
+      --saffron-light: #FDF0E7;
+      --tape-yellow: rgba(246, 213, 92, 0.85);
+      --tape-teal: rgba(133, 205, 202, 0.75);
+      --tape-rose: rgba(226, 125, 96, 0.75);
+      --highlighter: #FFF176;
+      --stamp-green: #2B6E44;
+      --stamp-red: #A8201A;
+      --shadow-hard: 3px 4px 0px var(--ink);
+      --shadow-soft: 2px 2px 0px var(--ink);
+      --shadow-hover: 5px 6px 0px var(--ink);
+      --radius-sm: 4px;
+      --radius-md: 8px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--paper);
+      color: var(--ink);
+      font-family: 'Kalam', cursive, sans-serif;
+      font-size: 15px;
+      line-height: 1.4;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    /* Fixed SVG Paper Grain Texture Overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.28;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      mix-blend-mode: multiply;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: 'Baloo 2', cursive, sans-serif;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+
+    .font-typewriter {
+      font-family: 'Special Elite', monospace;
+      letter-spacing: 0.5px;
+    }
+
+    .font-hand {
+      font-family: 'Caveat', cursive;
+    }
+
+    /* Scrapbook Physical Buttons */
+    .scrap-btn {
+      font-family: 'Baloo 2', cursive;
+      font-weight: 700;
+      font-size: 14px;
+      background: var(--paper-card);
+      color: var(--ink);
+      border: 2px solid var(--ink);
+      border-radius: var(--radius-sm);
+      padding: 6px 14px;
+      cursor: pointer;
+      box-shadow: var(--shadow-hard);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: transform 0.08s steps(2), box-shadow 0.08s steps(2);
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .scrap-btn:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translate(-1px, -1px);
+    }
+
+    .scrap-btn:active {
+      transform: translate(2px, 3px) !important;
+      box-shadow: 1px 1px 0px var(--ink) !important;
+    }
+
+    .scrap-btn-saffron {
+      background: var(--saffron);
+      color: #FFF;
+    }
+    .scrap-btn-saffron:hover { background: #BF4F0E; }
+
+    /* Download the real IRCTC PDF — green so it reads as "the actual ticket" */
+    .scrap-btn-download {
+      background: var(--stamp-green);
+      color: #FFF;
+    }
+    .scrap-btn-download:hover { background: #235836; }
+    .scrap-btn:focus-visible {
+      outline: 3px solid var(--ink);
+      outline-offset: 2px;
+    }
+
+    /* Washi Tape Strips */
+    .washi-tape {
+      position: absolute;
+      height: 20px;
+      width: 75px;
+      border-left: 2px dashed rgba(44, 26, 6, 0.4);
+      border-right: 2px dashed rgba(44, 26, 6, 0.4);
+      z-index: 10;
+      pointer-events: none;
+    }
+    .washi-yellow { background: var(--tape-yellow); }
+    .washi-teal   { background: var(--tape-teal); }
+    .washi-rose   { background: var(--tape-rose); }
+
+    /* Sticky Header */
+    header.top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #EADEB8;
+      border-bottom: 3px solid var(--ink);
+      box-shadow: 0 4px 0px rgba(44, 26, 6, 0.15);
+      padding: 8px 14px;
+    }
+
+    .header-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .header-left h1 {
+      font-size: 1.35rem;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .header-badge {
+      background: var(--saffron);
+      color: #fff;
+      font-size: 11px;
+      padding: 2px 7px;
+      border: 1.5px solid var(--ink);
+      border-radius: 20px;
+      transform: rotate(-2deg);
+      box-shadow: var(--shadow-soft);
+      font-family: 'Caveat', cursive;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* Container */
+    main.yatra-container {
+      max-width: 1140px;
+      margin: 16px auto;
+      padding: 0 12px 70px;
+    }
+
+    /* Master Journey Switcher (Departure vs Return) */
+    .journey-selector-banner {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 16px;
+      width: 100%;
+    }
+
+    .journey-tabs-box {
+      display: inline-flex;
+      background: #E0CE9F;
+      border: 2px solid var(--ink);
+      border-radius: 10px;
+      padding: 4px;
+      box-shadow: 4px 5px 0px var(--ink);
+      gap: 4px;
+      width: 100%;
+      max-width: 720px;
+    }
+
+    .journey-nav-btn {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1rem;
+      font-weight: 800;
+      padding: 8px 14px;
+      background: transparent;
+      border: 2px solid transparent;
+      border-radius: 6px;
+      cursor: pointer;
+      color: var(--ink);
+      transition: all 0.1s steps(2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      flex: 1;
+      text-align: center;
+    }
+
+    .journey-nav-btn.active {
+      background: var(--paper-card);
+      border-color: var(--ink);
+      box-shadow: 2px 3px 0px var(--ink);
+      color: var(--saffron);
+      transform: translateY(-2px);
+    }
+
+    /* Sub Tabs (Tickets vs Seating) */
+    .subtabs-nav-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 16px;
+      width: 100%;
+    }
+
+    .subtabs-nav {
+      display: inline-flex;
+      background: #EAE0C0;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      padding: 3px;
+      box-shadow: var(--shadow-hard);
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .subtab-btn {
+      font-family: 'Baloo 2', cursive;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 6px 12px;
+      background: transparent;
+      border: 2px solid transparent;
+      border-radius: 6px;
+      cursor: pointer;
+      color: var(--ink);
+      transition: all 0.1s steps(2);
+      flex: 1;
+      text-align: center;
+    }
+
+    .subtab-btn.active {
+      background: #FFF;
+      border-color: var(--ink);
+      box-shadow: var(--shadow-soft);
+      color: var(--saffron);
+    }
+
+    /* Tab Panes */
+    .tab-pane {
+      display: none;
+      animation: paperIn 0.15s ease-out;
+    }
+    .tab-pane.active {
+      display: block;
+    }
+
+    @keyframes paperIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* PDF Download Station */
+    .pdf-download-station {
+      background: var(--paper-card);
+      border: 3px solid var(--ink);
+      border-radius: var(--radius-md);
+      box-shadow: 5px 6px 0px var(--ink);
+      padding: 16px;
+      margin-bottom: 18px;
+      position: relative;
+    }
+    .pdf-download-station .scrap-btn-download {
+      min-height: 100px;
+      border-radius: var(--radius-sm);
+    }
+    @media (max-width: 540px) {
+      .pdf-download-station div[style*='grid'] {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    /* Hero Journey Card */
+    .journey-hero-card {
+      background: var(--paper-card);
+      border: 3px solid var(--ink);
+      border-radius: var(--radius-md);
+      box-shadow: 5px 6px 0px var(--ink);
+      padding: 16px;
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .journey-main-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
+    }
+
+    .station-box.origin { text-align: left; }
+    .station-box.dest { text-align: right; }
+
+    .station-code {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--saffron);
+    }
+
+    .station-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .station-sub {
+      font-size: 11px;
+      color: #6E5336;
+      font-family: 'Special Elite', monospace;
+    }
+
+    .route-arrow-visual {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 0 4px;
+    }
+
+    .route-line {
+      width: 120px;
+      height: 3px;
+      background: var(--ink);
+      position: relative;
+    }
+    .route-line::after {
+      content: "▶";
+      position: absolute;
+      right: -8px;
+      top: -9px;
+      color: var(--ink);
+      font-size: 12px;
+    }
+
+    .journey-specs-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 2px dashed #C0AF95;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .spec-pill {
+      background: #EDE2C3;
+      border: 1.5px solid var(--ink);
+      border-radius: 4px;
+      padding: 3px 8px;
+      font-size: 12px;
+    }
+
+    /* PNR Filters: Mobile Touch Scrolling */
+    .pnr-scroll-outer {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+    }
+
+    .pnr-pills-bar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      width: max-content;
+    }
+
+    .pnr-pill-btn {
+      background: #EFE4C8;
+      border: 2px solid var(--ink);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-family: 'Special Elite', monospace;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 2px 2px 0px var(--ink);
+      transition: all 0.08s steps(2);
+      white-space: nowrap;
+    }
+
+    .pnr-pill-btn.active {
+      background: var(--saffron);
+      color: #FFF;
+      box-shadow: 3px 3px 0px var(--ink);
+    }
+
+    /* Manifest Card */
+    .manifest-card {
+      background: var(--paper-card);
+      border: 3px solid var(--ink);
+      border-radius: var(--radius-md);
+      box-shadow: 5px 6px 0px var(--ink);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .manifest-card-header {
+      background: #EADEBD;
+      border-bottom: 2px solid var(--ink);
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .manifest-table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
+    }
+
+    .manifest-table {
+      width: 100%;
+      min-width: 620px;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    .manifest-table th {
+      background: #F1E5C6;
+      padding: 8px 10px;
+      font-family: 'Baloo 2', cursive;
+      font-size: 12.5px;
+      border-bottom: 2px solid var(--ink);
+      color: var(--ink);
+    }
+
+    .manifest-table td {
+      padding: 8px 10px;
+      border-bottom: 1px dashed #CFC2A8;
+    }
+
+    .berth-badge {
+      display: inline-block;
+      background: #FFF;
+      border: 1.5px solid var(--ink);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-family: 'Special Elite', monospace;
+      font-weight: 700;
+      box-shadow: 1px 1px 0px var(--ink);
+      font-size: 12px;
+    }
+
+    .berth-badge.b2 { border-left: 4px solid #2B6E44; }
+    .berth-badge.b3 { border-left: 4px solid var(--saffron); }
+    .berth-badge.b4 { border-left: 4px solid #1E5F74; }
+
+    .status-stamp {
+      font-family: 'Caveat', cursive;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--stamp-green);
+      border: 1.5px dashed var(--stamp-green);
+      padding: 1px 5px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+
+    /* Coach Seating Section */
+    .coach-view-card {
+      background: var(--paper-card);
+      border: 3px solid var(--ink);
+      border-radius: var(--radius-md);
+      box-shadow: 5px 6px 0px var(--ink);
+      padding: 16px;
+      position: relative;
+    }
+
+    .coach-selector-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .coach-pill-toggle {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .coach-pill-btn {
+      font-family: 'Baloo 2', cursive;
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 6px 14px;
+      background: #EDE1BF;
+      border: 2px solid var(--ink);
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 2px 2px 0px var(--ink);
+      transition: all 0.08s steps(2);
+      flex: 1;
+      text-align: center;
+    }
+
+    .coach-pill-btn.active {
+      background: var(--saffron);
+      color: #FFF;
+      box-shadow: 3px 3px 0px var(--ink);
+      transform: translateY(-2px);
+    }
+
+    /* Mobile Horizontal Scroll Hint Cue */
+    .mobile-scroll-cue {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: #FFF8C5;
+      border: 1.5px dashed var(--ink);
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 11.5px;
+      font-weight: bold;
+      color: #7A3E00;
+      margin-bottom: 8px;
+    }
+
+    /* 72-Berth Coach Chassis */
+    .train-coach-chassis {
+      background: #EAE0C1;
+      border: 3px solid var(--ink);
+      border-radius: 10px;
+      padding: 12px 10px;
+      box-shadow: inset 0 0 0 2px #FFF, 3px 4px 0px rgba(0,0,0,0.1);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
+    }
+
+    .coach-grid-wrapper {
+      min-width: 980px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .side-berths-row, .corridor-row, .cabins-container {
+      display: flex;
+      gap: 6px;
+    }
+
+    .corridor-row {
+      height: 22px;
+      background: #DDD0A8;
+      border: 1px dashed #A89B77;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-family: 'Special Elite', monospace;
+      letter-spacing: 5px;
+      color: #726244;
+      user-select: none;
+    }
+
+    .cabin-bay, .side-bay {
+      background: #DFD2B0;
+      border: 1.5px solid var(--ink);
+      border-radius: 4px;
+      padding: 4px;
+      flex: 1;
+    }
+
+    .cabin-bay {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 4px;
+    }
+
+    .side-bay {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4px;
+    }
+
+    .berth-cell {
+      min-height: 46px;
+      background: #FAF6EA;
+      border: 1.5px solid #8C7B5D;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2px;
+      font-size: 10px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.08s steps(2);
+      user-select: none;
+    }
+
+    .berth-cell .b-num {
+      font-family: 'Special Elite', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .berth-cell .b-type {
+      font-size: 9px;
+      color: #6E5E43;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .berth-cell.booked {
+      background: var(--highlighter) !important;
+      border: 2px solid var(--ink) !important;
+      box-shadow: 2px 2px 0px var(--ink);
+    }
+
+    .berth-cell.booked::after {
+      content: "★";
+      position: absolute;
+      top: 1px;
+      right: 2px;
+      font-size: 8px;
+      color: var(--saffron);
+    }
+
+    .berth-cell.booked .b-name {
+      font-size: 9px;
+      font-weight: 800;
+      color: #7B341E;
+      max-width: 44px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .berth-cell.active-inspect {
+      outline: 3px dashed var(--saffron);
+      outline-offset: 1px;
+      transform: scale(1.04);
+      z-index: 10;
+    }
+
+    /* Live Seat Inspector Post-It */
+    .seat-inspector-postit {
+      margin-top: 14px;
+      background: #FFF9D2;
+      border: 2px dashed var(--ink);
+      border-radius: 6px;
+      padding: 12px 14px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       UNIVERSAL YATRA DOCK
+       Shared verbatim by index / itinerary / hotels / tickets.
+       Colours fall back to literals so the block is drop-in
+       portable across pages with different :root tokens.
+       ══════════════════════════════════════════════════════════ */
+    .yatra-dock {
+      position: fixed;
+      bottom: max(10px, env(safe-area-inset-bottom, 8px));
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 500;
+      width: calc(100% - 20px);
+      max-width: 440px;
+    }
+
+    .yatra-dock .dock-plank {
+      background: #EADBBA;
+      border: 2.5px solid var(--ink, #2C1A06);
+      box-shadow: 0 5px 0px var(--ink, #2C1A06);
+      border-radius: 14px;
+      padding: 4px 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .yatra-dock .dock-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      padding: 6px 4px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--ink, #2C1A06);
+      text-decoration: none;
+      background: none;
+      border: none;
+      flex: 1;
+      min-width: 0;
+      min-height: 48px; /* accessible thumb target */
+    }
+
+    .yatra-dock .dock-icon {
+      font-size: 1.3rem;
+      line-height: 1;
+    }
+
+    .yatra-dock .dock-label {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.65rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    /* Current page marker — also the accessible cue, via aria-current */
+    .yatra-dock .dock-item[aria-current="page"] {
+      background: var(--saffron, #D4611A);
+      color: #FFF8EC;
+      box-shadow: 1.5px 2px 0 var(--ink, #2C1A06);
+    }
+
+    .yatra-dock .dock-item:focus-visible {
+      outline: 3px solid var(--saffron, #D4611A);
+      outline-offset: 2px;
+    }
+    .yatra-dock .dock-item[aria-current="page"]:focus-visible {
+      outline-color: var(--ink, #2C1A06);
+    }
+    .yatra-dock .dock-item:active { transform: translateY(1px); }
+
+    @media (max-width: 340px) {
+      .yatra-dock .dock-icon  { font-size: 1.15rem; }
+      .yatra-dock .dock-label { font-size: 0.56rem; }
+    }
+
+    /* Keep the dock off the page's own content */
+    body { padding-bottom: calc(96px + env(safe-area-inset-bottom, 16px)); }
+
+    /* ── PRINT: emit only the ERS sheet, not the whole dashboard ── */
+    @media print {
+      .yatra-dock, .top-bar, .washi-tape, .journey-tabs, .sub-tabs,
+      .modal-close-btn, #modal-download-btn,
+      .journey-specs-strip .scrap-btn, .journey-specs-strip a { display: none !important; }
+      body::before { display: none !important; }  /* grain overlay */
+      body { padding: 0 !important; background: #FFF !important; }
+      .modal-overlay {
+        position: static !important;
+        background: none !important;
+        backdrop-filter: none !important;
+        display: block !important;
+      }
+      .pdf-modal-sheet {
+        box-shadow: none !important;
+        border: none !important;
+        max-height: none !important;
+        overflow: visible !important;
+        margin: 0 !important;
+      }
+      /* When the ERS modal is open, hide everything else on the page */
+      body:has(#pdfModal.open) > *:not(#pdfModal) { display: none !important; }
+      @page { margin: 12mm; }
+    }
+
+    /* Modal Sheet: Mobile Friendly */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(44, 26, 6, 0.75);
+      backdrop-filter: blur(2px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.15s ease, visibility 0.15s;
+      padding: 12px;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .pdf-modal-sheet {
+      background: #FFFFFF;
+      color: #111;
+      width: 100%;
+      max-width: 760px;
+      max-height: 92vh;
+      overflow-y: auto;
+      border: 3px solid var(--ink);
+      border-radius: 6px;
+      box-shadow: 8px 10px 0px rgba(0,0,0,0.6);
+      padding: 18px 14px;
+      position: relative;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #E8A87C;
+      border: 2px solid var(--ink);
+      font-family: 'Baloo 2', cursive;
+      font-weight: 800;
+      font-size: 15px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 2px 2px 0px var(--ink);
+    }
+    .modal-close-btn:hover { background: var(--saffron); color: #fff; }
+
+    .pdf-header-row {
+      border-bottom: 2px solid #000;
+      padding-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .pdf-pnr-banner {
+      background: #F0F4F8;
+      border: 1px solid #CCC;
+      margin: 10px 0;
+      padding: 6px 10px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-family: monospace;
+      font-size: 12px;
+    }
+
+    .pdf-inner-table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 10px 0;
+    }
+
+    .pdf-inner-table {
+      width: 100%;
+      min-width: 520px;
+      border-collapse: collapse;
+      font-size: 11.5px;
+    }
+
+    .pdf-inner-table th, .pdf-inner-table td {
+      border: 1px solid #BBB;
+      padding: 5px 6px;
+      text-align: left;
+    }
+    .pdf-inner-table th { background: #F3F3F3; }
+
+    .pdf-barcode {
+      text-align: center;
+      font-family: 'Special Elite', monospace;
+      font-size: 20px;
+      letter-spacing: 3px;
+      background: #EAEAEA;
+      padding: 5px;
+      margin-top: 10px;
+      border: 1px dashed #666;
+      overflow-x: hidden;
+    }
+
+    /* ========================================================
+       RESPONSIVE BREAKPOINTS (TABLET & MOBILE)
+       ======================================================== */
+    @media (max-width: 768px) {
+      .journey-main-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      .station-box.origin, .station-box.dest {
+        text-align: center;
+      }
+      .route-line {
+        display: none;
+      }
+      .washi-tape {
+        display: none; /* remove corner tapes on small screens to prevent cutoffs */
+      }
+    }
+
+    @media (max-width: 540px) {
+      header.top-bar {
+        padding: 6px 10px;
+      }
+      .header-inner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+      }
+      .header-left {
+        justify-content: space-between;
+        width: 100%;
+      }
+      .header-left h1 {
+        font-size: 1.18rem;
+      }
+      .header-right {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+      .journey-tabs-box {
+        flex-direction: column;
+      }
+      .journey-nav-btn {
+        font-size: 0.92rem;
+        padding: 8px 10px;
+      }
+      .subtab-btn {
+        font-size: 0.88rem;
+        padding: 6px 8px;
+      }
+      .scrap-btn {
+        padding: 5px 11px;
+        font-size: 13px;
+      }
+      .station-code {
+        font-size: 1.75rem;
+      }
+      .journey-specs-strip {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .journey-specs-strip .scrap-btn {
+        width: 100%;
+        margin-top: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Scrapbook Top Bar -->
+  <header class="top-bar">
+    <div class="header-inner">
+      <div class="header-left">
+        <!-- BACK BUTTON: Links directly to index.html -->
+        <a href="index.html" class="scrap-btn" title="Return to Dashboard">
+          ◀ Back to Home
+        </a>
+        <h1>
+          🎫 Yatra Ticket Vault
+        </h1>
+      </div>
+      <div class="header-right">
+        <span class="header-badge" id="journey-badge-indicator">DEPARTURE • 21-OCT-2026</span>
+        <span class="font-hand" style="font-size: 18px; font-weight: 700; color: var(--saffron);">
+          16 Pilgrims ✓
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="yatra-container">
+
+    <!-- PDF Download Station -->
+    <div class="pdf-download-station">
+      <h2 style="font-family: 'Baloo 2', cursive; font-size: 1.3rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+        📥 Download Original IRCTC Tickets
+        <span style="font-family: 'Caveat', cursive; font-size: 1rem; color: var(--saffron); font-weight: 700;">tap to save</span>
+      </h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <a href="final_Ticket_going.pdf" download="Chardham-Ticket-Departure-21Oct2026.pdf" class="scrap-btn scrap-btn-download" style="padding: 16px 12px; flex-direction: column; text-align: center; font-size: 13px; gap: 4px; display: flex; align-items: center;">
+          <span style="font-size: 1.8rem;">🚀</span>
+          <strong>DEPARTURE TICKET</strong>
+          <span style="font-family: 'Special Elite', monospace; font-size: 11px;">BSP → HW • 21 Oct</span>
+          <span style="font-size: 10px; opacity: 0.8;">PDF • ~643 KB</span>
+        </a>
+        <a href="final_Ticket_returning.pdf" download="Chardham-Ticket-Return-02Nov2026.pdf" class="scrap-btn scrap-btn-download" style="padding: 16px 12px; flex-direction: column; text-align: center; font-size: 13px; gap: 4px; display: flex; align-items: center;">
+          <span style="font-size: 1.8rem;">🏠</span>
+          <strong>RETURN TICKET</strong>
+          <span style="font-family: 'Special Elite', monospace; font-size: 11px;">HW → BSP • 02 Nov</span>
+          <span style="font-size: 10px; opacity: 0.8;">PDF • ~499 KB</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- MASTER JOURNEY SWITCHER (DEPARTURE VS RETURN) -->
+    <div class="journey-selector-banner">
+      <div class="journey-tabs-box">
+        <button class="journey-nav-btn active" id="btn-journey-dep" onclick="switchJourney('DEPARTURE')">
+          🚀 DEPARTURE: BSP ➔ HW (21 Oct)
+        </button>
+        <button class="journey-nav-btn" id="btn-journey-ret" onclick="switchJourney('RETURN')">
+          🏠 RETURN: HW ➔ BSP (02 Nov)
+        </button>
+      </div>
+    </div>
+
+    <!-- SUBTABS: TICKETS VS SEATING -->
+    <div class="subtabs-nav-wrapper">
+      <div class="subtabs-nav">
+        <button class="subtab-btn active" id="subtab-tickets-btn" onclick="switchSubTab('tickets')">
+          🎟️ IRCTC Tickets &amp; PNRs
+        </button>
+        <button class="subtab-btn" id="subtab-seating-btn" onclick="switchSubTab('seating')">
+          🪑 Coach Seating Layout
+        </button>
+      </div>
+    </div>
+
+    <!-- ========================================================
+         VIEW 1: IRCTC TICKETS & PASSENGER MANIFEST
+         ======================================================== -->
+    <div id="pane-tickets" class="tab-pane active">
+
+      <!-- Journey Hero Summary Card -->
+      <div class="journey-hero-card">
+        <div class="washi-tape washi-yellow" style="top: -10px; left: 20px; transform: rotate(-3deg);"></div>
+        <div class="washi-tape washi-teal" style="top: -10px; right: 20px; transform: rotate(4deg);"></div>
+
+        <div class="journey-main-row">
+          <div class="station-box origin">
+            <div class="station-code" id="hero-origin-code">BSP</div>
+            <div class="station-name" id="hero-origin-name">BILASPUR JN</div>
+            <div class="station-sub" id="hero-origin-sub">Booked from: Akaltara (AKT)</div>
+            <div class="font-typewriter" style="font-weight: 700; color: #6E491A; margin-top: 2px;" id="hero-dep-time">
+              DEP: 14:30 hrs • 21-Oct-2026
+            </div>
+          </div>
+
+          <div class="route-arrow-visual">
+            <span class="font-typewriter" style="font-size: 13.5px; font-weight: bold; color: var(--saffron);" id="hero-train-name">
+              18477 / UTKAL EXPRESS
+            </span>
+            <div class="route-line"></div>
+            <span class="font-typewriter" style="font-size: 11.5px; color: #554026;" id="hero-dist-class">
+              Distance: 1414 KM • Class: 3A (Third AC)
+            </span>
+          </div>
+
+          <div class="station-box dest">
+            <div class="station-code" id="hero-dest-code">HW</div>
+            <div class="station-name" id="hero-dest-name">HARIDWAR JN</div>
+            <div class="station-sub" id="hero-dest-sub">Char Dham Base Camp</div>
+            <div class="font-typewriter" style="font-weight: 700; color: #6E491A; margin-top: 2px;" id="hero-arr-time">
+              ARR: 20:08 hrs • 22-Oct-2026
+            </div>
+          </div>
+        </div>
+
+        <div class="journey-specs-strip">
+          <div class="spec-pill font-typewriter" id="spec-train-pill"><strong>Train:</strong> 18477 Utkal Exp</div>
+          <div class="spec-pill font-typewriter"><strong>Quota:</strong> General (GN)</div>
+          <div class="spec-pill font-typewriter"><strong>Class:</strong> Third AC (3A)</div>
+          <div class="spec-pill font-typewriter" id="spec-pnr-count"><strong>Bookings:</strong> 4 PNRs</div>
+          <div class="spec-pill font-typewriter" style="background: #D7EEDB; color: #1E6637; font-weight: 700;">
+            Status: ALL CNF
+          </div>
+          <button class="scrap-btn scrap-btn-saffron" onclick="openMasterPdfModal()">
+            📄 View Summary Slip
+          </button>
+          <!-- Real IRCTC PDF: href/download are set per journey by loadJourney() -->
+          <a class="scrap-btn scrap-btn-download" id="pdf-download-btn" href="#" download>
+            ⬇️ Download Original Ticket
+          </a>
+        </div>
+      </div>
+
+      <!-- Touch-Scrollable PNR Filter Bar -->
+      <div style="margin-bottom: 4px;">
+        <span class="font-hand" style="font-size: 17px; font-weight: 700; color: #6F4E28;">
+          Filter by PNR Booking (Swipe to browse):
+        </span>
+      </div>
+      <div class="pnr-scroll-outer">
+        <div class="pnr-pills-bar" id="pnr-pills-container">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Passenger Manifest Card -->
+      <div class="manifest-card">
+        <div class="manifest-card-header">
+          <div>
+            <h3 id="manifest-title">👥 Passenger Berth Allocations (16 Pilgrims)</h3>
+            <span class="font-typewriter" style="font-size: 11.5px; color: #674E33;" id="manifest-sub">
+              All berths confirmed by Indian Railways
+            </span>
+          </div>
+          <span class="status-stamp">CONFIRMED (CNF)</span>
+        </div>
+
+        <div class="manifest-table-wrap">
+          <table class="manifest-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Passenger Name</th>
+                <th>Age/Sex</th>
+                <th>PNR No.</th>
+                <th>Coach</th>
+                <th>Berth</th>
+                <th>Position</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="manifest-tbody">
+              <!-- Rendered via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================================
+         VIEW 2: VISUAL COACH SEAT BLUEPRINT
+         ======================================================== -->
+    <div id="pane-seating" class="tab-pane">
+      <div class="coach-view-card">
+        <div class="washi-tape washi-rose" style="top: -10px; right: 20px; transform: rotate(-2deg);"></div>
+
+        <div class="coach-selector-bar">
+          <div>
+            <h3>🪑 Coach Blueprint &amp; Seating</h3>
+            <p style="font-size: 12.5px; color: #6E5336;">
+              Yellow highlighted boxes show our group's reserved berths.
+            </p>
+          </div>
+
+          <div class="coach-pill-toggle" id="coach-pills-container">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <!-- Mobile Swipe Helper Cue -->
+        <div class="mobile-scroll-cue">
+          <span>👈 Swipe horizontally to view all 72 berths in this coach 👉</span>
+        </div>
+
+        <!-- Train Coach Chassis Blueprint (Full 72 Berths) -->
+        <div class="train-coach-chassis">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; min-width: 980px;">
+            <span class="train-strip-label" id="current-coach-banner" style="font-size: 11px; padding: 2px 6px; background: #D9CB9E; border: 1px solid var(--ink); border-radius: 3px;">
+              INDIAN RAILWAYS • COACH (THIRD AC)
+            </span>
+            <span class="font-hand" style="font-size: 16px; font-weight: 700; color: var(--saffron);">
+              ★ Tap any yellow box to inspect passenger
+            </span>
+          </div>
+
+          <div class="coach-grid-wrapper">
+            <!-- Top Strip: Side Berths (7-8, 15-16, 23-24, 31-32, 39-40, 47-48, 55-56, 63-64, 71-72) -->
+            <div class="side-berths-row" id="side-berths-strip"></div>
+
+            <!-- Middle Row: Walking Corridor -->
+            <div class="corridor-row">C O R R I D O R</div>
+
+            <!-- Bottom Strip: 9 Compartment Bays (6 Berths each) -->
+            <div class="cabins-container" id="cabins-strip"></div>
+          </div>
+        </div>
+
+        <!-- Live Seat Inspection Scrap Post-It -->
+        <div class="seat-inspector-postit" id="coach-seat-inspector">
+          <div>
+            <h4 style="font-size: 1.1rem; color: var(--ink);" id="insp-heading">
+              👉 Tap any highlighted seat above
+            </h4>
+            <p class="font-typewriter" style="font-size: 12.5px; color: #583F21;" id="insp-sub">
+              To inspect passenger name, age, gender, and ticket booking details.
+            </p>
+          </div>
+          <div id="insp-badge-box"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ══ UNIVERSAL YATRA DOCK — keep identical across all 4 pages ══ -->
+  <nav class="yatra-dock" aria-label="Yatra sections">
+    <div class="dock-plank">
+      <a href="index.html" class="dock-item">
+        <span class="dock-icon" aria-hidden="true">ॐ</span>
+        <span class="dock-label">Home</span>
+      </a>
+      <a href="itinerary.html" class="dock-item">
+        <span class="dock-icon" aria-hidden="true">🗺️</span>
+        <span class="dock-label">Route</span>
+      </a>
+      <a href="hotels.html" class="dock-item">
+        <span class="dock-icon" aria-hidden="true">🏨</span>
+        <span class="dock-label">Stays</span>
+      </a>
+      <a href="tickets.html" class="dock-item" aria-current="page">
+        <span class="dock-icon" aria-hidden="true">🎫</span>
+        <span class="dock-label">Tickets</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ========================================================
+       MODAL: FULL IRCTC E-TICKET VIEWER (PRINTABLE)
+       ======================================================== -->
+  <div class="modal-overlay" id="pdfModal" onclick="handleModalBackdrop(event)">
+    <div class="pdf-modal-sheet">
+      <button class="modal-close-btn" onclick="closeModal()" title="Close PDF">✕</button>
+
+      <div class="pdf-header-row">
+        <div>
+          <div style="font-size: 16px; font-weight: bold; color: #0B3C5D;">INDIAN RAILWAYS / IRCTC</div>
+          <div style="font-size: 10.5px; font-weight: bold; color: #555;" id="modal-journey-title">
+            ELECTRONIC RESERVATION SLIP (ERS)
+          </div>
+        </div>
+        <div style="font-family: monospace; font-size: 10.5px; text-align: right; color: #444;" id="modal-meta-info">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <div class="pdf-pnr-banner" id="modal-banner-strip">
+        <!-- Populated by JS -->
+      </div>
+
+      <div style="font-size: 11.5px; margin-bottom: 6px;" id="modal-stations-line">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="pdf-inner-table-wrap">
+        <table class="pdf-inner-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Passenger Name</th>
+              <th>Age</th>
+              <th>Sex</th>
+              <th>PNR</th>
+              <th>Coach</th>
+              <th>Berth</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody id="modal-table-body">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pdf-barcode" id="modal-barcode-strip">
+        *YATRA2026*IRCTC*CONFIRMED*
+      </div>
+
+      <div style="margin-top: 12px; text-align: right; display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap;">
+        <!-- href/download set per journey by openMasterPdfModal() -->
+        <a class="scrap-btn scrap-btn-download" id="modal-download-btn" href="#" download>
+          ⬇️ Download Original Ticket
+        </a>
+        <button class="scrap-btn scrap-btn-saffron" onclick="window.print()">
+          🖨️ Print Manifest
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="site-data.js"></script>
+  <!-- JavaScript Modular Logic -->
+  <script>
+    // ==========================================
+    // 1. DATA REPOSITORY (ALL DEPARTURE & RETURN DATA)
+    // ==========================================
+    const journeyData = {
+      DEPARTURE: {
+        trainNo: "18477 / UTKAL EXPRESS",
+        trainShort: "18477 Utkal Exp",
+        originCode: "BSP",
+        originName: "BILASPUR JN",
+        originSub: "Booked from: Akaltara (AKT)",
+        depTime: "DEP: 14:30 hrs • 21-Oct-2026",
+        destCode: "HW",
+        destName: "HARIDWAR JN",
+        destSub: "Char Dham Base Camp",
+        arrTime: "ARR: 20:08 hrs • 22-Oct-2026",
+        distance: "1414 KM",
+        badge: "DEPARTURE • 21-OCT-2026",
+        // Real IRCTC e-ticket PDF, sits next to this file on the server
+        pdfFile: "final_Ticket_going.pdf",
+        pdfLabel: "Char-Dham-Ticket-Departure-21Oct2026.pdf",
+        coaches: ["B2", "B3"],
+        defaultCoach: "B2",
+        pnrFilters: [
+          { label: "ALL PILGRIMS (16)", value: "ALL" },
+          { label: "PNR 6508336346 (B2 • 6)", value: "6508336346" },
+          { label: "PNR 6408337634 (B3 • 1)", value: "6408337634" },
+          { label: "PNR 6408336141 (B3 • 5)", value: "6408336141" },
+          { label: "PNR 6836744286 (B3 • 4)", value: "6836744286" }
+        ],
+        passengers: [
+          // PNR 1: 6508336346 (Coach B2)
+          { id: 1, name: "ASHOK KUMAR KUSH", age: 67, gender: "M", pnr: "6508336346", coach: "B2", seat: 1, berth: "LOWER" },
+          { id: 2, name: "DEV MOURYA", age: 21, gender: "M", pnr: "6508336346", coach: "B2", seat: 2, berth: "MIDDLE" },
+          { id: 3, name: "DEEPAK KASHYAP", age: 46, gender: "M", pnr: "6508336346", coach: "B2", seat: 3, berth: "UPPER" },
+          { id: 4, name: "VIJAY KUMAR MAUR", age: 59, gender: "M", pnr: "6508336346", coach: "B2", seat: 4, berth: "LOWER" },
+          { id: 5, name: "UJJWAL KASHYAP", age: 19, gender: "M", pnr: "6508336346", coach: "B2", seat: 5, berth: "MIDDLE" },
+          { id: 6, name: "MONU KUMAR MOURY", age: 48, gender: "M", pnr: "6508336346", coach: "B2", seat: 6, berth: "UPPER" },
+
+          // PNR 2: 6408337634 (Coach B3)
+          { id: 7, name: "SADHNA MAURYA", age: 59, gender: "F", pnr: "6408337634", coach: "B3", seat: 33, berth: "LOWER" },
+
+          // PNR 3: 6408336141 (Coach B3)
+          { id: 8, name: "APEKSHA KASHYAP", age: 18, gender: "F", pnr: "6408336141", coach: "B3", seat: 49, berth: "LOWER" },
+          { id: 9, name: "ANUSHKA KASHYAP", age: 22, gender: "F", pnr: "6408336141", coach: "B3", seat: 50, berth: "MIDDLE" },
+          { id: 10, name: "ANJALI MOURYA", age: 22, gender: "F", pnr: "6408336141", coach: "B3", seat: 51, berth: "UPPER" },
+          { id: 11, name: "PREETI VERMA", age: 44, gender: "F", pnr: "6408336141", coach: "B3", seat: 52, berth: "LOWER" },
+          { id: 12, name: "USHA KASHYAP", age: 43, gender: "F", pnr: "6408336141", coach: "B3", seat: 53, berth: "MIDDLE" },
+
+          // PNR 4: 6836744286 (Coach B3)
+          { id: 13, name: "AKANKSHA", age: 32, gender: "F", pnr: "6836744286", coach: "B3", seat: 42, berth: "MIDDLE" },
+          { id: 14, name: "GEETA MAURYA", age: 57, gender: "F", pnr: "6836744286", coach: "B3", seat: 43, berth: "UPPER" },
+          { id: 15, name: "TUSHAR VERMA", age: 17, gender: "M", pnr: "6836744286", coach: "B3", seat: 45, berth: "MIDDLE" },
+          { id: 16, name: "SARSWATI KASYAP", age: 67, gender: "F", pnr: "6836744286", coach: "B3", seat: 46, berth: "UPPER" }
+        ]
+      },
+
+      RETURN: {
+        trainNo: "18478 / KALINGAUTKAL EXP",
+        trainShort: "18478 Kalinga Utkal",
+        originCode: "HW",
+        originName: "HARIDWAR JN",
+        originSub: "Boarding at Haridwar Jn",
+        depTime: "DEP: 06:54 hrs • 02-Nov-2026",
+        destCode: "BSP",
+        destName: "BILASPUR JN",
+        destSub: "Return Home Base",
+        arrTime: "ARR: 09:00 hrs • 03-Nov-2026",
+        distance: "1381 KM",
+        badge: "RETURN • 02-NOV-2026",
+        // Real IRCTC e-ticket PDF, sits next to this file on the server
+        pdfFile: "final_Ticket_returning.pdf",
+        pdfLabel: "Char-Dham-Ticket-Return-02Nov2026.pdf",
+        coaches: ["B2", "B4"],
+        defaultCoach: "B2",
+        pnrFilters: [
+          { label: "ALL PILGRIMS (16)", value: "ALL" },
+          { label: "PNR 2843024216 (B2 • 4)", value: "2843024216" },
+          { label: "PNR 2362333483 (B2 • 6)", value: "2362333483" },
+          { label: "PNR 2624244682 (B2/B4 • 6)", value: "2624244682" }
+        ],
+        passengers: [
+          // PNR 1: 2843024216 (Coach B2)
+          { id: 1, name: "AKANKSHA", age: 32, gender: "F", pnr: "2843024216", coach: "B2", seat: 50, berth: "MIDDLE" },
+          { id: 2, name: "GEETA MAURYA", age: 57, gender: "F", pnr: "2843024216", coach: "B2", seat: 49, berth: "LOWER" },
+          { id: 3, name: "SARSWATI KASYAP", age: 67, gender: "F", pnr: "2843024216", coach: "B2", seat: 52, berth: "LOWER" },
+          { id: 4, name: "TUSHAR VERMA", age: 17, gender: "M", pnr: "2843024216", coach: "B2", seat: 53, berth: "MIDDLE" },
+
+          // PNR 2: 2362333483 (Coach B2)
+          { id: 5, name: "ANJALI MOURYA", age: 22, gender: "F", pnr: "2362333483", coach: "B2", seat: 67, berth: "UPPER" },
+          { id: 6, name: "ANUSHKA KASHYAP", age: 22, gender: "F", pnr: "2362333483", coach: "B2", seat: 66, berth: "MIDDLE" },
+          { id: 7, name: "APEKSHA KASHYAP", age: 18, gender: "F", pnr: "2362333483", coach: "B2", seat: 65, berth: "LOWER" },
+          { id: 8, name: "PREETI VERMA", age: 44, gender: "F", pnr: "2362333483", coach: "B2", seat: 69, berth: "MIDDLE" },
+          { id: 9, name: "SADHNA MAURYA", age: 64, gender: "F", pnr: "2362333483", coach: "B2", seat: 68, berth: "LOWER" },
+          { id: 10, name: "USHA KASHYAP", age: 43, gender: "F", pnr: "2362333483", coach: "B2", seat: 70, berth: "UPPER" },
+
+          // PNR 3: 2624244682 (Split: B2 & B4)
+          { id: 11, name: "DEEPAK KASHYAP", age: 46, gender: "M", pnr: "2624244682", coach: "B2", seat: 62, berth: "UPPER" },
+          { id: 12, name: "DEV MOURYA", age: 22, gender: "M", pnr: "2624244682", coach: "B2", seat: 61, berth: "MIDDLE" },
+          { id: 13, name: "ASHOK KUMAR KUSH", age: 67, gender: "M", pnr: "2624244682", coach: "B4", seat: 1, berth: "LOWER" },
+          { id: 14, name: "MONU KUMAR MOURY", age: 48, gender: "M", pnr: "2624244682", coach: "B4", seat: 2, berth: "MIDDLE" },
+          { id: 15, name: "UJJWAL KASHYAP", age: 19, gender: "M", pnr: "2624244682", coach: "B4", seat: 3, berth: "UPPER" },
+          { id: 16, name: "VIJAY KUMAR MAUR", age: 59, gender: "M", pnr: "2624244682", coach: "B4", seat: 4, berth: "LOWER" }
+        ]
+      }
+    };
+
+    // State
+    let activeJourney = 'DEPARTURE';
+    let activeCoach = 'B2';
+    let activeSubTab = 'tickets';
+
+    // ==========================================
+    // 2. LIFECYCLE
+    // ==========================================
+    document.addEventListener('DOMContentLoaded', () => {
+      loadJourney(activeJourney);
+    });
+
+    function switchJourney(journeyKey) {
+      activeJourney = journeyKey;
+      document.getElementById('btn-journey-dep').classList.toggle('active', journeyKey === 'DEPARTURE');
+      document.getElementById('btn-journey-ret').classList.toggle('active', journeyKey === 'RETURN');
+      loadJourney(journeyKey);
+    }
+
+    function switchSubTab(tab) {
+      activeSubTab = tab;
+      document.getElementById('subtab-tickets-btn').classList.toggle('active', tab === 'tickets');
+      document.getElementById('subtab-seating-btn').classList.toggle('active', tab === 'seating');
+      document.getElementById('pane-tickets').classList.toggle('active', tab === 'tickets');
+      document.getElementById('pane-seating').classList.toggle('active', tab === 'seating');
+    }
+
+    function loadJourney(journeyKey) {
+      const data = journeyData[journeyKey];
+
+      // Update Header & Hero
+      document.getElementById('journey-badge-indicator').innerText = data.badge;
+      document.getElementById('hero-origin-code').innerText = data.originCode;
+      document.getElementById('hero-origin-name').innerText = data.originName;
+      document.getElementById('hero-origin-sub').innerText = data.originSub;
+      document.getElementById('hero-dep-time').innerText = data.depTime;
+
+      document.getElementById('hero-train-name').innerText = data.trainNo;
+      document.getElementById('hero-dist-class').innerText = `Distance: ${data.distance} • Class: 3A`;
+
+      document.getElementById('hero-dest-code').innerText = data.destCode;
+      document.getElementById('hero-dest-name').innerText = data.destName;
+      document.getElementById('hero-dest-sub').innerText = data.destSub;
+      document.getElementById('hero-arr-time').innerText = data.arrTime;
+
+      document.getElementById('spec-train-pill').innerHTML = `<strong>Train:</strong> ${data.trainShort}`;
+      // Count real PNRs from the manifest, not the filter pills (pill 0 is "ALL")
+      const pnrCount = new Set(data.passengers.map(p => p.pnr)).size;
+      document.getElementById('spec-pnr-count').innerHTML = `<strong>Bookings:</strong> ${pnrCount} PNRs`;
+
+      // Point the download button at this journey's real IRCTC PDF
+      const dl = document.getElementById('pdf-download-btn');
+      dl.href = data.pdfFile;
+      dl.setAttribute('download', data.pdfLabel);
+      dl.setAttribute('aria-label',
+        `Download original IRCTC ticket PDF for the ${journeyKey.toLowerCase()} journey, ${data.originCode} to ${data.destCode}`);
+
+      // Render PNR Filters
+      const pnrContainer = document.getElementById('pnr-pills-container');
+      pnrContainer.innerHTML = '';
+      data.pnrFilters.forEach((filter, index) => {
+        const btn = document.createElement('button');
+        btn.className = `pnr-pill-btn ${index === 0 ? 'active' : ''}`;
+        btn.innerText = filter.label;
+        btn.onclick = () => filterManifest(filter.value, btn);
+        pnrContainer.appendChild(btn);
+      });
+
+      // Render Coach Selector Pills
+      const coachContainer = document.getElementById('coach-pills-container');
+      coachContainer.innerHTML = '';
+      data.coaches.forEach((c, index) => {
+        const count = data.passengers.filter(p => p.coach === c).length;
+        const btn = document.createElement('button');
+        btn.className = `coach-pill-btn ${index === 0 ? 'active' : ''}`;
+        btn.id = `btn-coach-${c}`;
+        btn.innerText = `Coach ${c} (${count} Seats)`;
+        btn.onclick = () => selectCoach(c);
+        coachContainer.appendChild(btn);
+      });
+
+      activeCoach = data.defaultCoach;
+
+      // Render table & coach
+      renderManifestTable(data.passengers);
+      renderCoachLayout(activeCoach);
+
+      // Reset inspector post-it
+      document.getElementById('insp-heading').innerText = "👉 Tap any highlighted seat above";
+      document.getElementById('insp-sub').innerText = "To inspect passenger name, age, gender, and ticket booking details.";
+      document.getElementById('insp-badge-box').innerHTML = "";
+    }
+
+    // ==========================================
+    // 3. PASSENGER MANIFEST
+    // ==========================================
+    function renderManifestTable(paxList) {
+      const tbody = document.getElementById('manifest-tbody');
+      tbody.innerHTML = '';
+
+      paxList.forEach((p, index) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${String(index + 1).padStart(2, '0')}</strong></td>
+          <td><strong>${p.name}</strong></td>
+          <td>${p.age}/${p.gender}</td>
+          <td class="font-typewriter">${p.pnr}</td>
+          <td><span class="berth-badge ${p.coach.toLowerCase()}">${p.coach}</span></td>
+          <td><span class="font-typewriter" style="font-weight:700;">${p.seat}</span></td>
+          <td>${p.berth}</td>
+          <td><span class="status-stamp">CNF</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function filterManifest(pnrVal, btn) {
+      document.querySelectorAll('.pnr-pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const data = journeyData[activeJourney];
+      const title = document.getElementById('manifest-title');
+
+      if (pnrVal === 'ALL') {
+        renderManifestTable(data.passengers);
+        title.innerText = "👥 Passenger Berth Allocations (16 Pilgrims)";
+      } else {
+        const filtered = data.passengers.filter(p => p.pnr === pnrVal);
+        renderManifestTable(filtered);
+        title.innerText = `👥 Berth Allocations — PNR ${pnrVal} (${filtered.length} Pax)`;
+      }
+    }
+
+    // ==========================================
+    // 4. INTERACTIVE 72-BERTH COACH
+    // ==========================================
+    function selectCoach(coachId) {
+      activeCoach = coachId;
+      document.querySelectorAll('.coach-pill-btn').forEach(b => b.classList.remove('active'));
+      const activeBtn = document.getElementById(`btn-coach-${coachId}`);
+      if (activeBtn) activeBtn.classList.add('active');
+      renderCoachLayout(coachId);
+    }
+
+    function renderCoachLayout(coachId) {
+      const journey = journeyData[activeJourney];
+      const paxInCoach = journey.passengers.filter(p => p.coach === coachId);
+      const bookedSeatNums = paxInCoach.map(p => p.seat).sort((a, b) => a - b);
+
+      document.getElementById('current-coach-banner').innerText = 
+        `COACH ${coachId} (3A) — ${bookedSeatNums.length} RESERVED SEATS (${bookedSeatNums.join(', ')})`;
+
+      const sideStrip = document.getElementById('side-berths-strip');
+      const cabinsStrip = document.getElementById('cabins-strip');
+      sideStrip.innerHTML = '';
+      cabinsStrip.innerHTML = '';
+
+      // Standard Indian Railways 3AC Coach Layout has 9 Bays (72 Berths)
+      for (let bay = 0; bay < 9; bay++) {
+        // Main Cabin Bay (6 Berths)
+        const cabinDiv = document.createElement('div');
+        cabinDiv.className = 'cabin-bay';
+
+        const bLower1 = (bay * 8) + 1;
+        const bMiddle1 = (bay * 8) + 2;
+        const bUpper1 = (bay * 8) + 3;
+
+        const bLower2 = (bay * 8) + 4;
+        const bMiddle2 = (bay * 8) + 5;
+        const bUpper2 = (bay * 8) + 6;
+
+        const cabinOrder = [
+          { num: bUpper1, type: 'UPPER' },
+          { num: bUpper2, type: 'UPPER' },
+          { num: bMiddle1, type: 'MIDDLE' },
+          { num: bMiddle2, type: 'MIDDLE' },
+          { num: bLower1, type: 'LOWER' },
+          { num: bLower2, type: 'LOWER' }
+        ];
+
+        cabinOrder.forEach(seat => {
+          cabinDiv.appendChild(buildSeatElement(seat.num, seat.type, coachId, paxInCoach));
+        });
+
+        cabinsStrip.appendChild(cabinDiv);
+
+        // Side Bay (2 Berths: Side Lower & Side Upper)
+        const sideDiv = document.createElement('div');
+        sideDiv.className = 'side-bay';
+
+        const sLower = (bay * 8) + 7;
+        const sUpper = (bay * 8) + 8;
+
+        sideDiv.appendChild(buildSeatElement(sLower, 'S-LOWER', coachId, paxInCoach));
+        sideDiv.appendChild(buildSeatElement(sUpper, 'S-UPPER', coachId, paxInCoach));
+
+        sideStrip.appendChild(sideDiv);
+      }
+    }
+
+    function buildSeatElement(seatNum, seatType, coachId, paxInCoach) {
+      const cell = document.createElement('div');
+      cell.className = 'berth-cell';
+
+      const bookedPax = paxInCoach.find(p => p.seat === seatNum);
+
+      if (bookedPax) {
+        cell.classList.add('booked');
+        cell.innerHTML = `
+          <span class="b-num">${seatNum}</span>
+          <span class="b-type">${seatType}</span>
+          <span class="b-name">${bookedPax.name.split(' ')[0]}</span>
+        `;
+        cell.onclick = (e) => inspectBerth(bookedPax, seatType, cell);
+      } else {
+        cell.innerHTML = `
+          <span class="b-num">${seatNum}</span>
+          <span class="b-type">${seatType}</span>
+        `;
+        cell.onclick = () => {
+          document.querySelectorAll('.berth-cell').forEach(c => c.classList.remove('active-inspect'));
+          cell.classList.add('active-inspect');
+          document.getElementById('insp-heading').innerText = `Seat ${seatNum} (${seatType})`;
+          document.getElementById('insp-sub').innerText = `Coach ${coachId} • Not allocated to your Char Dham group.`;
+          document.getElementById('insp-badge-box').innerHTML = '';
+        };
+      }
+
+      return cell;
+    }
+
+    function inspectBerth(pax, seatType, element) {
+      document.querySelectorAll('.berth-cell').forEach(c => c.classList.remove('active-inspect'));
+      element.classList.add('active-inspect');
+
+      document.getElementById('insp-heading').innerText = `💺 Seat ${pax.seat}: ${pax.name}`;
+      document.getElementById('insp-sub').innerText = 
+        `Age: ${pax.age} | Gender: ${pax.gender} | Berth: ${pax.berth} | PNR: ${pax.pnr}`;
+
+      document.getElementById('insp-badge-box').innerHTML = `
+        <span class="status-stamp" style="font-size: 14px; margin-right: 6px;">CONFIRMED</span>
+        <span class="berth-badge ${pax.coach.toLowerCase()}">COACH ${pax.coach} - ${pax.seat}</span>
+      `;
+
+      // On mobile devices, smoothly scroll down slightly so the post-it is clearly visible
+      if (window.innerWidth < 768) {
+        document.getElementById('coach-seat-inspector').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    // ==========================================
+    // 5. PRINTABLE IRCTC MODAL
+    // ==========================================
+    function openMasterPdfModal() {
+      const data = journeyData[activeJourney];
+      const modal = document.getElementById('pdfModal');
+
+      // Mirror the hero download button inside the modal
+      const modalDl = document.getElementById('modal-download-btn');
+      modalDl.href = data.pdfFile;
+      modalDl.setAttribute('download', data.pdfLabel);
+      modalDl.setAttribute('aria-label',
+        `Download original IRCTC ticket PDF for the ${activeJourney.toLowerCase()} journey`);
+
+      document.getElementById('modal-journey-title').innerText = 
+        `ELECTRONIC RESERVATION SLIP (ERS) - ${activeJourney === 'DEPARTURE' ? 'OUTWARD PASS' : 'RETURN PASS'}`;
+
+      document.getElementById('modal-meta-info').innerHTML = `
+        TRAIN: ${data.trainNo}<br>
+        CLASS: 3A (THIRD AC)
+      `;
+
+      document.getElementById('modal-banner-strip').innerHTML = `
+        <div><strong>JOURNEY:</strong> ${data.originCode} ➔ ${data.destCode}</div>
+        <div><strong>DATE:</strong> ${activeJourney === 'DEPARTURE' ? '21-Oct-2026' : '02-Nov-2026'}</div>
+        <div><strong>ALL CNF</strong></div>
+      `;
+
+      document.getElementById('modal-stations-line').innerHTML = `
+        <strong>From:</strong> ${data.originName} (${data.depTime})<br>
+        <strong>To:</strong> ${data.destName} (${data.arrTime})
+      `;
+
+      const tbody = document.getElementById('modal-table-body');
+      tbody.innerHTML = '';
+      data.passengers.forEach((p, idx) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${idx + 1}</td>
+          <td><strong>${p.name}</strong></td>
+          <td>${p.age}</td>
+          <td>${p.gender}</td>
+          <td style="font-family: monospace;">${p.pnr}</td>
+          <td><strong>${p.coach}</strong></td>
+          <td><strong>${p.seat}</strong></td>
+          <td>${p.berth}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById('modal-barcode-strip').innerText = 
+        `*${data.passengers.map(p => p.pnr).filter((v, i, a) => a.indexOf(v) === i).join('*')}*`;
+
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('pdfModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleModalBackdrop(e) {
+      if (e.target.id === 'pdfModal') closeModal();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Private family trip. Keep out of search. -->
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<title>Char Dham Yatra 2026 | Stop-Motion Edition</title>
+<meta name="theme-color" content="#D4611A">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🙏</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Kalam:wght@400;700&family=Baloo+2:wght@600;800&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --paper:#F2E8C9;
+  --paper2:#EDE0B5;
+  --paper3:#E8D89F;
+  --ink:#2C1A06;
+  --saffron:#D4611A;
+  --gold:#C89B10;
+  --teal:#1A6B5C;
+  --crimson:#8B1A1A;
+  --indigo:#1A2878;
+  --forest:#1B5E20;
+  --rose:#8B1A4A;
+  --aged:#C8A96E;
+  --tape1:rgba(255,210,80,0.8);
+  --tape2:rgba(150,200,160,0.8);
+  --tape3:rgba(200,160,220,0.8);
+  --tape4:rgba(240,150,100,0.8);
+  
+  /* Stop-Motion Physics */
+  --hard-shadow: 3px 4px 0px rgba(44, 26, 6, 0.15);
+  --hard-shadow-hover: 5px 6px 0px rgba(44, 26, 6, 0.2);
+}
+
+html,body{width:100%;height:100%;overflow:hidden;touch-action:none}
+
+body{
+  background:var(--paper);
+  font-family:'Kalam',cursive;
+  color:var(--ink);
+  position:relative;
+}
+
+/* ── PAPER TEXTURE ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  z-index:0;pointer-events:none;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  opacity:1;
+  mix-blend-mode:multiply;
+}
+/* grain overlay */
+body::after{
+  content:'';
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+/* ── STOP MOTION KEYFRAMES ── */
+@keyframes stopMotionPop {
+  0% { opacity: 0; transform: scale(0.7) translateY(20px) rotate(calc(var(--rot, 0deg) - 10deg)); }
+  33% { opacity: 1; transform: scale(1.1) translateY(-5px) rotate(calc(var(--rot, 0deg) + 5deg)); }
+  66% { opacity: 1; transform: scale(0.95) translateY(2px) rotate(calc(var(--rot, 0deg) - 2deg)); }
+  100% { opacity: 1; transform: scale(1) translateY(0) rotate(var(--rot, 0deg)); }
+}
+
+@keyframes stopMotionFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-3px) rotate(2deg); }
+  50% { transform: translateY(-6px) rotate(-1deg); }
+  75% { transform: translateY(-2px) rotate(1deg); }
+}
+
+@keyframes tapeJitter {
+  0%, 100% { transform: rotate(var(--base-rot)) translate(0, 0); }
+  50% { transform: rotate(calc(var(--base-rot) + 1deg)) translate(1px, -1px); }
+}
+
+/* ── HINT OVERLAY ── */
+#hint{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(44,26,6,0.85);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:1rem;
+}
+#hint.gone{display:none}
+.hint-paper{
+  background:var(--paper);
+  padding:2rem 2.5rem;
+  border-radius:2px;
+  text-align:center;
+  max-width:360px;width:90%;
+  position:relative;
+  border: 2px solid var(--ink);
+  box-shadow: 8px 10px 0px rgba(0,0,0,0.4);
+  --rot: -2deg;
+  animation: stopMotionPop 0.6s steps(4, end) forwards;
+}
+.hint-tape{
+  position:absolute;top:-11px;left:50%;transform:translateX(-50%);
+  width:70px;height:25px;
+  background:var(--tape1);
+  box-shadow: 0 2px 0 rgba(0,0,0,0.1);
+  background-image:repeating-linear-gradient(90deg,transparent,transparent 6px,rgba(255,255,255,0.4) 6px,rgba(255,255,255,0.4) 7px);
+}
+.hint-emoji{font-size:3rem;display:block;margin-bottom:0.5rem; animation: stopMotionFloat 1s steps(3, end) infinite;}
+.hint-title{font-family:'Baloo 2',sans-serif;font-size:1.4rem;font-weight:800;color:var(--saffron);margin-bottom:0.5rem;}
+.hint-text{font-family:'Kalam',cursive;font-size:1.1rem;color:var(--ink);line-height:1.7; font-weight: 600;}
+.hint-controls{
+  display:flex;flex-direction:column;gap:0.4rem;
+  margin-top:0.8rem;
+  text-align:left;
+  font-size:0.9rem;
+  color:#5a3a22;
+  font-family: 'Caveat', cursive;
+  font-size: 1.2rem;
+}
+.hint-btn{
+  background:var(--saffron);color:white;
+  border: 2px solid var(--ink);
+  padding:0.6rem 2rem;
+  font-family:'Baloo 2',sans-serif;font-weight:800;font-size:1rem;
+  cursor:pointer;
+  margin-top:1.2rem;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  box-shadow: 3px 4px 0px var(--ink);
+  transition: transform 0.1s steps(2, end), box-shadow 0.1s steps(2, end);
+}
+.hint-btn:hover{ transform:translate(2px, 2px); box-shadow: 1px 2px 0px var(--ink); }
+
+/* ── MAIN TRACK ── */
+#track{
+  position:fixed;inset:0;z-index:1;
+  display:flex;align-items:stretch;
+  transition:transform 0.7s steps(6, end);
+  will-change:transform;
+}
+
+/* ── SLIDE ── */
+.slide{
+  flex-shrink:0;
+  width:100vw;height:100vh;
+  position:relative;
+  overflow:hidden;
+  display:flex;flex-direction:column;
+}
+
+/* ── SLIDE BACKGROUND ── */
+.slide-bg{
+  position:absolute;inset:0;
+  background:var(--paper);
+  z-index:0;
+}
+.slide-bg::after{
+  content:'';
+  position:absolute;inset:0;
+  background:repeating-linear-gradient(
+    180deg,
+    transparent 0,transparent 32px,
+    rgba(150,120,60,0.15) 32px,rgba(150,120,60,0.15) 34px
+  );
+  pointer-events:none;
+}
+.slide-bg::before{
+  content:'';
+  position:absolute;
+  left:clamp(44px,8vw,80px);top:0;bottom:0;
+  width:2px;
+  background:rgba(160,50,50,0.25);
+  pointer-events:none;
+}
+
+/* ── WASHI TAPE STRIP ── */
+.washi{
+  position:absolute;
+  height:26px;
+  box-shadow: 0 2px 2px rgba(0,0,0,0.05);
+  background-image:repeating-linear-gradient(90deg,transparent,transparent 6px,rgba(255,255,255,0.3) 6px,rgba(255,255,255,0.3) 8px);
+  z-index:10;
+  animation: tapeJitter 2s steps(3, end) infinite;
+}
+
+/* ── SLIDE CONTENT AREA ── */
+.slide-inner{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;
+  height:100%;
+  padding:clamp(1rem,2.5vh,2rem) clamp(1rem,4vw,3rem);
+  /* room for the control pod AND the universal dock stacked below it */
+  padding-bottom:calc(clamp(4.5rem,10vh,6rem) + 66px);
+}
+
+/* ── HEADER BAND ── */
+.slide-header{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  margin-bottom:clamp(0.4rem,1.5vh,1rem);
+  flex-shrink:0;
+}
+.day-label{
+  display:inline-block;
+  background:var(--day-color,var(--saffron));
+  color:white;font-family:'Baloo 2',sans-serif;
+  font-size:clamp(0.55rem,1.5vw,0.75rem);
+  font-weight:800;letter-spacing:3px;text-transform:uppercase;
+  padding:4px 16px;
+  border: 2px solid var(--ink);
+  box-shadow: 2px 3px 0px rgba(0,0,0,0.15);
+}
+.slide-date{
+  font-family:'Special Elite', monospace;
+  font-size:clamp(0.7rem,1.8vw,0.9rem);
+  color:var(--ink);
+  background:var(--paper2);
+  padding:4px 12px;
+  border:2px dashed var(--ink);
+  font-weight: bold;
+}
+
+/* ── DHAM BADGE ── */
+.dham-badge{
+  display:inline-block;
+  background:var(--gold);
+  color:var(--ink);font-family:'Baloo 2',sans-serif;
+  font-size:clamp(0.6rem,1.5vw,0.75rem);font-weight:900;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:4px 18px;
+  border: 2px solid var(--ink);
+  box-shadow: 2px 3px 0px var(--ink);
+  margin-bottom:0.8rem;
+  opacity:0; visibility: hidden;
+  --rot: -2deg;
+}
+.dham-badge.in{ visibility: visible; animation: stopMotionPop 0.5s steps(4, end) forwards; }
+
+/* ── TITLE ── */
+.slide-title{
+  font-family:'Baloo 2',sans-serif;font-weight:800;
+  font-size:clamp(1.5rem,4vw,2.8rem);
+  color:var(--ink);line-height:1.1;
+  margin-bottom:clamp(0.4rem,1.2vh,0.8rem);
+  opacity:0; visibility: hidden;
+}
+.slide-title.in{ visibility: visible; animation: stopMotionPop 0.6s steps(4, end) forwards; }
+
+/* ── CONTENT AREA ── */
+.slide-content{
+  display:flex;gap:clamp(1rem,3vw,2.5rem);
+  flex:1;min-height:0;
+  align-items:stretch;
+}
+
+/* ── STICKER EMOJI ── */
+.char-box{
+  flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  min-width:clamp(90px,18vw,160px);
+}
+.char-emoji{
+  font-size:clamp(3.5rem,9vw,6rem);
+  line-height:1;
+  display:flex; align-items: center; justify-content: center;
+  background: #ffffff;
+  width: clamp(80px, 15vw, 130px);
+  height: clamp(80px, 15vw, 130px);
+  border-radius: 50%;
+  border: 4px solid #fff;
+  box-shadow: 0 0 0 2px var(--ink), var(--hard-shadow);
+  opacity:0; visibility: hidden;
+  --rot: -5deg;
+}
+.char-emoji.in{ visibility: visible; animation: stopMotionPop 0.5s steps(4, end) forwards; }
+.char-emoji.flipped{ transform:scaleX(-1); --rot: 5deg; }
+
+/* ── CARD STACK ── */
+.cards-area{
+  flex:1;min-width:0;
+  display:flex;flex-direction:column;gap:clamp(0.8rem,2vh,1.5rem);
+  overflow:hidden;
+}
+
+/* ── SCRAPBOOK CARD ── */
+.scrp-card{
+  background:var(--paper);
+  border:2px solid var(--ink);
+  padding:clamp(0.8rem,2vh,1.2rem) clamp(1rem,2.5vw,1.6rem);
+  position:relative;
+  box-shadow: var(--hard-shadow);
+  opacity:0; visibility: hidden;
+  overflow:visible;
+}
+.scrp-card::before {
+  content: ''; position: absolute; top: -10px; left: 50%; transform: translateX(-50%) rotate(2deg);
+  width: 40px; height: 15px; background: rgba(0,0,0,0.05); z-index: -1;
+}
+.scrp-card.in{ visibility: visible; animation: stopMotionPop 0.6s steps(4, end) forwards; }
+
+.scrp-card.color1{background:#fdf6e7}
+.scrp-card.color2{background:#eef6f0}
+.scrp-card.color3{background:#eef0fa}
+.scrp-card.color4{background:#fdf0f4}
+.scrp-card.dham-card{background:#fff8e1; border-color: var(--saffron); border-width: 3px;}
+
+.card-icon-row{
+  display:flex;align-items:center;gap:8px;
+  margin-bottom:6px;
+  border-bottom: 2px dashed rgba(0,0,0,0.1);
+  padding-bottom: 4px;
+}
+.card-mode-emoji{font-size:1.4rem;line-height:1}
+.card-label{
+  font-family:'Baloo 2',sans-serif;
+  font-size:clamp(0.6rem,1.4vw,0.8rem);
+  font-weight:900;letter-spacing:2px;text-transform:uppercase;
+  color:var(--ink);
+}
+.card-body{
+  font-family:'Kalam',cursive;
+  font-size:clamp(0.95rem,2vw,1.2rem);
+  color:#3a200e;
+  line-height:1.5;
+  font-weight: 600;
+}
+.card-body strong{
+  color:var(--ink);
+  background: rgba(255, 235, 59, 0.4);
+  padding: 0 4px;
+}
+.card-km{
+  font-family:'Special Elite', monospace;
+  font-size:clamp(0.7rem,1.5vw,0.85rem);font-weight:800;
+  color:var(--saffron);
+  margin-top:8px;display:inline-block;
+  background: rgba(212, 97, 26, 0.1);
+  padding: 2px 8px; border-radius: 4px;
+}
+
+/* ── STICKY NOTE ── */
+.sticky{
+  position:absolute;
+  right:clamp(-1rem,-3vw,-2rem);
+  top:50%;transform:translateY(-50%) rotate(4deg);
+  background:#fff59d;
+  padding:0.6rem 0.8rem;
+  width:clamp(90px,18vw,130px);
+  font-family:'Caveat',cursive;
+  font-size:clamp(0.8rem,1.8vw,1rem);
+  font-weight: bold;
+  color:var(--ink);
+  border: 1px solid rgba(0,0,0,0.1);
+  box-shadow: var(--hard-shadow);
+  line-height:1.4;z-index:12;
+  display:none;
+}
+@media(min-width:600px){.sticky{display:block}}
+.sticky::after{
+  content: ''; position: absolute; top: -8px; left: 50%; transform: translateX(-50%) rotate(-3deg);
+  width: 30px; height: 12px; background: rgba(255, 100, 100, 0.5);
+}
+
+/* ── ROUTE PATH (hero slide) ── */
+.route-map{
+  position:absolute;bottom:clamp(3.5rem,8vh,5.5rem);left:0;right:0;
+  height:clamp(50px,10vh,80px);
+  z-index:3;
+  opacity:0; visibility: hidden;
+}
+.route-map.in{ visibility: visible; animation: stopMotionPop 0.8s steps(4, end) forwards; }
+.route-dot{
+  display:inline-flex;flex-direction:column;align-items:center;
+  position:absolute;bottom:0;
+  transform:translateX(-50%);
+  font-family:'Special Elite',monospace;
+  font-size:clamp(0.5rem,1.3vw,0.7rem);
+  font-weight: bold;
+  color:var(--ink);
+  text-align:center;
+}
+.route-dot::before{
+  content:''; width:10px;height:10px;
+  background:var(--saffron); border: 2px solid var(--ink); border-radius:50%;
+  display:block;margin-bottom:4px;
+}
+.route-dot.dham-dot::before{background:var(--gold);width:14px;height:14px;}
+
+/* ── HYPER-DETAILED ROUTE MAP BOARD ── */
+.map-board {
+  position: relative;
+  background: #fdfbf3;
+  border: 3px solid var(--ink);
+  box-shadow: var(--hard-shadow);
+  padding: 0.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  --rot: -0.5deg;
+}
+
+.map-svg-wrap {
+  width: 100%;
+  height: 100%;
+  max-height: clamp(320px, 64vh, 520px);
+  position: relative;
+}
+
+.map-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* A wide route cannot remain legible when it is squeezed into a portrait phone.
+   On small screens it stays at a readable scale and can be panned sideways. */
+.map-pan-hint{ display:none; }
+@media (max-width: 599px) {
+  .map-board{
+    align-items:flex-start;
+    justify-content:flex-start;
+    overflow-x:auto;
+    overflow-y:hidden;
+    padding:0.45rem;
+    scroll-snap-type:x proximity;
+    -webkit-overflow-scrolling:touch;
+  }
+  .map-svg-wrap{
+    width:820px;
+    min-width:820px;
+    height:auto;
+    min-height:478px;
+    max-height:none;
+    scroll-snap-align:start;
+  }
+  .map-svg{ display:block; }
+  .map-pan-hint{
+    display:block;
+    position:absolute;
+    left:8px;
+    bottom:8px;
+    z-index:20;
+    background:var(--ink);
+    color:#fff;
+    padding:4px 8px;
+    font-family:'Baloo 2',sans-serif;
+    font-size:0.72rem;
+    font-weight:800;
+    border:2px solid #fff;
+    box-shadow:var(--hard-shadow-sm);
+  }
+}
+@media (max-width: 599px) and (max-height: 720px) {
+  .map-svg-wrap{
+    width:700px;
+    min-width:700px;
+    min-height:408px;
+  }
+}
+
+/* Road lines */
+.road-drive {
+  stroke: #d4611a;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  stroke-dasharray: 8 6;
+  animation: roadMarch 1.4s steps(6, end) infinite;
+}
+
+/* Sacred Trek paths */
+.trek-path {
+  stroke: #8b1a1a;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  stroke-dasharray: 4 5;
+  animation: trekMarch 1.2s steps(4, end) infinite;
+}
+
+@keyframes roadMarch {
+  from { stroke-dashoffset: 28; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes trekMarch {
+  from { stroke-dashoffset: 18; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* Stop-Motion Vehicle Hopping across real circuit points */
+.circuit-van {
+  animation: stopMotionCircuit 14s steps(14, end) infinite;
+}
+
+@keyframes stopMotionCircuit {
+  0%, 100% { transform: translate(160px, 500px) rotate(-10deg); } /* Haridwar */
+  7.14%    { transform: translate(165px, 350px) rotate(8deg); }   /* Mussoorie / Barkot Rd */
+  14.28%   { transform: translate(220px, 240px) rotate(-6deg); }  /* Barkot */
+  21.42%   { transform: translate(265px, 155px) rotate(12deg); }  /* Janki Chatti */
+  28.57%   { transform: translate(365px, 270px) rotate(-10deg); } /* Uttarkashi */
+  35.71%   { transform: translate(450px, 140px) rotate(6deg); }   /* Gangotri */
+  42.85%   { transform: translate(370px, 280px) rotate(-8deg); }  /* Return Uttarkashi */
+  50%      { transform: translate(520px, 330px) rotate(14deg); }  /* Ghuttu / Tehri */
+  57.14%   { transform: translate(560px, 250px) rotate(-6deg); }  /* Guptkashi */
+  64.28%   { transform: translate(580px, 180px) rotate(8deg); }   /* Sonprayag / Gaurikund */
+  71.42%   { transform: translate(530px, 410px) rotate(-8deg); }  /* Rudraprayag */
+  78.57%   { transform: translate(660px, 340px) rotate(12deg); }  /* Pipalkoti */
+  85.71%   { transform: translate(740px, 240px) rotate(-5deg); }  /* Joshimath */
+  92.85%   { transform: translate(790px, 145px) rotate(10deg); }  /* Badrinath */
+}
+
+/* Map sticky note */
+.map-sticky-note {
+  position: absolute;
+  top: clamp(6px, 1.8vh, 16px);
+  right: clamp(8px, 1.8vw, 20px);
+  background: #fff59d;
+  border: 1px solid rgba(44, 26, 6, 0.2);
+  padding: 0.5rem 0.8rem;
+  font-family: 'Caveat', cursive;
+  box-shadow: var(--hard-shadow);
+  transform: rotate(3deg);
+  z-index: 15;
+  max-width: 175px;
+  line-height: 1.25;
+}
+.map-sticky-note::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-4deg);
+  width: 36px;
+  height: 14px;
+  background: var(--tape1);
+}
+
+/* ── PROGRESS BAR ── */
+#progress-bar{
+  position:fixed;top:0;left:0;height:8px;
+  background:var(--saffron);
+  border-bottom: 2px solid var(--ink);
+  z-index:150;
+  transition:width 0.4s steps(4, end);
+}
+
+/* ── SLIDE COUNTER ── */
+#slide-counter{
+  position:fixed;top:clamp(12px,2vh,18px);right:clamp(1rem,2vw,2rem);
+  z-index:150;
+  font-family:'Special Elite',monospace;
+  font-weight: bold;
+  font-size:clamp(0.8rem,1.8vw,1rem);
+  color:var(--ink);
+  background:#fff;
+  padding:4px 12px;
+  border:2px solid var(--ink);
+  box-shadow: 2px 3px 0px var(--ink);
+  transform: rotate(2deg);
+}
+
+/* ══════════════════════════════════════════════════════════
+   UNIVERSAL YATRA DOCK
+   Shared verbatim by index / itinerary / hotels / tickets.
+   Colours fall back to literals so the block is drop-in
+   portable across pages with different :root tokens.
+   ══════════════════════════════════════════════════════════ */
+.yatra-dock {
+  position: fixed;
+  bottom: max(10px, env(safe-area-inset-bottom, 8px));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+  width: calc(100% - 20px);
+  max-width: 440px;
+  /* page sets touch-action:none globally — re-enable taps here */
+  touch-action: auto;
+}
+
+.yatra-dock .dock-plank {
+  background: #EADBBA;
+  border: 2.5px solid var(--ink, #2C1A06);
+  box-shadow: 0 5px 0px var(--ink, #2C1A06);
+  border-radius: 14px;
+  padding: 4px 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+}
+
+.yatra-dock .dock-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  padding: 6px 4px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--ink, #2C1A06);
+  text-decoration: none;
+  background: none;
+  border: none;
+  flex: 1;
+  min-width: 0;
+  min-height: 48px; /* accessible thumb target */
+}
+
+.yatra-dock .dock-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.yatra-dock .dock-label {
+  font-family: 'Special Elite', monospace;
+  font-size: 0.65rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* Current page marker — also the accessible cue, via aria-current */
+.yatra-dock .dock-item[aria-current="page"] {
+  background: var(--saffron, #D4611A);
+  color: #FFF8EC;
+  box-shadow: 1.5px 2px 0 var(--ink, #2C1A06);
+}
+
+.yatra-dock .dock-item:focus-visible {
+  outline: 3px solid var(--saffron, #D4611A);
+  outline-offset: 2px;
+}
+.yatra-dock .dock-item[aria-current="page"]:focus-visible {
+  outline-color: var(--ink, #2C1A06);
+}
+.yatra-dock .dock-item:active { transform: translateY(1px); }
+
+@media (max-width: 340px) {
+  .yatra-dock .dock-icon  { font-size: 1.15rem; }
+  .yatra-dock .dock-label { font-size: 0.56rem; }
+}
+
+@media print { .yatra-dock { display: none !important; } }
+
+/* ── CONTROLS ── */
+/* --dock-h is the measured dock height incl. its 5px drop shadow.
+   The slide-control pod is lifted to sit above the dock. */
+:root { --dock-h: 66px; }
+#controls{
+  position:fixed;
+  bottom:calc(var(--dock-h) + 10px + max(10px, env(safe-area-inset-bottom, 8px)));
+  left:50%;
+  transform:translateX(-50%);
+  z-index:150;
+  display:flex;align-items:center;gap:clamp(0.8rem,2vw,1.5rem);
+  background: var(--paper2);
+  padding: 10px 20px;
+  border: 2px solid var(--ink);
+  box-shadow: 4px 5px 0px rgba(0,0,0,0.2);
+  border-radius: 40px;
+}
+.ctrl-btn{
+  background:var(--paper);
+  border:2px solid var(--ink);
+  border-radius:50%;
+  width:clamp(38px,8vw,52px);height:clamp(38px,8vw,52px);
+  font-size:clamp(1rem,2.5vw,1.4rem);
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow: 2px 3px 0px var(--ink);
+  transition:transform 0.1s steps(2, end), box-shadow 0.1s steps(2, end), background 0.1s steps(2,end);
+  color:var(--ink);
+}
+.ctrl-btn:hover{background:#fff; transform:translate(-1px, -1px); box-shadow: 3px 4px 0px var(--ink);}
+.ctrl-btn:active{transform:translate(2px, 2px); box-shadow: 0px 0px 0px var(--ink);}
+.ctrl-btn:disabled{opacity:0.4;cursor:default; box-shadow: 1px 1px 0px var(--ink); transform: none;}
+
+#play-btn{
+  background:var(--saffron);
+  color:white;
+  width:clamp(48px,10vw,62px);height:clamp(48px,10vw,62px);
+  font-size:clamp(1.2rem,3vw,1.6rem);
+}
+#play-btn:hover{background:#b84e10}
+
+.ctrl-dots{ display:flex;gap:8px;align-items:center; }
+.ctrl-dot{
+  width:10px;height:10px;border-radius:50%;
+  border: 2px solid var(--ink);
+  background:var(--paper);
+  cursor:pointer;
+  transition:all 0.2s steps(2, end);
+}
+.ctrl-dot.active{ background:var(--saffron); transform:scale(1.4); }
+.ctrl-dot.dham{background:var(--gold)}
+.ctrl-dot.dham.active{background:var(--gold);transform:scale(1.6)}
+
+/* ── TRANSITION EMOJI ── */
+#trans-emoji{
+  position:fixed;
+  z-index:100;
+  font-size:clamp(3rem,8vw,5rem);
+  top:50%;
+  pointer-events:none;
+  transform:translateY(-50%);
+  opacity:0;
+  transition:none;
+  background: #ffffff;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  box-shadow: 0 0 0 2px var(--ink), var(--hard-shadow);
+  display: flex; align-items: center; justify-content: center;
+  width: clamp(70px, 12vw, 100px);
+  height: clamp(70px, 12vw, 100px);
+}
+
+/* ── HERO SLIDE ── */
+.hero-slide .slide-inner{
+  align-items:center;justify-content:center;text-align:center;
+  padding-left:clamp(1rem,4vw,3rem);
+  padding-right:clamp(1rem,4vw,3rem);
+}
+.hero-om{
+  font-size:clamp(4rem,12vw,7rem);
+  color: var(--crimson);
+  display:block;margin-bottom:0.5rem;
+  animation: stopMotionFloat 1s steps(4, end) infinite;
+  opacity:0; visibility: hidden;
+  --rot: -5deg;
+}
+.hero-om.in{ visibility: visible; animation: stopMotionPop 0.8s steps(4, end) forwards, stopMotionFloat 1s steps(4, end) 0.8s infinite; }
+
+.hero-title{
+  font-family:'Baloo 2',sans-serif;font-weight:800;
+  font-size:clamp(2rem,7vw,4.5rem);
+  color:var(--saffron);
+  letter-spacing:2px;line-height:1.1;
+  text-shadow: 3px 3px 0px var(--ink);
+  opacity:0; visibility: hidden;
+  --rot: 2deg;
+}
+.hero-title.in{ visibility: visible; animation: stopMotionPop 0.6s steps(4, end) forwards; }
+
+.hero-sub{
+  font-family:'Special Elite',monospace;font-size:clamp(1rem,3vw,1.4rem);
+  font-weight: bold;
+  color:var(--ink);letter-spacing:4px;text-transform:uppercase;
+  background: var(--gold); padding: 5px 15px; border: 2px solid var(--ink);
+  margin-top:1rem;
+  opacity:0; visibility: hidden;
+  --rot: -1deg;
+}
+.hero-sub.in{ visibility: visible; animation: stopMotionPop 0.6s steps(4, end) forwards; }
+
+.hero-dates{
+  font-family:'Caveat',cursive;font-size:clamp(1.2rem,3vw,1.8rem);
+  color:var(--ink); font-weight: bold; margin-top:1rem;
+  background:#fff;
+  padding:5px 20px; border:2px solid var(--ink); box-shadow: 3px 4px 0px var(--ink);
+  display:inline-block;
+  opacity:0; visibility: hidden;
+  --rot: 3deg;
+}
+.hero-dates.in{ visibility: visible; animation: stopMotionPop 0.6s steps(4, end) forwards; }
+
+/* ── WASHI TAPES GLOBAL ── */
+.washi{ --base-rot: 0deg; }
+.washi.yellow{background:var(--tape1)}
+.washi.green{background:var(--tape2)}
+.washi.purple{background:var(--tape3)}
+.washi.orange{background:var(--tape4)}
+
+/* ── STAMP ── */
+.stamp{
+  position:absolute;
+  font-family:'Baloo 2',sans-serif;
+  font-size:clamp(0.6rem,1.5vw,0.8rem);
+  font-weight:900;letter-spacing:3px;text-transform:uppercase;
+  color:var(--crimson);border:3px solid var(--crimson);
+  padding:4px 12px;
+  transform:rotate(-6deg);
+  opacity:0.85;
+}
+
+/* ── FINAL SLIDE ── */
+.final-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:clamp(0.8rem,2vw,1.5rem);
+}
+@media(min-width:600px){.final-grid{grid-template-columns:repeat(4,1fr)}}
+
+.stat-tile{
+  background:#fff; border:2px solid var(--ink);
+  box-shadow: 3px 4px 0px var(--ink);
+  padding:1.2rem 0.5rem;text-align:center;
+  position:relative;
+  opacity:0; visibility: hidden;
+}
+.stat-tile.in{ visibility: visible; animation: stopMotionPop 0.5s steps(4, end) forwards; }
+.stat-num{font-family:'Special Elite',monospace;font-weight:800;font-size:clamp(2rem,5vw,3rem);color:var(--ink);display:block;line-height:1}
+.stat-label{font-family:'Baloo 2',sans-serif;font-weight: 800; font-size:clamp(0.7rem,1.5vw,0.9rem);color:var(--saffron);letter-spacing:1px;text-transform:uppercase}
+.stat-tape{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:45px;height:20px;background:var(--tape1); border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 1px 2px rgba(0,0,0,0.1);}
+</style>
+</head>
+<body>
+
+<!-- HINT OVERLAY -->
+<div id="hint">
+  <div class="hint-paper">
+    <div class="hint-tape"></div>
+    <span class="hint-emoji">📖</span>
+    <div class="hint-title">Char Dham Yatra 2026</div>
+    <div class="hint-text">A handmade stop-motion scrapbook journey through the Himalayas!</div>
+    <div class="hint-controls">
+      <div>← → Arrow keys</div>
+      <div>📱 Swipe screen</div>
+      <div>🖱️ Scroll wheel</div>
+    </div>
+    <button class="hint-btn" onclick="dismissHint()">Open Book 🙏</button>
+  </div>
+</div>
+
+<!-- PROGRESS BAR -->
+<div id="progress-bar"></div>
+<div id="slide-counter">1 / 14</div>
+
+<!-- TRANSITION EMOJI -->
+<div id="trans-emoji">🚂</div>
+
+<!-- TRACK -->
+<div id="track">
+
+  <!-- ══ SLIDE 0: HERO ══ -->
+  <div class="slide hero-slide">
+    <div class="slide-bg"></div>
+    <div class="washi yellow" style="top:18px;left:8%;width:90px;--base-rot:-2deg"></div>
+    <div class="washi orange" style="top:18px;right:10%;width:70px;--base-rot:2.5deg"></div>
+    <div class="washi green" style="bottom:22%;left:5%;width:80px;--base-rot:1deg"></div>
+    <div class="stamp" style="position:absolute;top:28px;right:clamp(2rem,8vw,5rem);transform:rotate(8deg)">Dev Bhoomi · Uttarakhand</div>
+    <div class="slide-inner">
+      <span class="hero-om" id="h-om">ॐ</span>
+      <h1 class="hero-title" id="h-title">Char Dham Yatra</h1>
+      <div class="hero-sub" id="h-sub">Sacred Pilgrimage</div>
+      <div class="hero-dates" id="h-dates">Oct 21 – Nov 3, 2026</div>
+      <div class="route-map" id="route-map">
+        <svg style="position:absolute;bottom:22px;left:10%;width:80%;height:3px"><line x1="0" y1="1" x2="100%" y2="1" stroke="var(--ink)" stroke-width="3" stroke-dasharray="8,6"/></svg>
+        <div class="route-dot" style="left:2%">Haridwar</div>
+        <div class="route-dot dham-dot" style="left:20%">Yamunotri</div>
+        <div class="route-dot dham-dot" style="left:38%">Gangotri</div>
+        <div class="route-dot dham-dot" style="left:60%">Kedarnath</div>
+        <div class="route-dot dham-dot" style="left:80%">Badrinath</div>
+        <div class="route-dot" style="left:98%;transform:translateX(-100%)">Return</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 1: HYPER-DETAILED SCRAPBOOK ROUTE MAP ══ -->
+  <div class="slide" data-mode="bus" data-emoji="🗺️" style="--day-color:var(--gold)">
+    <div class="slide-bg"></div>
+    <div class="washi green" style="top:-2px;left:0;right:0;width:100%;height:20px;--base-rot:0deg"></div>
+    <div class="washi orange" style="top:12%;left:3%;width:75px;--base-rot:-3deg"></div>
+
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="day-label" style="background:var(--gold);color:var(--ink)">Overview</div>
+        <div class="slide-date">Detailed Highway &amp; Trek Route</div>
+      </div>
+      <h2 class="slide-title">The Complete Himalayan Parikrama 🗺️</h2>
+
+      <div class="slide-content" style="flex-direction:column;">
+        <div class="scrp-card map-board" data-delay="0">
+          <div class="washi yellow" style="top:-9px;left:18px;width:65px;--base-rot:-4deg;z-index:11;"></div>
+          <div class="washi purple" style="bottom:-9px;right:22px;width:70px;--base-rot:3deg;z-index:11;"></div>
+
+          <!-- Handwritten Parikrama Badge -->
+          <div class="map-sticky-note">
+            <strong style="font-size:1.1rem;color:var(--saffron);display:block;">Clockwise Parikrama</strong>
+            4 Holy Dhams · 2 Foot Treks · 5 Sacred Prayags 🙏
+          </div>
+
+          <div class="map-svg-wrap">
+            <svg class="map-svg" viewBox="0 0 960 560">
+              <defs>
+                <!-- Badge Drop Shadow -->
+                <filter id="badgeShadow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="2" dy="2" stdDeviation="0" flood-color="#2C1A06" flood-opacity="0.3"/>
+                </filter>
+              </defs>
+
+              <!-- Mountain Layer Backdrops (Infographic Style) -->
+              <path d="M 50,220 Q 140,80 260,160 T 480,90 T 700,80 T 920,130 L 950,540 L 40,540 Z" fill="#e9f0ea" opacity="0.6"/>
+              <path d="M 80,260 Q 200,140 340,210 T 570,150 T 800,160 T 940,240 L 940,540 L 70,540 Z" fill="#dfebe3" opacity="0.7"/>
+
+              <!-- Sacred River Flows (Bhagirathi, Mandakini, Alaknanda) -->
+              <path d="M 450,140 Q 420,230 365,270 Q 430,360 410,440" fill="none" stroke="#7bb0a6" stroke-width="2.5" stroke-dasharray="4 4"/>
+              <path d="M 580,180 Q 560,250 530,410" fill="none" stroke="#7bb0a6" stroke-width="2.5" stroke-dasharray="4 4"/>
+              <path d="M 790,145 Q 740,240 660,340 Q 600,380 530,410 Q 470,430 410,440 Q 300,470 220,490 L 160,500" fill="none" stroke="#7bb0a6" stroke-width="3" stroke-dasharray="5 5"/>
+
+              <!-- ── ROADS NETWORK ── -->
+              <!-- Leg 1: Haridwar -> Dehradun/Mussoorie -> Barkot -> Janki Chatti -->
+              <path class="road-drive" d="M 160,500 L 165,350 L 220,240 L 265,155" />
+
+              <!-- Leg 2: Janki Chatti / Barkot -> Uttarkashi -->
+              <path class="road-drive" d="M 220,240 Q 290,245 365,270" />
+
+              <!-- Leg 3: Uttarkashi -> Gangotri (Round trip) -->
+              <path class="road-drive" d="M 365,270 Q 400,190 450,140" />
+
+              <!-- Leg 4: Uttarkashi -> Tehri / Srinagar / Guptkashi / Sonprayag -->
+              <path class="road-drive" d="M 365,270 Q 440,320 520,330 L 560,250 L 580,180" />
+
+              <!-- Leg 5: Gaurikund/Sonprayag -> Rudraprayag -->
+              <path class="road-drive" d="M 580,180 L 560,250 L 530,410" />
+
+              <!-- Leg 6: Rudraprayag -> Karnprayag -> Pipalkoti -> Joshimath -> Badrinath -->
+              <path class="road-drive" d="M 530,410 L 600,380 L 660,340 L 740,240 L 790,145" />
+
+              <!-- Leg 7: Badrinath -> Mana Village -->
+              <path class="road-drive" d="M 790,145 L 820,110" />
+
+              <!-- Leg 8: Return Joshimath -> Pipalkoti -> Rudraprayag -> Devprayag -> Rishikesh -> Haridwar -->
+              <path class="road-drive" d="M 790,145 L 740,240 L 660,340 L 530,410 L 410,440 L 220,490 L 160,500" />
+
+              <!-- ── SACRED FOOT TREKS (Dotted Trails) ── -->
+              <!-- Yamunotri Trek: Janki Chatti (265,155) -> Yamunotri (285,85) -->
+              <path class="trek-path" d="M 265,155 L 285,85" />
+              <!-- Kedarnath Trek: Gaurikund (580,180) -> Kedarnath (600,85) -->
+              <path class="trek-path" d="M 580,180 L 600,85" />
+
+              <!-- ── DISTANCE / TREK CHIP BADGES (Parchment Labels) ── -->
+              <!-- Haridwar to Barkot -->
+              <g transform="translate(145, 300)" filter="url(#badgeShadow)">
+                <rect x="-35" y="-10" width="70" height="20" rx="4" fill="#fff" stroke="var(--ink)" stroke-width="1.5"/>
+                <text x="0" y="4" text-anchor="middle" font-family="'Special Elite', monospace" font-size="11" font-weight="bold" fill="var(--saffron)">219 km</text>
+              </g>
+
+              <!-- Yamunotri Trek Badge -->
+              <g transform="translate(240, 115)" filter="url(#badgeShadow)">
+                <rect x="-42" y="-10" width="84" height="20" rx="4" fill="#feebe8" stroke="var(--crimson)" stroke-width="1.5"/>
+                <text x="0" y="4" text-anchor="middle" font-family="'Baloo 2', sans-serif" font-size="11" font-weight="800" fill="var(--crimson)">🥾 7 km Trek</text>
+              </g>
+
+              <!-- Barkot to Uttarkashi -->
+              <g transform="translate(290, 240)" filter="url(#badgeShadow)">
+                <rect x="-32" y="-9" width="64" height="18" rx="4" fill="#fff" stroke="var(--ink)" stroke-width="1.5"/>
+                <text x="0" y="4" text-anchor="middle" font-family="'Special Elite', monospace" font-size="10" font-weight="bold" fill="var(--ink)">117 km</text>
+              </g>
+
+              <!-- Uttarkashi to Gangotri -->
+              <g transform="translate(370, 195)" filter="url(#badgeShadow)">
+                <rect x="-38" y="-9" width="76" height="18" rx="4" fill="#fff" stroke="var(--ink)" stroke-width="1.5"/>
+                <text x="0" y="4" text-anchor="middle" font-family="'Special Elite', monospace" font-size="10" font-weight="bold" fill="var(--indigo)">103 km RT</text>
+              </g>
+
+              <!-- Cross Valley to Sonprayag -->
+              <g transform="translate(470, 310)" filter="url(#badgeShadow)">
+                <rect x="-35" y="-9" width="70" height="18" rx="4" fill="#fff" stroke="var(--ink)" stroke-width="1.5"/>
+                <text x="0" y="4" text-anchor="middle" font-family="'Special Elite', monospace" font-size="10" font-weight="bold" fill="var(--saffron)">229 km</text>
+              </g>
+
+              <!-- Kedarnath Trek Badge -->
+              <g transform="translate(635, 130)" filter="url(#badgeShadow)">
+                <rect x="-48" y="-10" width="96" height="20" rx="4" fill="#feebe8" stroke="var(--crimson)" stroke-width="1.5"/>
+                <text x="0" y="4" text-anchor="middle" font-family="'Baloo 2', sans-serif" font-size="11" font-weight="800" fill="var(--crimson)">🥾 14-16 km Trek</text>
+              </g>
+
+              <!-- Rudraprayag to Badrinath -->
+              <g transform="translate(710, 300)" filter="url(#badgeShadow)">
+                <rect x="-32" y="-9" width="64" height="18" rx="4" fill="#fff" stroke="var(--ink)" stroke-width="1.5"/>
+                <text x="0" y="4" text-anchor="middle" font-family="'Special Elite', monospace" font-size="10" font-weight="bold" fill="var(--forest)">157 km</text>
+              </g>
+
+              <!-- Return Highway to Haridwar -->
+              <g transform="translate(320, 485)" filter="url(#badgeShadow)">
+                <rect x="-44" y="-9" width="88" height="18" rx="4" fill="#fff" stroke="var(--ink)" stroke-width="1.5"/>
+                <text x="0" y="4" text-anchor="middle" font-family="'Special Elite', monospace" font-size="10" font-weight="bold" fill="var(--saffron)">223 km Return</text>
+              </g>
+
+              <!-- ── TRANSIT HUBS & TOWNS (CIRCLES) ── -->
+              <!-- Haridwar -->
+              <g transform="translate(160, 500)">
+                <circle r="9" fill="var(--saffron)" stroke="var(--ink)" stroke-width="2.5"/>
+                <circle r="3" fill="#fff"/>
+                <text x="-16" y="24" text-anchor="start" font-family="'Baloo 2', sans-serif" font-weight="800" font-size="14" fill="var(--ink)">Haridwar 🚪</text>
+                <text x="-16" y="38" text-anchor="start" font-family="'Special Elite', monospace" font-size="11" fill="#7a4a22">Yatra Start/End</text>
+              </g>
+
+              <!-- Rishikesh -->
+              <g transform="translate(220, 490)">
+                <circle r="5" fill="#fff" stroke="var(--ink)" stroke-width="2"/>
+                <text x="8" y="15" font-family="'Kalam', cursive" font-weight="700" font-size="12" fill="var(--ink)">Rishikesh</text>
+              </g>
+
+              <!-- Barkot -->
+              <g transform="translate(220, 240)">
+                <circle r="6" fill="#fff" stroke="var(--ink)" stroke-width="2"/>
+                <text x="-12" y="-10" text-anchor="end" font-family="'Baloo 2', sans-serif" font-weight="800" font-size="13" fill="var(--ink)">Barkot</text>
+              </g>
+
+              <!-- Janki Chatti -->
+              <g transform="translate(265, 155)">
+                <circle r="6" fill="var(--teal)" stroke="var(--ink)" stroke-width="2"/>
+                <text x="-12" y="4" text-anchor="end" font-family="'Baloo 2', sans-serif" font-weight="800" font-size="12" fill="var(--teal)">Janki Chatti</text>
+              </g>
+
+              <!-- Uttarkashi -->
+              <g transform="translate(365, 270)">
+                <circle r="7" fill="#fff" stroke="var(--ink)" stroke-width="2.5"/>
+                <text x="0" y="20" text-anchor="middle" font-family="'Baloo 2', sans-serif" font-weight="800" font-size="13" fill="var(--ink)">Uttarkashi ⛺</text>
+              </g>
+
+              <!-- Guptkashi -->
+              <g transform="translate(560, 250)">
+                <circle r="5" fill="#fff" stroke="var(--ink)" stroke-width="2"/>
+                <text x="10" y="4" font-family="'Kalam', cursive" font-weight="700" font-size="12" fill="var(--ink)">Guptkashi</text>
+              </g>
+
+              <!-- Sonprayag / Gaurikund -->
+              <g transform="translate(580, 180)">
+                <circle r="6" fill="var(--crimson)" stroke="var(--ink)" stroke-width="2"/>
+                <text x="-12" y="3" text-anchor="end" font-family="'Baloo 2', sans-serif" font-weight="800" font-size="12" fill="var(--crimson)">Gaurikund</text>
+              </g>
+
+              <!-- Rudraprayag -->
+              <g transform="translate(530, 410)">
+                <circle r="7" fill="var(--paper2)" stroke="var(--ink)" stroke-width="2"/>
+                <text x="12" y="16" font-family="'Baloo 2', sans-serif" font-weight="800" font-size="13" fill="var(--ink)">Rudraprayag 🌅</text>
+              </g>
+
+              <!-- Pipalkoti -->
+              <g transform="translate(660, 340)">
+                <circle r="6" fill="#fff" stroke="var(--ink)" stroke-width="2"/>
+                <text x="12" y="4" font-family="'Kalam', cursive" font-weight="700" font-size="12" fill="var(--ink)">Pipalkoti</text>
+              </g>
+
+              <!-- Joshimath -->
+              <g transform="translate(740, 240)">
+                <circle r="6" fill="#fff" stroke="var(--ink)" stroke-width="2"/>
+                <text x="12" y="4" font-family="'Baloo 2', sans-serif" font-weight="800" font-size="13" fill="var(--ink)">Joshimath</text>
+              </g>
+
+              <!-- Mana Village -->
+              <g transform="translate(820, 110)">
+                <circle r="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
+                <text x="10" y="4" font-family="'Caveat', cursive" font-weight="700" font-size="13" fill="#664d03">Mana Gaon 🇮🇳</text>
+              </g>
+
+              <!-- Devprayag Sangam -->
+              <g transform="translate(410, 440)">
+                <circle r="6" fill="var(--paper2)" stroke="var(--ink)" stroke-width="2"/>
+                <text x="10" y="16" font-family="'Caveat', cursive" font-weight="700" font-size="14" fill="#3a2210">Devprayag (Sangam) 🌊</text>
+              </g>
+
+              <!-- ── THE 4 MAIN DHAM SHRINE BADGES ── -->
+              <!-- 1. YAMUNOTRI -->
+              <g transform="translate(285, 85)" filter="url(#badgeShadow)">
+                <rect x="-56" y="-36" width="112" height="42" rx="6" fill="#e8f5e9" stroke="var(--teal)" stroke-width="2.5"/>
+                <text x="0" y="-18" text-anchor="middle" font-family="'Baloo 2', sans-serif" font-weight="800" font-size="13" fill="var(--teal)">🛕 1. YAMUNOTRI</text>
+                <text x="0" y="-3" text-anchor="middle" font-family="'Special Elite', monospace" font-size="11" font-weight="bold" fill="var(--ink)">3,291 m</text>
+                <circle cx="0" cy="14" r="5" fill="var(--teal)" stroke="var(--ink)" stroke-width="1.5"/>
+              </g>
+
+              <!-- 2. GANGOTRI -->
+              <g transform="translate(450, 140)" filter="url(#badgeShadow)">
+                <rect x="-54" y="-36" width="108" height="42" rx="6" fill="#eaebf5" stroke="var(--indigo)" stroke-width="2.5"/>
+                <text x="0" y="-18" text-anchor="middle" font-family="'Baloo 2', sans-serif" font-weight="800" font-size="13" fill="var(--indigo)">🛕 2. GANGOTRI</text>
+                <text x="0" y="-3" text-anchor="middle" font-family="'Special Elite', monospace" font-size="11" font-weight="bold" fill="var(--ink)">3,415 m</text>
+                <circle cx="0" cy="14" r="5" fill="var(--indigo)" stroke="var(--ink)" stroke-width="1.5"/>
+              </g>
+
+              <!-- 3. KEDARNATH -->
+              <g transform="translate(600, 85)" filter="url(#badgeShadow)">
+                <rect x="-56" y="-36" width="112" height="42" rx="6" fill="#fbe9e7" stroke="var(--crimson)" stroke-width="2.5"/>
+                <text x="0" y="-18" text-anchor="middle" font-family="'Baloo 2', sans-serif" font-weight="800" font-size="13" fill="var(--crimson)">🛕 3. KEDARNATH</text>
+                <text x="0" y="-3" text-anchor="middle" font-family="'Special Elite', monospace" font-size="11" font-weight="bold" fill="var(--ink)">3,583 m</text>
+                <circle cx="0" cy="14" r="5" fill="var(--crimson)" stroke="var(--ink)" stroke-width="1.5"/>
+              </g>
+
+              <!-- 4. BADRINATH -->
+              <g transform="translate(790, 145)" filter="url(#badgeShadow)">
+                <rect x="-56" y="-36" width="112" height="42" rx="6" fill="#e8f5e9" stroke="var(--forest)" stroke-width="2.5"/>
+                <text x="0" y="-18" text-anchor="middle" font-family="'Baloo 2', sans-serif" font-weight="800" font-size="13" fill="var(--forest)">🛕 4. BADRINATH</text>
+                <text x="0" y="-3" text-anchor="middle" font-family="'Special Elite', monospace" font-size="11" font-weight="bold" fill="var(--ink)">3,133 m</text>
+                <circle cx="0" cy="14" r="5" fill="var(--forest)" stroke="var(--ink)" stroke-width="1.5"/>
+              </g>
+
+              <!-- ── MAP LEGEND (Explorer Scrapbook Style) ── -->
+              <g transform="translate(60, 60)" filter="url(#badgeShadow)">
+                <rect x="0" y="0" width="145" height="90" rx="4" fill="#fffbf0" stroke="var(--ink)" stroke-width="2"/>
+                <text x="10" y="20" font-family="'Baloo 2', sans-serif" font-size="12" font-weight="800" fill="var(--ink)">ROUTE LEGEND</text>
+                <line x1="10" y1="38" x2="35" y2="38" stroke="var(--saffron)" stroke-width="3.5" stroke-dasharray="4 3"/>
+                <text x="42" y="42" font-family="'Kalam', cursive" font-size="12" fill="var(--ink)">Drive Highway</text>
+                <line x1="10" y1="58" x2="35" y2="58" stroke="var(--crimson)" stroke-width="3" stroke-dasharray="3 3"/>
+                <text x="42" y="62" font-family="'Kalam', cursive" font-size="12" fill="var(--ink)">Sacred Foot Trek</text>
+                <circle cx="22" cy="76" r="4.5" fill="var(--teal)" stroke="var(--ink)"/>
+                <text x="42" y="80" font-family="'Kalam', cursive" font-size="12" fill="var(--ink)">Dham / Stay Hub</text>
+              </g>
+
+              <!-- ── CHOPPY STOP-MOTION VEHICLE TOKEN ── -->
+              <g class="circuit-van">
+                <circle r="18" fill="#ffffff" stroke="var(--ink)" stroke-width="2.5" filter="url(#badgeShadow)"/>
+                <text text-anchor="middle" dominant-baseline="central" font-size="20">🚐</text>
+              </g>
+            </svg>
+          </div>
+          <div class="map-pan-hint" aria-hidden="true">Swipe map to explore →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 2: PRE-TRIP – Train ══ -->
+  <div class="slide" data-mode="train" data-emoji="🚂" style="--day-color:#1A2878">
+    <div class="slide-bg"></div>
+    <div class="washi yellow" style="top:-2px;left:0;right:0;width:100%;height:20px;--base-rot:0deg"></div>
+    <div class="washi orange" style="top:15%;left:20%;width:85px;--base-rot:-1.5deg"></div>
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="day-label">Pre-Trip</div>
+        <div class="slide-date">Oct 21–22</div>
+      </div>
+      <h2 class="slide-title">Boarding the Train! 🎒</h2>
+      <div class="slide-content">
+        <div class="char-box">
+          <span class="char-emoji" data-emoji="🚂">🚂</span>
+        </div>
+        <div class="cards-area">
+          <div class="scrp-card color1" style="--rot:-1.5deg" data-delay="0">
+            <div class="card-icon-row"><span class="card-mode-emoji">🚂</span><span class="card-label">Train Journey</span></div>
+            <div class="card-body">Departed <strong>Bilaspur at 2:30 PM</strong> Oct 21. Overnight train to the holy land!</div>
+            <div class="card-km">🗓️ Oct 21 · 2:30 PM departure</div>
+          </div>
+          <div class="scrp-card color3" style="--rot:1deg" data-delay="1">
+            <div class="card-icon-row"><span class="card-mode-emoji">🌙</span><span class="card-label">Arrival</span></div>
+            <div class="card-body">Arrived <strong>Haridwar at 8:08 PM</strong> Oct 22. The Ganga air fills our lungs. Yatra begins! 🙏</div>
+            <div class="card-km">🏨 Stay: Haridwar</div>
+            <div class="sticky">Heard Ganga from the station itself! 🌊</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 3: DAY 1 – Bus ══ -->
+  <div class="slide" data-mode="bus" data-emoji="🚐" style="--day-color:var(--saffron)">
+    <div class="slide-bg"></div>
+    <div class="washi green" style="top:-2px;left:0;right:0;width:100%;height:20px;--base-rot:0deg"></div>
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="day-label">Day 1</div>
+        <div class="slide-date">Oct 23</div>
+      </div>
+      <h2 class="slide-title">Haridwar → Janki Chatti 🏔️</h2>
+      <div class="slide-content">
+        <div class="char-box">
+          <span class="char-emoji flipped" data-emoji="🚐">🚐</span>
+        </div>
+        <div class="cards-area">
+          <div class="scrp-card color1" style="--rot:-1deg" data-delay="0">
+            <div class="card-icon-row"><span class="card-mode-emoji">🚐</span><span class="card-label">Road Drive</span></div>
+            <div class="card-body">Long scenic drive of <strong>219 km</strong> through Garhwal foothills. Mountains appear around every bend!</div>
+            <div class="card-km">🛣️ 219 km · ~7 hrs</div>
+          </div>
+          <div class="scrp-card color2" style="--rot:1.5deg" data-delay="1">
+            <div class="card-icon-row"><span class="card-mode-emoji">🏠</span><span class="card-label">Night Stay</span></div>
+            <div class="card-body">Reached <strong>Janki Chatti</strong> by evening. Base camp for the Yamunotri trek tomorrow. Early sleep! ⭐</div>
+            <div class="card-km">🏨 Stay: Janki Chatti</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 4: DAY 2 – YAMUNOTRI DHAM ══ -->
+  <div class="slide" data-mode="trek" data-emoji="🥾" style="--day-color:var(--teal)">
+    <div class="slide-bg" style="background:#e8f5e9"></div>
+    <div class="washi orange" style="top:-2px;left:0;right:0;width:100%;height:20px;--base-rot:0deg"></div>
+    <div class="washi purple" style="top:20%;right:3%;width:75px;--base-rot:90deg"></div>
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="day-label" style="background:var(--teal)">Day 2</div>
+        <div class="slide-date">Oct 24</div>
+      </div>
+      <div class="dham-badge" style="background:var(--teal);color:white">✦ 1st Dham — Yamunotri</div>
+      <h2 class="slide-title">Yamunotri Darshan 🛕</h2>
+      <div class="slide-content">
+        <div class="char-box">
+          <span class="char-emoji" data-emoji="🥾">🥾</span>
+        </div>
+        <div class="cards-area">
+          <div class="scrp-card dham-card" style="--rot:-1deg" data-delay="0">
+            <div class="card-icon-row"><span class="card-mode-emoji">🥾</span><span class="card-label">Trek</span></div>
+            <div class="card-body">Trekked <strong>7 km up & down</strong> to the sacred source of River Yamuna. Icy water, warm blessings!</div>
+            <div class="card-km">👣 Trek: 7 km return</div>
+          </div>
+          <div class="scrp-card color2" style="--rot:1.2deg" data-delay="1">
+            <div class="card-icon-row"><span class="card-mode-emoji">🛕</span><span class="card-label">Darshan</span></div>
+            <div class="card-body">Goddess Yamuna's blessings at the <strong>Yamunotri Temple</strong>. A teary, beautiful moment. 🙏</div>
+            <div class="card-km">🏨 Stay: Janki Chatti</div>
+            <div class="sticky" style="background:#d0f0e0">Kachori at the base was 🤤</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 5: DAY 3 – Bus ══ -->
+  <div class="slide" data-mode="bus" data-emoji="🚐" style="--day-color:#795548">
+    <div class="slide-bg"></div>
+    <div class="washi yellow" style="top:-2px;left:0;right:0;width:100%;height:20px;--base-rot:0deg"></div>
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="day-label" style="background:#795548">Day 3</div>
+        <div class="slide-date">Oct 25</div>
+      </div>
+      <h2 class="slide-title">Janki Chatti → Uttarkashi ⛺</h2>
+      <div class="slide-content">
+        <div class="char-box">
+          <span class="char-emoji flipped" data-emoji="🚐">🚐</span>
+        </div>
+        <div class="cards-area">
+          <div class="scrp-card color1" style="--rot:-1.5deg" data-delay="0">
+            <div class="card-icon-row"><span class="card-mode-emoji">🚐</span><span class="card-label">Drive</span></div>
+            <div class="card-body"><strong>117 km</strong> through the Garhwal hills. Valley views, river crossings, mountain air!</div>
+            <div class="card-km">🛣️ 117 km</div>
+          </div>
+          <div class="scrp-card color3" style="--rot:1deg" data-delay="1">
+            <div class="card-icon-row"><span class="card-mode-emoji">🛕</span><span class="card-label">Temple Visit</span></div>
+            <div class="card-body">Evening prayers at <strong>Kashi Vishwanath Mandir</strong> — a mini-Kashi carved into the hills!</div>
+            <div class="card-km">🏨 Stay: Uttarkashi</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 6: DAY 4 – GANGOTRI DHAM ══ -->
+  <div class="slide" data-mode="bus" data-emoji="🚐" style="--day-color:var(--indigo)">
+    <div class="slide-bg" style="background:#eaebf5"></div>
+    <div class="washi purple" style="top:-2px;left:0;right:0;width:100%;height:20px;--base-rot:0deg"></div>
+    <div class="washi green" style="top:18%;left:2%;width:75px;--base-rot:90deg"></div>
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="day-label" style="background:var(--indigo)">Day 4</div>
+        <div class="slide-date">Oct 26</div>
+      </div>
+      <div class="dham-badge" style="background:var(--indigo);color:white">✦ 2nd Dham — Gangotri</div>
+      <h2 class="slide-title">Gangotri Darshan 🏔️❄️</h2>
+      <div class="slide-content">
+        <div class="char-box">
+          <span class="char-emoji flipped" data-emoji="🚐">🚐</span>
+        </div>
+        <div class="cards-area">
+          <div class="scrp-card dham-card" style="--rot:-1deg" data-delay="0">
+            <div class="card-icon-row"><span class="card-mode-emoji">🚐</span><span class="card-label">Round Trip</span></div>
+            <div class="card-body"><strong>103 km round trip</strong> Uttarkashi → Gangotri → Uttarkashi. Origin of Mother Ganga!</div>
+            <div class="card-km">🛣️ 103 km round trip</div>
+          </div>
+          <div class="scrp-card color3" style="--rot:1.5deg" data-delay="1">
+            <div class="card-icon-row"><span class="card-mode-emoji">🛕</span><span class="card-label">Darshan</span></div>
+            <div class="card-body">Bhagirathi roars beside the ancient <strong>Gangotri Temple</strong>. Glacial waters, blessings eternal! 🙏</div>
+            <div class="card-km">🏨 Stay: Uttarkashi</div>
+            <div class="sticky" style="background:#e0e8ff">200 photos of the blue river 📸</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 7: DAY 5 – Bus ══ -->
+  <div class="slide" data-mode="bus" data-emoji="🚐" style="--day-color:var(--forest)">
+    <div class="slide-bg"></div>
+    <div class="washi green" style="top:-2px;left:0;right:0;width:100%;height:20px;--base-rot:0deg"></div>
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="day-label" style="background:var(--forest)">Day 5</div>
+        <div class="slide-date">Oct 27</div>
+      </div>
+      <h2 class="slide-title">Uttarkashi → Sonprayag 🌊</h2>
+      <div class="slide-content">
+        <div class="char-box">
+          <span class="char-emoji flipped" data-emoji="🚐">🚐</span>
+        </div>
+        <div class="cards-area">
+          <div class="scrp-card color1" style="--rot:-1deg" data-delay="0">
+            <div class="card-icon-row"><span class="card-mode-emoji">🚐</span><span class="card-label">Longest Drive</span></div>
+            <div class="card-body">Longest drive yet — <strong>229 km</strong> winding through river valleys and pine forests!</div>
+            <div class="card-km">🛣️ 229 km</div>
+          </div>
+          <div class="scrp-card color2" style="--rot:1.5deg" data-delay="1">
+            <div class="card-icon-row"><span class="card-mode-emoji">🛕</span><span class="card-label">En Route</span></div>
+            <div class="card-body">Stopped at serene <strong>Triloki Narayan Mandir</strong>. Kedarnath tomorrow — early sleep! 🙏</div>
+            <div class="card-km">🏨 Stay: Sonprayag</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 8: DAY 6 – KEDARNATH DHAM ══ -->
+  <div class="slide" data-mode="trek" data-emoji="🥾" style="--day-color:var(--crimson)">
+    <div class="slide-bg" style="background:#f5e8e8"></div>
+    <div class="washi orange" style="top:-2px;left:0;right:0;width:100%;height:20px;--base-rot:0deg"></div>
+    <div class="washi yellow" style="bottom:25%;right:2%;width:75px;--base-rot:90deg"></div>
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="day-label" style="background:var(--crimson)">Day 6</div>
+        <div class="slide-date">Oct 28</div>
+      </div>
+      <div class="dham-badge" style="background:var(--crimson);color:white">✦ 3rd Dham — Kedarnath</div>
+      <h2 class="slide-title">Kedarnath Trek 🗻</h2>
+      <div class="slide-content">
+        <div class="char-box">
+          <span class="char-emoji" data-emoji="🥾">🥾</span>
+        </div>
+        <div class="cards-area">
+          <div class="scrp-card dham-card" style="--rot:-1.5deg" data-delay="0">
+            <div class="card-icon-row"><span class="card-mode-emoji">🥾</span><span class="card-label">The Great Trek</span></div>
+            <div class="card-body">UPHILL <strong>14–16 km</strong> from Gaurikund. Altitude: <strong>3583 m</strong>. Hardest day. Best day.</div>
+            <div class="card-km">👣 Trek: 14–16 km uphill</div>
+          </div>
+          <div class="scrp-card color4" style="--rot:1.2deg" data-delay="1">
+            <div class="card-icon-row"><span class="card-mode-emoji">🛕</span><span class="card-label">Darshan</span></div>
+            <div class="card-body">When the temple appeared through clouds — <strong>tears just came.</strong> Lord Shiva's own abode! 🙏</div>
+            <div class="card-km">🏨 Stay: Kedarnath</div>
+            <div class="sticky" style="background:#ffd0d0">Legs were done. Soul was FULL 🙏❤️</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 9: DAY 7 – Trek down + Bus ══ -->
+  <div class="slide" data-mode="bus" data-emoji="🥾" style="--day-color:#4527A0">
+    <div class="slide-bg"></div>
+    <div class="washi purple" style="top:-2px;left:0;right:0;width:100%;height:20px;--base-rot:0deg"></div>
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="day-label" style="background:#4527A0">Day 7</div>
+        <div class="slide-date">Oct 29</div>
+      </div>
+      <h2 class="slide-title">Kedarnath → Rudraprayag ⛰️</h2>
+      <div class="slide-content">
+        <div class="char-box">
+          <span class="char-emoji" data-emoji="🥾">🥾</span>
+        </div>
+        <div class="cards-area">
+          <div class="scrp-card color3" style="--rot:-1deg" data-delay="0">
+            <div class="card-icon-row"><span class="card-mode-emoji">🥾</span><span class="card-label">Trek Down</span></div>
+            <div class="card-body"><strong>14 km trek down</strong> from Kedarnath to Gaurikund. Knees protest. Soul sings!</div>
+            <div class="card-km">👣 14 km descent</div>
+          </div>
+          <div class="scrp-card color2" style="--rot:1deg" data-delay="1">
+            <div class="card-icon-row"><span class="card-mode-emoji">🚐</span><span class="card-label">Drive</span></div>
+            <div class="card-body">Drove to <strong>Rudraprayag</strong> — where Alaknanda meets Mandakini. Sat by the confluence at dusk 🌅</div>
+            <div class="card-km">🏨 Stay: Rudraprayag</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 10: DAY 8 – BADRINATH DHAM ══ -->
+  <div class="slide" data-mode="bus" data-emoji="🚐" style="--day-color:var(--forest)">
+    <div class="slide-bg" style="background:#e8f5e9"></div>
+    <div class="washi green" style="top:-2px;left:0;right:0;width:100%;height:20px;--base-rot:0deg"></div>
+    <div class="washi yellow" style="top:14%;right:3%;width:80px;--base-rot:-1deg"></div>
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="day-label" style="background:var(--forest)">Day 8</div>
+        <div class="slide-date">Oct 30</div>
+      </div>
+      <div class="dham-badge" style="background:var(--forest);color:white">✦ 4th & Final Dham — Badrinath</div>
+      <h2 class="slide-title">Badrinath Dham 🙏✨</h2>
+      <div class="slide-content">
+        <div class="char-box">
+          <span class="char-emoji flipped" data-emoji="🚐">🚐</span>
+        </div>
+        <div class="cards-area">
+          <div class="scrp-card dham-card" style="--rot:-1deg" data-delay="0">
+            <div class="card-icon-row"><span class="card-mode-emoji">🚐</span><span class="card-label">Drive</span></div>
+            <div class="card-body"><strong>157 km</strong> via Karnprayag &amp; Vishnuprayag. The Alaknanda companion all the way!</div>
+            <div class="card-km">🛣️ 157 km</div>
+          </div>
+          <div class="scrp-card color2" style="--rot:1.5deg" data-delay="1">
+            <div class="card-icon-row"><span class="card-mode-emoji">🛕</span><span class="card-label">CHAR DHAM COMPLETE!</span></div>
+            <div class="card-body">Evening darshan at <strong>Badrinath Temple</strong>! Lord Vishnu's abode. <strong>All 4 Dhams done!</strong> 🎉🙏</div>
+            <div class="card-km">🏨 Stay: Badrinath</div>
+            <div class="sticky" style="background:#d0ffd0">ALL FOUR DONE! 🎉🙏🎊</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 11: DAY 9 – Bus ══ -->
+  <div class="slide" data-mode="bus" data-emoji="🚐" style="--day-color:#37474F">
+    <div class="slide-bg"></div>
+    <div class="washi yellow" style="top:-2px;left:0;right:0;width:100%;height:20px;--base-rot:0deg"></div>
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="day-label" style="background:#37474F">Day 9</div>
+        <div class="slide-date">Oct 31</div>
+      </div>
+      <h2 class="slide-title">Mana Gaon &amp; Pipalkoti 💧</h2>
+      <div class="slide-content">
+        <div class="char-box">
+          <span class="char-emoji flipped" data-emoji="🚐">🚐</span>
+        </div>
+        <div class="cards-area">
+          <div class="scrp-card color1" style="--rot:-1.5deg" data-delay="0">
+            <div class="card-icon-row"><span class="card-mode-emoji">🏘️</span><span class="card-label">Mana Village</span></div>
+            <div class="card-body"><strong>Mana Gaon</strong> — India's last village before Tibet! And the majestic <strong>Vasudhara Falls</strong> 💧</div>
+            <div class="card-km">🚶 Morning exploration</div>
+          </div>
+          <div class="scrp-card color2" style="--rot:1deg" data-delay="1">
+            <div class="card-icon-row"><span class="card-mode-emoji">🚐</span><span class="card-label">Drive Back</span></div>
+            <div class="card-body">Drove <strong>80 km</strong> to Pipalkoti. Calm day after the intensity of Badrinath 🍃</div>
+            <div class="card-km">🏨 Stay: Pipalkoti</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 12: DAY 10 – Bus + Aarti ══ -->
+  <div class="slide" data-mode="bus" data-emoji="🚐" style="--day-color:var(--saffron)">
+    <div class="slide-bg"></div>
+    <div class="washi orange" style="top:-2px;left:0;right:0;width:100%;height:20px;--base-rot:0deg"></div>
+    <div class="washi yellow" style="bottom:26%;left:3%;width:80px;--base-rot:-1deg"></div>
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="day-label">Day 10</div>
+        <div class="slide-date">Nov 1</div>
+      </div>
+      <h2 class="slide-title">Return to Haridwar 🕯️</h2>
+      <div class="slide-content">
+        <div class="char-box">
+          <span class="char-emoji" data-emoji="🚐" style="--rot: 8deg;">🚐</span>
+        </div>
+        <div class="cards-area">
+          <div class="scrp-card color1" style="--rot:-1deg" data-delay="0">
+            <div class="card-icon-row"><span class="card-mode-emoji">🚐</span><span class="card-label">Long Drive Home</span></div>
+            <div class="card-body"><strong>223 km</strong> via <strong>Dhari Devi Mandir</strong> &amp; sacred <strong>Devprayag</strong> confluence!</div>
+            <div class="card-km">🛣️ 223 km</div>
+          </div>
+          <div class="scrp-card color4" style="--rot:1.5deg" data-delay="1">
+            <div class="card-icon-row"><span class="card-mode-emoji">🕯️</span><span class="card-label">Ganga Aarti!</span></div>
+            <div class="card-body">Evening at <strong>Har Ki Pauri</strong> — thousand diyas on the Ganga. The most beautiful ending 🌊🕯️</div>
+            <div class="card-km">🏨 Stay: Haridwar</div>
+            <div class="sticky">Cried at the Aarti 😭✨</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 13: POST-TRIP + STATS ══ -->
+  <div class="slide" data-mode="train" data-emoji="🚂" style="--day-color:var(--rose)">
+    <div class="slide-bg"></div>
+    <div class="washi purple" style="top:-2px;left:0;right:0;width:100%;height:20px;--base-rot:0deg"></div>
+    <div class="washi orange" style="top:18%;right:4%;width:75px;--base-rot:2deg"></div>
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="day-label" style="background:var(--rose)">Post-Trip</div>
+        <div class="slide-date">Nov 2 – 3</div>
+      </div>
+      <h2 class="slide-title">Haridwar Darshan &amp; Home 🌸</h2>
+      <div class="slide-content" style="flex-direction:column;gap:0.8rem">
+        <div style="display:flex;gap:1rem;align-items:flex-start">
+          <div class="char-box" style="min-width:unset">
+            <span class="char-emoji" data-emoji="🚂" style="font-size:clamp(2.5rem,7vw,4.5rem); width: clamp(70px, 12vw, 100px); height: clamp(70px, 12vw, 100px);">🚂</span>
+          </div>
+          <div class="scrp-card color4" style="--rot:-0.5deg;flex:1" data-delay="0">
+            <div class="card-icon-row"><span class="card-mode-emoji">🛕</span><span class="card-label">Final Darshan</span></div>
+            <div class="card-body">Visited <strong>Chandi Devi</strong>, <strong>Mansa Devi</strong>, <strong>Bharat Mata Mandir</strong>. Then boarded train home 🚂 <em>Har Har Mahadev! 🙏</em></div>
+          </div>
+        </div>
+        <!-- Stats -->
+        <div class="final-grid" id="final-stats">
+          <div class="stat-tile" style="--rot:-2deg; border-color:var(--saffron)" data-target="10">
+            <div class="stat-tape"></div>
+            <span class="stat-num">0</span>
+            <div class="stat-label">Days</div>
+          </div>
+          <div class="stat-tile" style="--rot:1.5deg; border-color:var(--teal)" data-target="4">
+            <div class="stat-tape" style="background:var(--tape2)"></div>
+            <span class="stat-num" style="color:var(--teal)">0</span>
+            <div class="stat-label">Dhams</div>
+          </div>
+          <div class="stat-tile" style="--rot:-1deg; border-color:var(--indigo)" data-target="1358">
+            <div class="stat-tape" style="background:var(--tape3)"></div>
+            <span class="stat-num" style="color:var(--indigo)">0</span>
+            <div class="stat-label">KM Driven</div>
+          </div>
+          <div class="stat-tile" style="--rot:2deg; border-color:var(--crimson)" data-target="51">
+            <div class="stat-tape" style="background:var(--tape4)"></div>
+            <span class="stat-num" style="color:var(--crimson)">0</span>
+            <div class="stat-label">KM Trekked</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /track -->
+
+<!-- CONTROLS -->
+<div id="controls">
+  <button class="ctrl-btn" id="prev-btn" onclick="changeSlide(-1)" aria-label="Previous slide" disabled>◀</button>
+  <div class="ctrl-dots" id="dots"></div>
+  <button class="ctrl-btn" id="play-btn" onclick="togglePlay()" title="Auto play" aria-label="Play slideshow">▶</button>
+  <button class="ctrl-btn" id="next-btn" onclick="changeSlide(1)" aria-label="Next slide">▶</button>
+</div>
+
+<!-- ══ UNIVERSAL YATRA DOCK — keep identical across all 4 pages ══ -->
+<nav class="yatra-dock" aria-label="Yatra sections">
+  <div class="dock-plank">
+    <a href="index.html" class="dock-item">
+      <span class="dock-icon" aria-hidden="true">ॐ</span>
+      <span class="dock-label">Home</span>
+    </a>
+    <a href="itinerary.html" class="dock-item" aria-current="page">
+      <span class="dock-icon" aria-hidden="true">🗺️</span>
+      <span class="dock-label">Route</span>
+    </a>
+    <a href="hotels.html" class="dock-item">
+      <span class="dock-icon" aria-hidden="true">🏨</span>
+      <span class="dock-label">Stays</span>
+    </a>
+    <a href="tickets.html" class="dock-item">
+      <span class="dock-icon" aria-hidden="true">🎫</span>
+      <span class="dock-label">Tickets</span>
+    </a>
+  </div>
+</nav>
+
+<script src="site-data.js"></script>
+<script>
+const TOTAL = 14;
+let current = 0;
+let playing = false;
+let playTimer = null;
+let touchStartX = 0, touchStartY = 0;
+let wheelLock = false;
+
+// ── HINT ──
+function dismissHint(){
+  document.getElementById('hint').classList.add('gone');
+  activateSlide(0);
+}
+
+// ── DOTS ──
+const dotsC = document.getElementById('dots');
+const dhamSlides = [4, 6, 8, 10]; // Yamunotri, Gangotri, Kedarnath, Badrinath
+for(let i=0;i<TOTAL;i++){
+  const d=document.createElement('div');
+  d.className='ctrl-dot'+(dhamSlides.includes(i)?' dham':'');
+  d.onclick=()=>goTo(i);
+  dotsC.appendChild(d);
+}
+function updateDots(){
+  document.querySelectorAll('.ctrl-dot').forEach((d,i)=>{
+    d.classList.toggle('active',i===current);
+  });
+}
+
+// ── PROGRESS ──
+function updateProgress(){
+  const pct=((current)/(TOTAL-1))*100;
+  document.getElementById('progress-bar').style.width=pct+'%';
+  document.getElementById('slide-counter').textContent=(current+1)+' / '+TOTAL;
+}
+
+// ── TRANSITION EMOJI ──
+function runTransEmoji(fromIdx, toIdx){
+  const slides = document.querySelectorAll('.slide');
+  const slide = slides[toIdx];
+  const mode = slide?.dataset?.mode || 'bus';
+  const goingRight = toIdx > fromIdx;
+  let emoji = '🚐';
+  if(mode==='train') emoji='🚂';
+  else if(mode==='trek') emoji='🥾';
+  
+  const el = document.getElementById('trans-emoji');
+  el.textContent = emoji;
+  
+  if (goingRight) {
+     el.style.transform = (emoji==='🥾' ? 'translateY(-50%)' : 'translateY(-50%) scaleX(-1)');
+  } else {
+     el.style.transform = (emoji==='🥾' ? 'translateY(-50%) scaleX(-1)' : 'translateY(-50%)');
+  }
+
+  el.style.left = goingRight ? '-120px' : 'calc(100vw + 20px)';
+  el.style.transition = 'none';
+  el.style.opacity = '1';
+  
+  requestAnimationFrame(()=>{
+    requestAnimationFrame(()=>{
+      el.style.transition = 'left 0.7s steps(7, end), opacity 0.2s 0.5s steps(2, end)';
+      el.style.left = goingRight ? 'calc(100vw + 20px)' : '-120px';
+      el.style.opacity = '0';
+    });
+  });
+}
+
+// ── ACTIVATE SLIDE ──
+function activateSlide(idx){
+  const slides = document.querySelectorAll('.slide');
+  const slide = slides[idx];
+  if(!slide) return;
+
+  setTimeout(() => {
+    if(idx===0){
+      document.getElementById('h-om')?.classList.add('in');
+      setTimeout(() => document.getElementById('h-title')?.classList.add('in'), 150);
+      setTimeout(() => document.getElementById('h-sub')?.classList.add('in'), 300);
+      setTimeout(() => document.getElementById('h-dates')?.classList.add('in'), 450);
+      setTimeout(() => document.getElementById('route-map')?.classList.add('in'), 600);
+      return;
+    }
+
+    const badge = slide.querySelector('.dham-badge');
+    if(badge) badge.classList.add('in');
+
+    const title = slide.querySelector('.slide-title');
+    if(title) setTimeout(()=>title.classList.add('in'), 150);
+
+    const charEl = slide.querySelector('.char-emoji');
+    if(charEl) setTimeout(()=>charEl.classList.add('in'), 250);
+
+    const cards = slide.querySelectorAll('.scrp-card');
+    cards.forEach((c,i)=>{
+      const d = parseInt(c.dataset.delay||i);
+      setTimeout(()=>c.classList.add('in'), 350 + (d*200));
+    });
+
+    if(idx===TOTAL-1){
+      const tiles = slide.querySelectorAll('.stat-tile');
+      tiles.forEach((t,i)=>{
+        setTimeout(()=>{
+          t.classList.add('in');
+          const numEl = t.querySelector('.stat-num');
+          if(numEl) countUp(numEl, +t.dataset.target);
+        }, 500 + i*150);
+      });
+    }
+  }, 300);
+}
+
+function deactivateSlide(idx){
+  const slides = document.querySelectorAll('.slide');
+  const slide = slides[idx];
+  if(!slide) return;
+  if(idx===0){
+    ['h-om','h-title','h-sub','h-dates','route-map'].forEach(id=>{
+      document.getElementById(id)?.classList.remove('in');
+    });
+    return;
+  }
+  slide.querySelectorAll('.dham-badge,.slide-title,.char-emoji,.scrp-card,.stat-tile').forEach(el=>{
+    el.classList.remove('in');
+  });
+}
+
+// ── GO TO ──
+function goTo(idx, skipTransEmoji=false){
+  if(idx<0||idx>=TOTAL||idx===current) return;
+  const from = current;
+  deactivateSlide(from);
+  if(!skipTransEmoji) runTransEmoji(from, idx);
+  current = idx;
+  document.getElementById('track').style.transform=`translateX(-${idx*100}vw)`;
+  updateDots();
+  updateProgress();
+  document.getElementById('prev-btn').disabled = idx===0;
+  document.getElementById('next-btn').disabled = idx===TOTAL-1;
+  activateSlide(idx);
+}
+
+function changeSlide(dir){
+  stopPlay();
+  goTo(current+dir);
+}
+
+// ── AUTO PLAY ──
+function togglePlay(){
+  playing ? stopPlay() : startPlay();
+}
+function startPlay(){
+  playing=true;
+  document.getElementById('play-btn').textContent='⏸';
+  document.getElementById('play-btn').title='Pause';
+  playTimer = setInterval(()=>{
+    if(current>=TOTAL-1){ stopPlay(); return; }
+    goTo(current+1);
+  }, 4500);
+}
+function stopPlay(){
+  playing=false;
+  clearInterval(playTimer);
+  document.getElementById('play-btn').textContent='▶';
+  document.getElementById('play-btn').title='Auto play';
+}
+
+// ── SWIPE ──
+document.getElementById('track').addEventListener('touchstart',e=>{
+  touchStartX=e.changedTouches[0].screenX;
+  touchStartY=e.changedTouches[0].screenY;
+},{passive:true});
+document.getElementById('track').addEventListener('touchend',e=>{
+  const dx=touchStartX-e.changedTouches[0].screenX;
+  const dy=Math.abs(touchStartY-e.changedTouches[0].screenY);
+  if(Math.abs(dx)>40 && dy<60){
+    stopPlay();
+    goTo(current+(dx>0?1:-1));
+  }
+},{passive:true});
+
+// ── SCROLL WHEEL ──
+window.addEventListener('wheel',e=>{
+  // ignore gestures over the dock, and while the hint overlay is still up
+  if(e.target.closest && e.target.closest('.yatra-dock')) return;
+  if(!document.getElementById('hint').classList.contains('gone')) return;
+  if(wheelLock) return;
+  wheelLock=true;
+  setTimeout(()=>wheelLock=false, 900);
+  stopPlay();
+  goTo(current+(e.deltaY>0||e.deltaX>0?1:-1));
+},{passive:true});
+
+// ── KEYBOARD ──
+window.addEventListener('keydown',e=>{
+  if(document.getElementById('hint').classList.contains('gone')){
+    if(e.key==='ArrowRight'||e.key==='ArrowDown'){stopPlay();goTo(current+1);}
+    if(e.key==='ArrowLeft'||e.key==='ArrowUp'){stopPlay();goTo(current-1);}
+    if(e.key===' '){e.preventDefault();togglePlay();}
+  }
+});
+
+// ── CHOPPY COUNT UP ──
+function countUp(el,target){
+  let v=0; 
+  const stepAmt = Math.max(1, Math.floor(target/8)); 
+  const t=setInterval(()=>{
+    v=Math.min(v+stepAmt,target);
+    el.textContent=Math.round(v);
+    if(v>=target)clearInterval(t);
+  }, 100);
+}
+
+// init
+updateDots();
+updateProgress();
+</script>
+</body>
+</html>

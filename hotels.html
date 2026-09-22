@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- Private family trip. Keep out of search. -->
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<title>Char Dham Yatra | Trip Manager & Hotel Booking Pipeline</title>
+<meta name="theme-color" content="#D4611A">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🙏</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Caveat:wght@600;700&family=Kalam:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --paper:#F5EEDC;
+  --paper-card:#FFFDF9;
+  --paper-dark:#E8DEC0;
+  --ink:#2C1A06;
+  --saffron:#D4611A;
+  --gold:#D99B15;
+  --teal:#1A6B5C;
+  --crimson:#9C1D1D;
+  --indigo:#1F3160;
+  --forest:#1C5824;
+  --tape-yellow:rgba(255, 214, 102, 0.85);
+  --tape-green:rgba(163, 217, 165, 0.85);
+  --tape-rose:rgba(255, 178, 178, 0.85);
+  --tape-purple:rgba(216, 180, 254, 0.85);
+  --hard-shadow: 4px 5px 0px var(--ink);
+  --hard-shadow-sm: 2px 3px 0px var(--ink);
+}
+
+html, body{
+  width:100%;
+  height:100%;
+  font-family:'Kalam', cursive;
+  background:var(--paper);
+  color:var(--ink);
+  overflow:hidden;
+  -webkit-tap-highlight-color:transparent;
+}
+
+/* Paper Grain Overlay */
+body::before{
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+}
+
+/* TOP APP BAR */
+#top-bar{
+  position:fixed; top:0; left:0; right:0; height:60px;
+  background:var(--paper-dark);
+  border-bottom:3px solid var(--ink);
+  z-index:90;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 clamp(0.5rem, 2vw, 1rem);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding-top:env(safe-area-inset-top, 0px);
+}
+.top-bar-left{
+  display:flex; align-items:center; gap:6px; min-width:0;
+}
+/* BACK BUTTON */
+.back-btn{
+  background:var(--paper);
+  color:var(--ink);
+  border:2px solid var(--ink);
+  padding:4px 10px;
+  font-family:'Baloo 2', sans-serif;
+  font-size:0.8rem;
+  font-weight:800;
+  text-decoration:none;
+  display:inline-flex; align-items:center; gap:3px;
+  border-radius:4px;
+  box-shadow:var(--hard-shadow-sm);
+  transition:transform 0.1s;
+  flex-shrink:0;
+}
+.back-btn:active{ transform:translate(1px, 1px); }
+
+.brand{
+  display:flex; align-items:center; gap:5px;
+  font-family:'Baloo 2', cursive; font-weight:800;
+  font-size:clamp(0.95rem, 3.2vw, 1.25rem);
+  color:var(--saffron);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.brand span.om{ color:var(--crimson); font-size:1.35rem; }
+
+.top-bar-right{
+  display:flex; align-items:center; gap:6px; flex-shrink:0;
+}
+
+/* Manager Toggle Button */
+.manager-toggle-btn{
+  background:var(--paper);
+  border:2px solid var(--ink);
+  padding:4px 8px;
+  font-family:'Baloo 2', cursive;
+  font-size:0.75rem;
+  font-weight:800;
+  cursor:pointer;
+  border-radius:20px;
+  box-shadow:var(--hard-shadow-sm);
+  display:flex; align-items:center; gap:4px;
+  transition:all 0.15s;
+}
+.manager-toggle-btn:active{ transform:translate(1px, 1px); }
+.manager-toggle-btn.active{
+  background:var(--crimson);
+  color:#fff;
+  border-color:var(--ink);
+}
+
+.user-badge{
+  font-family:'Special Elite', monospace;
+  font-size:0.7rem;
+  background:#fff; border:2px solid var(--ink);
+  padding:3px 7px; border-radius:20px;
+  box-shadow:var(--hard-shadow-sm);
+  display:flex; align-items:center; gap:5px;
+}
+.user-badge .pulse{
+  width:7px; height:7px; background:#10B981; border-radius:50%;
+  animation:blink 1.4s infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+
+/* PROGRESS BAR */
+#progress-container{
+  position:fixed; top:60px; left:0; width:100%; height:6px;
+  background:#dfd2b0; z-index:91; border-bottom:2px solid var(--ink);
+}
+#progress-bar{
+  width:10%; height:100%; background:var(--saffron);
+  transition:width 0.3s steps(5, end);
+}
+
+/* MAIN SNAPPY SCROLLER (Mobile-Optimized) */
+#stage{
+  position:fixed; top:66px; left:0; right:0;
+  /* clear the Prev/Basket/Next bar (72px) AND the universal dock below it */
+  bottom:calc(72px + var(--dock-h) + 8px + max(10px, env(safe-area-inset-bottom, 8px)));
+  display:flex;
+  transition:transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+  will-change:transform;
+  z-index:10;
+}
+.slide{
+  flex-shrink:0; width:100vw; height:100%;
+  overflow-y:auto; overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-y;
+  padding:0.8rem clamp(0.7rem, 3vw, 2.5rem) 2.5rem clamp(0.7rem, 3vw, 2.5rem);
+  display:flex; flex-direction:column;
+}
+
+/* WASHI TAPES */
+.washi{
+  position:absolute; height:18px; z-index:2;
+  box-shadow: 0 2px 2px rgba(0,0,0,0.1);
+  background-image: repeating-linear-gradient(90deg, transparent, transparent 6px, rgba(255,255,255,0.4) 6px, rgba(255,255,255,0.4) 8px);
+}
+
+/* SLIDE HEADER & BANNER */
+.itinerary-banner{
+  background:#fff; border:3px solid var(--ink);
+  padding:0.8rem 1rem; margin-bottom:1rem;
+  box-shadow:var(--hard-shadow);
+  position:relative;
+  display:flex; flex-direction:column; gap:0.4rem;
+}
+.banner-top{
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:6px;
+}
+.tag-day{
+  background:var(--saffron); color:#fff; font-family:'Baloo 2',sans-serif;
+  font-weight:800; font-size:0.75rem; letter-spacing:0.5px; text-transform:uppercase;
+  padding:2px 10px; border:2px solid var(--ink); box-shadow:var(--hard-shadow-sm);
+}
+.tag-date{
+  font-family:'Special Elite', monospace; font-size:0.75rem; font-weight:bold;
+  background:var(--paper-dark); padding:2px 8px; border:2px dashed var(--ink);
+}
+.slide-title{
+  font-family:'Baloo 2', sans-serif; font-weight:800; font-size:clamp(1.25rem, 4vw, 2rem);
+  color:var(--ink); line-height:1.2;
+}
+.itinerary-details{
+  font-size:0.9rem; line-height:1.35; color:#3d240e;
+  border-top:2px dashed rgba(0,0,0,0.15); padding-top:6px;
+  display:flex; flex-direction:column; gap:4px;
+}
+.itinerary-item{
+  display:flex; align-items:flex-start; gap:5px; font-weight:bold;
+}
+
+/* SECTION SUBTITLE & FILTER TABS */
+.hotels-header{
+  display:flex; align-items:center; justify-content:space-between;
+  margin:0.4rem 0 0.8rem; flex-wrap:wrap; gap:8px;
+}
+.hotels-title{
+  font-family:'Baloo 2', sans-serif; font-size:1.15rem; font-weight:800;
+  display:flex; align-items:center; gap:6px;
+}
+.filter-tabs{
+  display:flex; gap:4px; background:var(--paper-dark); padding:3px;
+  border:2px solid var(--ink); border-radius:25px;
+}
+.filter-btn{
+  background:transparent; border:none; padding:3px 9px;
+  font-family:'Baloo 2', sans-serif; font-size:0.72rem; font-weight:700;
+  cursor:pointer; border-radius:20px; color:var(--ink);
+}
+.filter-btn.active{
+  background:var(--saffron); color:#fff;
+}
+
+/* HOTEL CARDS GRID */
+.hotels-grid{
+  display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap:1rem; padding-bottom:1.5rem;
+}
+.hotel-card{
+  background:var(--paper-card);
+  border:3px solid var(--ink);
+  box-shadow:var(--hard-shadow);
+  display:flex; flex-direction:column;
+  position:relative;
+  transition:transform 0.15s, box-shadow 0.15s;
+  cursor:grab;
+}
+.hotel-card:active{ cursor:grabbing; }
+.hotel-card.dragging{
+  opacity:0.4;
+  transform:scale(0.96) rotate(-2deg);
+}
+.hotel-card.liked-highlight{
+  border-color:var(--crimson);
+  box-shadow: 4px 5px 0px var(--crimson);
+}
+
+/* CONFIRMED CARD HIGHLIGHTS */
+.hotel-card.is-confirmed{
+  border-color:var(--forest) !important;
+  box-shadow: 4px 5px 0px var(--forest) !important;
+  background:#FCFFF8;
+}
+.confirmed-stamp{
+  position:absolute;
+  top:38px; right:10px;
+  font-family:'Special Elite', monospace;
+  font-weight:900;
+  font-size:0.85rem;
+  color:var(--forest);
+  border:2px dashed var(--forest);
+  padding:2px 8px;
+  transform:rotate(-10deg);
+  opacity:0.95;
+  pointer-events:none;
+  z-index:6;
+  letter-spacing:1px;
+}
+.confirmed-washi{
+  position:absolute;
+  top:-8px; left:35%;
+  width:80px; height:16px;
+  background:var(--tape-green);
+  box-shadow:0 2px 3px rgba(0,0,0,0.1);
+  transform:rotate(2deg);
+  z-index:7;
+}
+
+/* REJECTED / DIMMED CARD */
+.hotel-card.is-rejected{
+  opacity:0.58;
+  filter:grayscale(60%);
+  background:#ECE5D4 !important;
+  border-color:#8C7B5D !important;
+  box-shadow:2px 3px 0px rgba(44,26,6,0.4) !important;
+}
+.hotel-card.is-rejected .hotel-name{
+  text-decoration:line-through;
+  color:#6B5740;
+}
+.rejected-stamp{
+  position:absolute;
+  top:38px; right:10px;
+  font-family:'Special Elite', monospace;
+  font-weight:900;
+  font-size:0.85rem;
+  color:var(--crimson);
+  border:2px dashed var(--crimson);
+  padding:2px 8px;
+  transform:rotate(8deg);
+  opacity:0.95;
+  pointer-events:none;
+  z-index:6;
+  letter-spacing:1px;
+  background:rgba(255,255,255,0.92);
+}
+.hotel-status-note{
+  font-family:'Caveat', cursive;
+  font-size:0.92rem;
+  font-weight:700;
+  padding:4px 8px;
+  border-radius:4px;
+  margin-top:4px;
+  line-height:1.25;
+  border:1.5px dashed var(--ink);
+  background:#FFF9D2;
+  color:#5C3A16;
+}
+.hotel-status-note.note-confirmed{
+  background:#E8F5E9;
+  border-color:var(--forest);
+  color:var(--forest);
+}
+.hotel-status-note.note-rejected{
+  background:#FFEBEE;
+  border-color:var(--crimson);
+  color:var(--crimson);
+}
+
+/* STATUS BADGES */
+.status-badge{
+  position:absolute;
+  top:8px; right:8px;
+  font-family:'Baloo 2', sans-serif;
+  font-size:0.7rem;
+  font-weight:800;
+  padding:2px 8px;
+  border:2px solid var(--ink);
+  border-radius:14px;
+  box-shadow:var(--hard-shadow-sm);
+  z-index:5;
+  display:inline-flex; align-items:center; gap:4px;
+}
+.status-badge.shortlisted{
+  background:#FFF9DB;
+  color:#795548;
+}
+.status-badge.confirmed{
+  background:#E8F5E9;
+  color:var(--forest);
+  border-color:var(--forest);
+}
+
+/* CARD IMAGE WRAP & BADGES */
+.hotel-card-img-wrap{
+  position:relative; width:100%; height:140px; overflow:hidden;
+  border-bottom:3px solid var(--ink); background:#dedede;
+}
+.hotel-card-img{
+  width:100%; height:100%; object-fit:cover;
+}
+.hotel-price-badge{
+  position:absolute; bottom:8px; right:8px;
+  background:#fff; color:var(--forest); font-family:'Special Elite', monospace;
+  font-weight:900; font-size:0.8rem; padding:3px 7px;
+  border:2px solid var(--ink); box-shadow:var(--hard-shadow-sm);
+}
+.hotel-rating-badge{
+  position:absolute; top:8px; left:8px;
+  background:#fff; color:var(--gold); font-family:'Baloo 2', sans-serif;
+  font-weight:800; font-size:0.7rem; padding:2px 7px; border-radius:12px;
+  border:2px solid var(--ink); display:flex; align-items:center; gap:3px;
+}
+
+/* NEGOTIATED PRICE TAGS */
+.price-strike{
+  text-decoration:line-through;
+  opacity:0.6; font-size:0.7rem; margin-right:4px; color:#666;
+}
+.price-deal{ color:var(--forest); font-weight:900; }
+.deal-tag{
+  background:var(--gold); color:var(--ink); font-size:0.6rem;
+  padding:1px 4px; border-radius:3px; margin-left:3px; font-weight:800;
+}
+
+/* CARD BODY & ACTIONS */
+.hotel-info{
+  padding:0.8rem; display:flex; flex-direction:column; flex:1; justify-content:space-between; gap:6px;
+}
+.hotel-name{
+  font-family:'Baloo 2', sans-serif; font-size:1.1rem; font-weight:800; line-height:1.2;
+}
+.hotel-location{
+  font-size:0.8rem; color:#5c4732; display:flex; align-items:center; gap:4px; font-weight:700;
+}
+.hotel-review{
+  font-size:0.8rem; font-style:italic; color:#3b2311;
+  background:rgba(217, 155, 21, 0.12); padding:4px 8px; border-left:3px solid var(--gold);
+}
+.hotel-actions{
+  margin-top:4px; display:flex; align-items:center; justify-content:space-between; gap:8px;
+}
+.hotel-quick-links{
+  display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:4px;
+}
+.hotel-quick-link{
+  min-height:42px; display:flex; align-items:center; justify-content:center; gap:4px;
+  background:#fff; color:var(--indigo); border:2px solid var(--ink); box-shadow:var(--hard-shadow-sm);
+  text-decoration:none; font-family:'Baloo 2',sans-serif; font-size:0.78rem; font-weight:800;
+}
+.hotel-quick-link.price-check{ color:var(--forest); background:#F4FFF4; }
+.hotel-quick-link:focus-visible,.phone-btn:focus-visible,.like-btn:focus-visible,.nav-btn:focus-visible,.filter-btn:focus-visible{
+  outline:3px solid var(--saffron); outline-offset:3px;
+}
+.price-context{
+  font-family:'Special Elite',monospace; font-size:0.65rem; line-height:1.35; color:#66451c;
+  background:#fff7dc; border:1px dashed var(--gold); padding:4px 6px;
+}
+.phone-btn{
+  background:#fff; color:var(--ink); border:2px solid var(--ink);
+  font-family:'Special Elite', monospace; font-size:0.75rem; font-weight:bold;
+  padding:6px 10px; text-decoration:none; display:inline-flex; align-items:center; gap:4px;
+  box-shadow:var(--hard-shadow-sm); min-height:40px;
+}
+.phone-btn.emphasized{
+  background:#FFFBEA; border-color:var(--saffron); color:var(--saffron); font-weight:800;
+}
+.like-btn{
+  background:#fff; border:2px solid var(--ink); border-radius:50%;
+  width:42px; height:42px; display:flex; align-items:center; justify-content:center;
+  font-size:1.2rem; cursor:pointer; box-shadow:var(--hard-shadow-sm);
+  flex-shrink:0;
+}
+.like-btn.liked{ background:var(--crimson); color:#fff; }
+
+/* TRIP MANAGER CONTROLS */
+.manager-strip{
+  display:none;
+  background:#FFF8E7;
+  border-top:2px dashed var(--ink);
+  padding:6px 8px;
+  gap:6px;
+  align-items:center;
+  justify-content:space-between;
+}
+body.manager-mode .manager-strip{ display:flex; }
+.mgr-btn{
+  background:var(--paper-card);
+  border:1.5px solid var(--ink);
+  font-family:'Baloo 2', sans-serif;
+  font-size:0.72rem;
+  font-weight:800;
+  padding:4px 7px;
+  cursor:pointer;
+  box-shadow:1px 2px 0px var(--ink);
+}
+.mgr-btn.btn-confirm{ background:#d4edda; color:var(--forest); }
+.mgr-btn.btn-unconfirm{ background:#fff3cd; color:#856404; }
+
+.drag-chip{
+  font-family:'Caveat', cursive; font-size:0.9rem; color:#785330;
+  text-align:center; margin-top:2px; font-weight:bold;
+}
+
+/* FLOATING STICKY BOTTOM BAR (Mobile Safe) */
+#bottom-bar{
+  position:fixed; left:0; right:0; height:72px;
+  background:var(--paper-dark);
+  border-top:3px solid var(--ink);
+  z-index:90;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 clamp(0.5rem, 2vw, 1rem);
+  /* `bottom` is set in the dock block below — it sits above the dock. */
+}
+.nav-cluster{ display:flex; align-items:center; gap:6px; }
+.nav-btn{
+  background:var(--paper); border:2px solid var(--ink);
+  font-family:'Baloo 2', sans-serif; font-weight:800; font-size:0.85rem;
+  padding:7px 12px; cursor:pointer; box-shadow:var(--hard-shadow-sm);
+  min-height:42px; display:inline-flex; align-items:center; justify-content:center;
+}
+.nav-btn:disabled{ opacity:0.4; cursor:not-allowed; }
+
+/* BASKET / HEART DROP ZONE */
+#drop-basket{
+  flex:1; max-width:240px; margin:0 6px; height:52px;
+  background:#fff; border:2.5px dashed var(--ink); border-radius:30px;
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  cursor:pointer; position:relative; box-shadow:var(--hard-shadow-sm);
+  transition:all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+#drop-basket.drag-over{
+  background:#ffdde1; border-color:var(--crimson); border-style:solid;
+  transform:scale(1.05) translateY(-2px);
+}
+.basket-icon{ font-size:1.4rem; }
+#drop-basket.bump .basket-icon{ transform:scale(1.5) rotate(-15deg); }
+.basket-label{
+  font-family:'Baloo 2', sans-serif; font-weight:800; font-size:0.8rem; line-height:1.1;
+}
+.basket-count{
+  background:var(--crimson); color:#fff; font-family:'Special Elite', monospace;
+  font-size:0.75rem; font-weight:bold; border-radius:50%;
+  width:22px; height:22px; display:flex; align-items:center; justify-content:center;
+  border:1.5px solid var(--ink);
+}
+
+/* SECRET ADMIN STAMP (5 Clicks) */
+.secret-stamp{
+  position:fixed; top:68px; right:10px; z-index:80;
+  font-family:'Baloo 2',sans-serif; font-size:0.6rem; font-weight:900;
+  color:var(--crimson); border:2px solid var(--crimson); padding:2px 6px;
+  transform:rotate(5deg); cursor:pointer; opacity:0.75; text-transform:uppercase;
+  user-select:none; background:#FFF5F5;
+}
+
+/* MODALS */
+.modal-overlay{
+  position:fixed; inset:0; background:rgba(44,26,6,0.8);
+  z-index:200; display:flex; align-items:center; justify-content:center;
+  padding:0.8rem; opacity:0; pointer-events:none; transition:opacity 0.25s;
+}
+.modal-overlay.open{ opacity:1; pointer-events:auto; }
+.modal-window{
+  background:var(--paper); border:3px solid var(--ink);
+  box-shadow: 6px 8px 0px rgba(0,0,0,0.5);
+  max-width:600px; width:100%; max-height:85vh;
+  display:flex; flex-direction:column; overflow:hidden;
+}
+.modal-header{
+  background:var(--paper-dark); border-bottom:3px solid var(--ink);
+  padding:0.8rem 1rem; display:flex; align-items:center; justify-content:space-between;
+}
+.modal-title{ font-family:'Baloo 2', sans-serif; font-size:1.15rem; font-weight:800; }
+.modal-close{
+  background:#fff; border:2px solid var(--ink); width:32px; height:32px;
+  cursor:pointer; font-weight:bold; font-size:1.1rem; box-shadow:var(--hard-shadow-sm);
+}
+.modal-body{
+  padding:1rem; overflow-y:auto; flex:1; display:flex; flex-direction:column; gap:0.8rem;
+  -webkit-overflow-scrolling:touch;
+}
+.basket-item{
+  background:#fff; border:2px solid var(--ink); padding:0.6rem 0.8rem;
+  display:flex; align-items:center; justify-content:space-between;
+  box-shadow:var(--hard-shadow-sm);
+}
+.basket-item.is-confirmed{
+  border-left:5px solid var(--forest);
+  background:#F9FFF8;
+}
+.basket-item-info strong{ font-family:'Baloo 2', sans-serif; font-size:0.95rem; display:block; }
+.basket-item-info span{ font-size:0.75rem; color:#604732; }
+.btn-remove{
+  background:#ffebee; border:1.5px solid var(--ink); color:var(--crimson);
+  font-size:1rem; cursor:pointer; padding:3px 7px; border-radius:4px;
+}
+.modal-footer{
+  border-top:3px solid var(--ink); background:var(--paper-dark);
+  padding:0.8rem 1rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:6px;
+}
+
+/* LEADERBOARD TABLE */
+.leader-table{
+  width:100%; border-collapse:collapse; background:#fff; border:2px solid var(--ink);
+}
+.leader-table th, .leader-table td{
+  padding:6px 8px; border:1px solid var(--ink); text-align:left; font-size:0.78rem;
+}
+.leader-table th{ background:var(--paper-dark); font-family:'Baloo 2', sans-serif; font-weight:800; }
+.rank-badge{
+  font-weight:bold; background:var(--gold); color:#fff;
+  border-radius:50%; width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center;
+}
+
+/* ══════════════════════════════════════════════════════════
+   UNIVERSAL YATRA DOCK
+   Shared verbatim by index / itinerary / hotels / tickets.
+   Colours fall back to literals so the block is drop-in
+   portable across pages with different :root tokens.
+   ══════════════════════════════════════════════════════════ */
+.yatra-dock {
+  position: fixed;
+  bottom: max(10px, env(safe-area-inset-bottom, 8px));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+  width: calc(100% - 20px);
+  max-width: 440px;
+}
+
+.yatra-dock .dock-plank {
+  background: #EADBBA;
+  border: 2.5px solid var(--ink, #2C1A06);
+  box-shadow: 0 5px 0px var(--ink, #2C1A06);
+  border-radius: 14px;
+  padding: 4px 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+}
+
+.yatra-dock .dock-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  padding: 6px 4px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--ink, #2C1A06);
+  text-decoration: none;
+  background: none;
+  border: none;
+  flex: 1;
+  min-width: 0;
+  min-height: 48px; /* accessible thumb target */
+}
+
+.yatra-dock .dock-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.yatra-dock .dock-label {
+  font-family: 'Special Elite', monospace;
+  font-size: 0.65rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* Current page marker — also the accessible cue, via aria-current */
+.yatra-dock .dock-item[aria-current="page"] {
+  background: var(--saffron, #D4611A);
+  color: #FFF8EC;
+  box-shadow: 1.5px 2px 0 var(--ink, #2C1A06);
+}
+
+.yatra-dock .dock-item:focus-visible {
+  outline: 3px solid var(--saffron, #D4611A);
+  outline-offset: 2px;
+}
+.yatra-dock .dock-item[aria-current="page"]:focus-visible {
+  outline-color: var(--ink, #2C1A06);
+}
+.yatra-dock .dock-item:active { transform: translateY(1px); }
+
+@media (max-width: 340px) {
+  .yatra-dock .dock-icon  { font-size: 1.15rem; }
+  .yatra-dock .dock-label { font-size: 0.56rem; }
+}
+
+@media print { .yatra-dock { display: none !important; } }
+
+/* This page has its own fixed Prev/Basket/Next bar, so stack it
+   directly above the dock and give the slide stage room for both.
+   --dock-h is the measured dock height incl. its 5px drop shadow. */
+:root { --dock-h: 66px; }
+#bottom-bar{ bottom: calc(var(--dock-h) + 8px + max(10px, env(safe-area-inset-bottom, 8px))); }
+
+/* TOAST FLOATER */
+#toast{
+  position:fixed; bottom:calc(var(--dock-h) + 90px); left:50%; transform:translateX(-50%) translateY(20px);
+  background:var(--ink); color:#fff; font-family:'Baloo 2', sans-serif;
+  font-size:0.85rem; font-weight:700; padding:6px 14px; border-radius:30px;
+  opacity:0; pointer-events:none; transition:all 0.25s; z-index:300;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3); text-align:center; max-width:90vw;
+}
+#toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* MOBILE BREAKPOINTS */
+@media(max-width:480px){
+  .hotels-grid{ grid-template-columns: 1fr; }
+  .user-badge{ max-width:110px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .drag-chip{ display:none; }
+  .basket-label{ font-size:0.75rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP APP BAR -->
+<header id="top-bar">
+  <div class="top-bar-left">
+    <!-- PROMINENT BACK BUTTON TO INDEX.HTML -->
+    <a href="index.html" class="back-btn" title="Back to Main Index">
+      <span>←</span> Back
+    </a>
+
+    <div class="brand">
+      <span class="om">ॐ</span>
+      <span class="brand-text">Char Dham</span>
+    </div>
+  </div>
+  
+  <div class="top-bar-right">
+    <!-- Trip Manager Mode Toggle -->
+    <button class="manager-toggle-btn" id="mgr-toggle-btn" onclick="toggleManagerMode()" title="Toggle Trip Manager Controls">
+      <span>🛠️</span>
+      <span id="mgr-toggle-label">Traveler</span>
+    </button>
+
+    <!-- User Device / IP Badge -->
+    <div class="user-badge" title="Device ID">
+      <div class="pulse"></div>
+      <span id="user-display">Pilgrim</span>
+    </div>
+  </div>
+</header>
+
+<!-- SECRET ADMIN STAMP (Tap 5 times to open Leaderboard) -->
+<div class="secret-stamp" id="admin-stamp" onclick="handleStampClick()">
+  Dev Bhoomi ✦
+</div>
+
+<!-- TOP PROGRESS BAR -->
+<div id="progress-container">
+  <div id="progress-bar"></div>
+</div>
+
+<!-- MAIN SNAPPY SLIDES STAGE -->
+<main id="stage"></main>
+
+<!-- BOTTOM CONTROLS & BASKET DROP ZONE -->
+<nav id="bottom-bar">
+  <div class="nav-cluster">
+    <button class="nav-btn" id="btn-prev" onclick="stepSlide(-1)">◀ Prev</button>
+  </div>
+
+  <!-- DRAG TARGET / BASKET -->
+  <div id="drop-basket" onclick="openBasketModal()" ondragover="onDragOver(event)" ondragleave="onDragLeave(event)" ondrop="onDrop(event)">
+    <div class="basket-icon">💖</div>
+    <div>
+      <div class="basket-label">Stays Basket</div>
+    </div>
+    <div class="basket-count" id="basket-counter">0</div>
+  </div>
+
+  <div class="nav-cluster">
+    <button class="nav-btn" id="btn-next" onclick="stepSlide(1)">Next ▶</button>
+  </div>
+</nav>
+
+<!-- ══ UNIVERSAL YATRA DOCK — keep identical across all 4 pages ══ -->
+<nav class="yatra-dock" aria-label="Yatra sections">
+  <div class="dock-plank">
+    <a href="index.html" class="dock-item">
+      <span class="dock-icon" aria-hidden="true">ॐ</span>
+      <span class="dock-label">Home</span>
+    </a>
+    <a href="itinerary.html" class="dock-item">
+      <span class="dock-icon" aria-hidden="true">🗺️</span>
+      <span class="dock-label">Route</span>
+    </a>
+    <a href="hotels.html" class="dock-item" aria-current="page">
+      <span class="dock-icon" aria-hidden="true">🏨</span>
+      <span class="dock-label">Stays</span>
+    </a>
+    <a href="tickets.html" class="dock-item">
+      <span class="dock-icon" aria-hidden="true">🎫</span>
+      <span class="dock-label">Tickets</span>
+    </a>
+  </div>
+</nav>
+
+<!-- MODAL: MY BASKET / SELECTIONS -->
+<div class="modal-overlay" id="basket-modal">
+  <div class="modal-window">
+    <div class="modal-header">
+      <div class="modal-title">🎒 My Yatra Stay Basket</div>
+      <button class="modal-close" onclick="closeModals()">✕</button>
+    </div>
+    <div class="modal-body" id="basket-list">
+      <!-- Injected dynamically -->
+    </div>
+    <div class="modal-footer">
+      <div>
+        <span style="font-size:0.8rem; color:#5c4732;">Est. Total / Person:</span>
+        <strong id="basket-total" style="font-family:'Special Elite', monospace; font-size:1.1rem; color:var(--forest); margin-left:4px;">₹0</strong>
+      </div>
+      <div style="display:flex; gap:6px;">
+        <button class="nav-btn" style="background:#25D366; color:#fff; font-size:0.8rem; padding:6px 10px;" onclick="exportWhatsApp()">WhatsApp 💬</button>
+        <button class="nav-btn" style="background:var(--saffron); color:#fff; font-size:0.8rem; padding:6px 10px;" onclick="window.print()">Print 📄</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: ADMIN LEADERBOARD & VOTER TRACKING -->
+<div class="modal-overlay" id="admin-modal">
+  <div class="modal-window">
+    <div class="modal-header">
+      <div class="modal-title">🔐 Admin: Hotel Leaderboard</div>
+      <button class="modal-close" onclick="closeModals()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:0.85rem; color:#4a321a;">
+        Tracking live selections by device ID. Shows which hotels have collected the most traveler votes.
+      </p>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="nav-btn" style="font-size:0.75rem; padding:4px 8px;" onclick="seedSampleVotes()">+ Simulate Family Votes</button>
+        <button class="nav-btn" style="font-size:0.75rem; padding:4px 8px; color:var(--crimson);" onclick="resetAllVotes()">Reset DB</button>
+      </div>
+      <table class="leader-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Hotel</th>
+            <th>City</th>
+            <th>Votes</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboard-body">
+          <!-- Injected dynamically -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST NOTIFIER -->
+<div id="toast">Hotel added to your basket! 🎉</div>
+
+<script src="site-data.js"></script>
+<script>
+/* =========================================================
+   YATRA ITINERARY + HOTEL DATABASE (Clean & Simple 10 Days)
+========================================================= */
+const YATRA_STOPS = [
+  {
+    id: "haridwar-1",
+    day: "Pre-Trip",
+    date: "Oct 21 – 22",
+    title: "Arrival at Haridwar 🌊",
+    route: "Bilaspur Train (2:30 PM) ➔ Haridwar Arrival (8:08 PM)",
+    highlights: ["Overnight train from Bilaspur", "Ganga night breeze", "Rest before Garhwal climb"],
+    stayLocation: "Haridwar",
+    hotels: [
+      {
+        id: "h-hwd-1",
+        name: "Jammu Yatri Bhawan",
+        location: "Gokul Dham, Haridwar",
+        price: 1500,
+        rating: 4.6,
+        phone: "+91 1334 227 758",
+        img: "https://www.jammuyatribhawan.in/images/large/DSC_5583.jpg",
+        review: "Pilgrim accommodation with food, parking, lift and geyser facilities listed by the property.",
+        priceNote: "Verified starting rate: 3-bed Super Deluxe AC room; taxes extra.",
+        sourceUrl: "https://yatradham.org/haridwar-jammu-yatri-bhawan-trust.html"
+      },
+      {
+        id: "h-hwd-2",
+        name: "Hotel Ganga Lahari",
+        location: "Gau Ghat, Haridwar",
+        price: 2400,
+        rating: 4.8,
+        phone: "+91 1334 220 011",
+        img: "https://assets.simplotel.com/simplotel/image/upload/x_0%2Cy_0%2Cw_1714%2Ch_1216%2Cr_0%2Cc_crop/q_80%2Cw_1600%2Cdpr_1%2Cf_auto%2Cfl_progressive%2Cc_limit/ganga-lahari-haridwar/Overview_The_Ganga_Lahari_Hotel_el8w6a",
+        review: "Heritage riverside stay at Gau Ghat, close to Har Ki Pauri; check room availability directly.",
+        sourceUrl: "https://www.gangalahari.com/"
+      }
+    ]
+  },
+  {
+    id: "janki-chatti",
+    day: "Days 1 & 2",
+    date: "Oct 23 – 24",
+    title: "Yamunotri Base: Janki Chatti 🥾",
+    route: "Haridwar ➔ Janki Chatti (Drive 219 km) ➔ Yamunotri Trek (7 km return)",
+    highlights: ["219 km scenic drive", "Yamunotri Darshan", "Surya Kund hot springs"],
+    stayLocation: "Janki Chatti",
+    hotels: [
+      {
+        id: "h-jc-1",
+        name: "Omji Nivas Kalinda",
+        location: "Janki Chatti Yamunotri Dham",
+        price: 1200,
+        rating: 4.5,
+        phone: "+91 90712 66603",
+        img: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=600&q=80",
+        review: "Warm hospitality, authentic Garhwali food, situated right near trek start."
+      },
+      {
+        id: "h-jc-2",
+        name: "Hotel Samar Palace",
+        location: "Yamunotri Marg, Janki Chatti",
+        price: 1400,
+        rating: 4.4,
+        phone: "+91 99991 01637",
+        img: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=600&q=80",
+        review: "Room listing on Yamunotri Marg; confirm heating, meals and road conditions before paying.",
+        priceNote: "Verified listed rate: standard room; availability and taxes can change.",
+        sourceUrl: "https://spottygo.com/hotel-samar-palace-janki-chatti-yamunotri.html"
+      }
+    ]
+  },
+  {
+    id: "uttarkashi",
+    day: "Days 3 & 4",
+    date: "Oct 25 – 26",
+    title: "Gangotri Valley: Uttarkashi 🏔️",
+    route: "Janki Chatti ➔ Uttarkashi (117 km) ➔ Gangotri Darshan (103 km round trip)",
+    highlights: ["Kashi Vishwanath Mandir", "Bhagirathi river bank", "Glacial origin prayers"],
+    stayLocation: "Uttarkashi",
+    hotels: [
+      {
+        id: "h-uk-1",
+        name: "Laxmi Homestay",
+        location: "Barahat Range, Uttarkashi",
+        price: 1100,
+        rating: 4.7,
+        phone: "+91 94111 23456",
+        img: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=600&q=80",
+        review: "Quiet mountain views, home-cooked food, feels like family in the hills."
+      },
+      {
+        id: "h-uk-2",
+        name: "Surkanda Home Stay",
+        location: "Chungi Barethi, Uttarkashi",
+        price: 1300,
+        rating: 4.5,
+        phone: "+91 99271 63458",
+        img: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=600&q=80",
+        review: "Very cooperative hosts and secure parking for passenger vehicles."
+      },
+      {
+        id: "h-uk-3",
+        name: "Skyline Hotel",
+        location: "Main Market, Uttarkashi",
+        price: 1750,
+        rating: 4.3,
+        phone: "089231 84251",
+        img: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=600&q=80",
+        review: "Centrally located, fast room service, great rooftop river view."
+      },
+      {
+        id: "h-uk-4",
+        name: "Hotel Shiv-Dev",
+        location: "Near Bus Stand, Petrol Pump, Uttarkashi",
+        price: 1400,
+        rating: 4.2,
+        phone: "094117 48176",
+        img: "https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=600&q=80",
+        review: "Strategic location for an early morning drive towards Sonprayag."
+      }
+    ]
+  },
+  {
+    id: "sonprayag",
+    day: "Day 5",
+    date: "Oct 27",
+    title: "Kedarnath Launch: Sonprayag 🌊",
+    route: "Uttarkashi ➔ Sonprayag (229 km) via Triloki Narayan Mandir",
+    highlights: ["Longest scenic drive (229 km)", "Triloki Narayan Darshan", "Prep for Kedarnath trek"],
+    stayLocation: "Sonprayag",
+    hotels: [
+      {
+        id: "h-sp-1",
+        name: "Mandakini Valley Resort",
+        location: "Sitapur, Sonprayag",
+        price: 1800,
+        rating: 4.6,
+        phone: "095488 46020",
+        img: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=600&q=80",
+        review: "Close to Sitapur parking; ideal resting point before early Gaurikund shuttle."
+      },
+      {
+        id: "h-sp-2",
+        name: "Shri Narayan Tourist Lodge & Chandika",
+        location: "Main Road, Triyugi Village",
+        price: 1350,
+        rating: 4.4,
+        phone: "094101 90517",
+        img: "https://images.unsplash.com/photo-1568495248636-6432b97bd949?auto=format&fit=crop&w=600&q=80",
+        review: "Great access to the ancient Triyuginarayan Akhand Dhuni temple."
+      },
+      {
+        id: "h-sp-3",
+        name: "GMVN Sonprayag Tourist Complex",
+        location: "GMVN Sonprayag",
+        price: 1500,
+        rating: 4.3,
+        phone: "095680 06639",
+        img: "https://images.unsplash.com/photo-1507038772120-7ffe76f79d04?auto=format&fit=crop&w=600&q=80",
+        review: "Government registered lodge with reliable rooms and wholesome thalis."
+      },
+      {
+        id: "h-sp-4",
+        name: "Bahram Vatika",
+        location: "Sitapur, Sonprayag",
+        price: 2100,
+        rating: 4.5,
+        phone: "+91 98370 11223",
+        img: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=600&q=80",
+        review: "Cozy mountain rooms with hot chai and parathas after a long travel day."
+      }
+    ]
+  },
+  {
+    id: "kedarnath",
+    day: "Day 6",
+    date: "Oct 28",
+    title: "Kedarnath Dham: Lord Shiva 🗻",
+    route: "Gaurikund ➔ Kedarnath (14–16 km uphill trek, 3583m)",
+    highlights: ["Steep climb past clouds", "Kedarnath Jyotirlinga Darshan", "Evening Aarti in the cold"],
+    stayLocation: "Kedarnath",
+    hotels: [
+      {
+        id: "h-ked-1",
+        name: "Balaji House Gaurikund / Kedarnath",
+        location: "Kedarnath / Gaurikund Route",
+        price: 2200,
+        rating: 4.6,
+        phone: "+91 99991 01637",
+        img: "https://images.unsplash.com/photo-1518733057094-95b53143d2a7?auto=format&fit=crop&w=600&q=80",
+        review: "Warm heavy blankets and shelter after the most demanding trek."
+      },
+      {
+        id: "h-ked-2",
+        name: "Hotel Shri Bikaner House",
+        location: "Kedarnath Dham Mandir Marg",
+        price: 2600,
+        rating: 4.7,
+        phone: "080626 15754",
+        img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
+        review: "Prime location near the temple courtyard with early morning ginger tea."
+      }
+    ]
+  },
+  {
+    id: "rudraprayag",
+    day: "Day 7",
+    date: "Oct 29",
+    title: "Confluence Peace: Rudraprayag ⛰️",
+    route: "Kedarnath (14 km descent) ➔ Drive to Rudraprayag",
+    highlights: ["Alaknanda & Mandakini Sangam", "Descent relief for knees", "River twilight peacefulness"],
+    stayLocation: "Rudraprayag",
+    hotels: [
+      {
+        id: "h-rp-1",
+        name: "Mandakini River View",
+        location: "Kedarnath Rd, Silli, Rudraprayag",
+        price: 1600,
+        rating: 4.5,
+        phone: "098976 02476",
+        img: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=600&q=80",
+        review: "Balconies overlooking the emerald confluence waters."
+      },
+      {
+        id: "h-rp-2",
+        name: "Hotel Indralok Tilwara",
+        location: "NH-107, Indar Nagar, Tilwara",
+        price: 1300,
+        rating: 4.4,
+        phone: "080576 63078",
+        img: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=600&q=80",
+        review: "Clean washrooms, spacious rooms, and easy highway boarding."
+      }
+    ]
+  },
+  {
+    id: "badrinath",
+    day: "Day 8",
+    date: "Oct 30",
+    title: "4th Dham: Badrinath 🛕✨",
+    route: "Rudraprayag ➔ Badrinath (157 km) via Karnprayag & Vishnuprayag",
+    highlights: ["Alaknanda canyons", "Char Dham Completion Darshan", "Tapt Kund natural hot springs"],
+    stayLocation: "Badrinath",
+    hotels: [
+      {
+        id: "h-bad-1",
+        name: "Hotels Near Badrinath Temple",
+        location: "Temple Rd, Badrinath",
+        price: 1900,
+        rating: 4.6,
+        phone: "081919 00044",
+        img: "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80",
+        review: "Short 5-minute walk to the sacred temple complex of Badri Vishal."
+      },
+      {
+        id: "h-bad-2",
+        name: "Chauhan Palace and Restaurant",
+        location: "Beside Paramarth Lok Road, Badrinath",
+        price: 1700,
+        rating: 4.5,
+        phone: "087553 62519",
+        img: "https://images.unsplash.com/photo-1596436889106-be35e843f974?auto=format&fit=crop&w=600&q=80",
+        review: "Hearty vegetarian thalis and warm blankets for the cold Himalayan night."
+      },
+      {
+        id: "h-bad-3",
+        name: "Hotel Neelkanth",
+        location: "NH 58, Badrinath",
+        price: 2100,
+        rating: 4.4,
+        phone: "096900 75457",
+        img: "https://images.unsplash.com/photo-1563911302283-d2bc129e7570?auto=format&fit=crop&w=600&q=80",
+        review: "Majestic views of the Neelkanth snow peak directly through the windows."
+      }
+    ]
+  },
+  {
+    id: "pipalkoti",
+    day: "Day 9",
+    date: "Oct 31",
+    title: "Mana Village & Pipalkoti 💧",
+    route: "Badrinath ➔ Mana Village & Vasudhara Falls ➔ Pipalkoti (80 km)",
+    highlights: ["First village of India", "Saraswati River origin", "Relaxed valley descent"],
+    stayLocation: "Pipalkoti",
+    hotels: [
+      {
+        id: "h-pk-1",
+        name: "Kandari Guest House",
+        location: "NH-7, Badrinath Marg, Pipalkoti",
+        price: 1100,
+        rating: 4.5,
+        phone: "087917 75911",
+        img: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=600&q=80",
+        review: "Affordable and welcoming homestay with direct road connectivity."
+      },
+      {
+        id: "h-pk-2",
+        name: "Hotel Sukoon",
+        location: "Pakhi, Pipalkoti",
+        price: 1450,
+        rating: 4.6,
+        phone: "089586 12306",
+        img: "https://images.unsplash.com/photo-1587985064135-0366536eab42?auto=format&fit=crop&w=600&q=80",
+        review: "Lives up to its name ('Sukoon'); peaceful views and restful sleep."
+      }
+    ]
+  },
+  {
+    id: "haridwar-return",
+    day: "Day 10 & Post-Trip",
+    date: "Nov 1 – 3",
+    title: "Har Ki Pauri & Departure 🕯️",
+    route: "Pipalkoti ➔ Haridwar (223 km) via Dhari Devi & Devprayag ➔ Sightseeing & Train",
+    highlights: ["Dhari Devi blessing", "Devprayag Sangam view", "Ganga Maha Aarti with 1000 diyas"],
+    stayLocation: "Haridwar",
+    hotels: [
+      {
+        id: "h-hwd-final",
+        name: "Jammu Yatri Bhawan (Return)",
+        location: "Haridwar Grounds",
+        price: 1500,
+        rating: 4.7,
+        phone: "+91 1334 227 758",
+        img: "https://www.jammuyatribhawan.in/images/large/DSC_5583.jpg",
+        review: "Return stay option; verify room category and rate again before travel.",
+        priceNote: "Same verified starting rate as the Haridwar listing; taxes extra.",
+        sourceUrl: "https://yatradham.org/haridwar-jammu-yatri-bhawan-trust.html"
+      }
+    ]
+  }
+];
+
+/* =========================================================
+   SYNTH AUDIO ENGINE (Web Audio API)
+========================================================= */
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+function playChime(type='pop'){
+  try {
+    if(audioCtx.state === 'suspended') audioCtx.resume();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    const now = audioCtx.currentTime;
+    if(type === 'pop'){
+      osc.frequency.setValueAtTime(320, now);
+      osc.frequency.exponentialRampToValueAtTime(780, now + 0.08);
+      gain.gain.setValueAtTime(0.3, now);
+      gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
+      osc.start(now); osc.stop(now + 0.09);
+    } else if(type === 'heart'){
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(523.25, now);
+      osc.frequency.setValueAtTime(659.25, now + 0.08);
+      osc.frequency.setValueAtTime(783.99, now + 0.16);
+      gain.gain.setValueAtTime(0.25, now);
+      gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
+      osc.start(now); osc.stop(now + 0.32);
+    } else if(type === 'slide'){
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(220, now);
+      osc.frequency.exponentialRampToValueAtTime(440, now + 0.12);
+      gain.gain.setValueAtTime(0.15, now);
+      gain.gain.linearRampToValueAtTime(0.01, now + 0.12);
+      osc.start(now); osc.stop(now + 0.13);
+    }
+  } catch(e) {}
+}
+
+/* =========================================================
+   PERSISTENCE & PIPELINE STATE
+========================================================= */
+let userId = localStorage.getItem('chardham_user_id');
+if(!userId){
+  userId = 'pilgrim_' + Math.random().toString(36).substring(2, 7);
+  localStorage.setItem('chardham_user_id', userId);
+}
+document.getElementById('user-display').textContent = userId;
+
+let isManagerMode = localStorage.getItem('chardham_is_manager') === 'true';
+let confirmedHotels = JSON.parse(localStorage.getItem('chardham_confirmed_hotels') || '[]');
+let negotiatedRates = JSON.parse(localStorage.getItem('chardham_negotiated_rates') || '{}');
+let userLikes = JSON.parse(localStorage.getItem('chardham_likes') || '[]');
+let globalVotes = JSON.parse(localStorage.getItem('chardham_global_votes') || '{}');
+
+/* =========================================================
+   TRIP MANAGER VIEW TOGGLE
+========================================================= */
+function syncManagerModeUI(){
+  document.body.classList.toggle('manager-mode', isManagerMode);
+  const btn = document.getElementById('mgr-toggle-btn');
+  const label = document.getElementById('mgr-toggle-label');
+  if(btn && label){
+    btn.classList.toggle('active', isManagerMode);
+    label.textContent = isManagerMode ? "Manager: ON" : "Traveler";
+  }
+}
+
+function toggleManagerMode(){
+  isManagerMode = !isManagerMode;
+  localStorage.setItem('chardham_is_manager', isManagerMode);
+  syncManagerModeUI();
+  playChime('pop');
+  showToast(isManagerMode ? "Manager Mode ON 🛠️" : "Traveler View 🎒");
+  renderSlides();
+}
+
+function syncConfirmedToBasket(){
+  let changed = false;
+  confirmedHotels.forEach(hId => {
+    if(!userLikes.includes(hId)){
+      userLikes.push(hId);
+      changed = true;
+    }
+  });
+  if(changed) saveState();
+}
+
+/* =========================================================
+   RENDERING SLIDES & HOTEL CARDS
+========================================================= */
+let currentSlide = 0;
+const totalSlides = YATRA_STOPS.length;
+const stage = document.getElementById('stage');
+let draggedHotelId = null;
+
+function renderSlides(){
+  syncConfirmedToBasket();
+  stage.innerHTML = '';
+
+  YATRA_STOPS.forEach((stop) => {
+    const slide = document.createElement('section');
+    slide.className = 'slide';
+    slide.id = `slide-${stop.id}`;
+
+    slide.innerHTML = `
+      <div class="itinerary-banner">
+        <div class="washi" style="top:-9px; left:15px; width:70px; background:var(--tape-yellow); transform:rotate(-2deg);"></div>
+        <div class="banner-top">
+          <span class="tag-day">${stop.day}</span>
+          <span class="tag-date">🗓️ ${stop.date}</span>
+        </div>
+        <h2 class="slide-title">${stop.title}</h2>
+        <div class="itinerary-details">
+          <div class="itinerary-item"><span>📍 ${stop.route}</span></div>
+          <div class="itinerary-item"><span>✨ ${stop.highlights.join(' • ')}</span></div>
+        </div>
+      </div>
+
+      <div class="hotels-header">
+        <div class="hotels-title">
+          <span>🏨 Stays in ${stop.stayLocation}</span>
+        </div>
+        <div class="filter-tabs">
+          <button class="filter-btn active" onclick="applyFilter('${stop.id}', 'all', this)">All</button>
+          <button class="filter-btn" onclick="applyFilter('${stop.id}', 'price', this)">Budget ₹</button>
+          <button class="filter-btn" onclick="applyFilter('${stop.id}', 'rating', this)">Rating ⭐</button>
+        </div>
+      </div>
+
+      <div class="hotels-grid" id="grid-${stop.id}">
+        ${renderHotelCards(stop.hotels)}
+      </div>
+    `;
+    stage.appendChild(slide);
+  });
+  updateUI();
+  applySiteDataHotelOverrides();
+}
+
+function renderHotelCards(hotelsList){
+  return hotelsList.map(h => {
+    const isConfirmed = confirmedHotels.includes(h.id);
+    const isLiked = userLikes.includes(h.id) || isConfirmed;
+    
+    const customRate = negotiatedRates[h.id];
+    const effectivePrice = customRate !== undefined ? customRate : h.price;
+    const hasDiscount = customRate !== undefined && customRate !== h.price;
+    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${h.name}, ${h.location}`)}`;
+    const priceUrl = h.sourceUrl || `https://www.google.com/search?q=${encodeURIComponent(`${h.name} ${h.location} hotel room price booking`)}`;
+    const rateLabel = hasDiscount ? 'your rate' : (h.priceNote ? 'starting / room' : 'planning rate');
+
+    return `
+      <article class="hotel-card ${isLiked ? 'liked-highlight' : ''} ${isConfirmed ? 'is-confirmed' : ''}" 
+        id="card-${h.id}"
+        draggable="${!isConfirmed}"
+        ondragstart="onDragStart(event, '${h.id}')"
+        ondragend="onDragEnd(event)"
+        data-price="${effectivePrice}"
+        data-rating="${h.rating}"
+      >
+        <!-- Confirmed Visuals -->
+        ${isConfirmed ? `<div class="confirmed-washi"></div>` : ''}
+        ${isConfirmed ? `<div class="confirmed-stamp">BOOKED ✓</div>` : ''}
+
+        <!-- Status Badge -->
+        <span class="status-badge ${isConfirmed ? 'confirmed' : 'shortlisted'}">
+          ${isConfirmed ? '🟢 Confirmed' : '🟡 Shortlisted'}
+        </span>
+
+        <div class="hotel-card-img-wrap">
+          <img src="${h.img}" alt="${h.name} accommodation photo" class="hotel-card-img" loading="lazy" referrerpolicy="no-referrer">
+          <span class="hotel-rating-badge">★ ${h.rating}</span>
+          
+          <span class="hotel-price-badge">
+            ${hasDiscount ? `<span class="price-strike">₹${h.price}</span>` : ''}
+            <span class="${hasDiscount ? 'price-deal' : ''}">₹${effectivePrice}</span> ${rateLabel}
+            ${hasDiscount ? `<span class="deal-tag">DEAL</span>` : ''}
+          </span>
+        </div>
+
+        <div class="hotel-info">
+          <div>
+            <h3 class="hotel-name">${h.name}</h3>
+            <div class="hotel-location">📍 <strong>${h.location}</strong></div>
+          </div>
+          
+          <div class="hotel-review">“${h.review}”</div>
+
+          <div class="price-context">${h.priceNote || 'Planning estimate only. Use the live-price link for the rate for your exact dates, rooms and guests.'}</div>
+
+          <div class="hotel-quick-links">
+            <a class="hotel-quick-link" href="${mapsUrl}" target="_blank" rel="noopener">Map</a>
+            <a class="hotel-quick-link price-check" href="${priceUrl}" target="_blank" rel="noopener">Check live price</a>
+          </div>
+
+          <div class="hotel-actions">
+            <!-- Direct phone call button -->
+            <a href="tel:${h.phone.replace(/[^0-9+]/g,'')}" class="phone-btn emphasized" title="Direct call">
+              📞 <strong>${h.phone}</strong>
+            </a>
+
+            <!-- Heart Wishlist button -->
+            <button class="like-btn ${isLiked ? 'liked' : ''}" 
+              onclick="${isConfirmed ? `showToast('Locked: Confirmed by Trip Manager! 🔒')` : `toggleLike('${h.id}')`}" 
+              title="${isConfirmed ? 'Confirmed & Locked' : 'Toggle Basket'}">
+              ${isConfirmed ? '🔒' : (isLiked ? '❤️' : '🤍')}
+            </button>
+          </div>
+
+          <!-- Trip Manager Action Strip -->
+          <div class="manager-strip">
+            <button class="mgr-btn ${isConfirmed ? 'btn-unconfirm' : 'btn-confirm'}" onclick="toggleConfirmHotel('${h.id}')">
+              ${isConfirmed ? '↩ Unconfirm' : '✓ Mark Booked'}
+            </button>
+            <button class="mgr-btn" onclick="editNegotiatedRate('${h.id}', ${effectivePrice})">
+              ✏️ Rate: ₹${effectivePrice}
+            </button>
+          </div>
+
+          <div class="drag-chip">
+            ${isConfirmed ? '🔒 Confirmed in Basket' : 'Tap ❤️ or Drag to Basket'}
+          </div>
+        </div>
+      </article>
+    `;
+  }).join('');
+}
+
+/* =========================================================
+   CENTRAL SITE-DATA HOTEL STATUS OVERRIDES
+   Reads getSiteData().hotelStatus and visually overrides matching cards
+========================================================= */
+function applySiteDataHotelOverrides(){
+  if(typeof getSiteData !== 'function') return;
+  const siteData = getSiteData();
+  if(!siteData || !siteData.hotelStatus) return;
+
+  const hotelStatus = siteData.hotelStatus;
+  Object.keys(hotelStatus).forEach(hotelId => {
+    const card = document.getElementById(`card-${hotelId}`);
+    if(!card) return;
+
+    const entry = hotelStatus[hotelId];
+    if(!entry) return;
+
+    const status = (typeof entry === 'string' ? entry : (entry.status || '')).toLowerCase();
+    const notes = typeof entry === 'object' ? (entry.notes || '') : '';
+
+    if(status === 'confirmed'){
+      card.classList.add('is-confirmed');
+      card.classList.remove('is-rejected');
+
+      // Add confirmed stamp badge if not already present
+      if(!card.querySelector('.confirmed-stamp')){
+        const stamp = document.createElement('div');
+        stamp.className = 'confirmed-stamp';
+        stamp.textContent = 'BOOKED ✓';
+        card.prepend(stamp);
+      }
+      if(!card.querySelector('.confirmed-washi')){
+        const washi = document.createElement('div');
+        washi.className = 'confirmed-washi';
+        card.prepend(washi);
+      }
+
+      // Update status badge
+      const badge = card.querySelector('.status-badge');
+      if(badge){
+        badge.className = 'status-badge confirmed';
+        badge.textContent = '🟢 Confirmed';
+      }
+
+      // Lock like button as confirmed
+      const likeBtn = card.querySelector('.like-btn');
+      if(likeBtn){
+        likeBtn.classList.add('liked');
+        likeBtn.textContent = '🔒';
+        likeBtn.title = 'Confirmed via site data';
+      }
+
+      // Clean up any rejected visuals
+      const rStamp = card.querySelector('.rejected-stamp');
+      if(rStamp) rStamp.remove();
+    } else if(status === 'rejected'){
+      card.classList.add('is-rejected');
+      card.classList.remove('is-confirmed');
+
+      // Remove confirmed stamp and washi
+      const cStamp = card.querySelector('.confirmed-stamp');
+      if(cStamp) cStamp.remove();
+      const cWashi = card.querySelector('.confirmed-washi');
+      if(cWashi) cWashi.remove();
+
+      // Add rejected stamp badge
+      if(!card.querySelector('.rejected-stamp')){
+        const stamp = document.createElement('div');
+        stamp.className = 'rejected-stamp';
+        stamp.textContent = 'REJECTED ✕';
+        card.prepend(stamp);
+      }
+
+      // Update status badge
+      const badge = card.querySelector('.status-badge');
+      if(badge){
+        badge.className = 'status-badge';
+        badge.style.background = '#FFEBEE';
+        badge.style.color = 'var(--crimson)';
+        badge.style.borderColor = 'var(--crimson)';
+        badge.textContent = '🔴 Rejected';
+      }
+
+      // Dim like button
+      const likeBtn = card.querySelector('.like-btn');
+      if(likeBtn){
+        likeBtn.title = 'Hotel rejected in site data';
+      }
+    }
+
+    // Add notes as tooltip and small text under the card
+    if(notes){
+      card.setAttribute('title', notes);
+      const info = card.querySelector('.hotel-info');
+      if(info){
+        let noteEl = card.querySelector('.hotel-status-note');
+        if(!noteEl){
+          noteEl = document.createElement('div');
+          info.appendChild(noteEl);
+        }
+        noteEl.className = `hotel-status-note note-${status || 'default'}`;
+        noteEl.setAttribute('title', notes);
+        noteEl.innerHTML = `📌 <strong>Note:</strong> ${notes}`;
+      }
+    }
+  });
+}
+
+/* =========================================================
+   DRAG AND DROP + MOBILE SWIPE HANDLING
+========================================================= */
+function onDragStart(e, hotelId){
+  if(confirmedHotels.includes(hotelId)){
+    e.preventDefault();
+    return;
+  }
+  draggedHotelId = hotelId;
+  e.dataTransfer.setData('text/plain', hotelId);
+  e.currentTarget.classList.add('dragging');
+  playChime('pop');
+}
+
+function onDragEnd(e){
+  e.currentTarget.classList.remove('dragging');
+  draggedHotelId = null;
+  document.getElementById('drop-basket').classList.remove('drag-over');
+}
+
+function onDragOver(e){
+  e.preventDefault();
+  document.getElementById('drop-basket').classList.add('drag-over');
+}
+
+function onDragLeave(e){
+  document.getElementById('drop-basket').classList.remove('drag-over');
+}
+
+function onDrop(e){
+  e.preventDefault();
+  const basket = document.getElementById('drop-basket');
+  basket.classList.remove('drag-over');
+  const hotelId = e.dataTransfer.getData('text/plain') || draggedHotelId;
+  if(hotelId){
+    addHotelToBasket(hotelId);
+  }
+}
+
+/* SMART MOBILE TOUCH DETECTION (Vertical scroll inside card vs Horizontal swipe for slide) */
+let touchStartX = 0, touchStartY = 0;
+let isHorizontalMove = false;
+
+stage.addEventListener('touchstart', (e) => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+  isHorizontalMove = false;
+}, {passive:true});
+
+stage.addEventListener('touchmove', (e) => {
+  const dx = e.touches[0].clientX - touchStartX;
+  const dy = e.touches[0].clientY - touchStartY;
+  if(Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 15){
+    isHorizontalMove = true;
+  }
+}, {passive:true});
+
+stage.addEventListener('touchend', (e) => {
+  if(isHorizontalMove){
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if(Math.abs(dx) > 40 && Math.abs(dy) < 70){
+      stepSlide(dx < 0 ? 1 : -1);
+    }
+  }
+}, {passive:true});
+
+/* =========================================================
+   LIKE & BASKET LOGIC
+========================================================= */
+function toggleLike(hotelId){
+  if(confirmedHotels.includes(hotelId)){
+    showToast("This hotel is confirmed and locked in your basket 🔒");
+    return;
+  }
+
+  if(userLikes.includes(hotelId)){
+    userLikes = userLikes.filter(id => id !== hotelId);
+    showToast("Hotel removed from basket");
+  } else {
+    userLikes.push(hotelId);
+    recordVote(hotelId);
+    triggerCelebration();
+    playChime('heart');
+    showToast("Hotel added to your Basket! ❤️");
+  }
+  saveState();
+  refreshCardStates();
+  updateUI();
+}
+
+function addHotelToBasket(hotelId){
+  if(!userLikes.includes(hotelId)){
+    userLikes.push(hotelId);
+    recordVote(hotelId);
+    triggerCelebration();
+    playChime('heart');
+    showToast("Hotel dropped into basket! 🎒");
+    saveState();
+    refreshCardStates();
+    updateUI();
+  } else {
+    showToast("Hotel is already in your basket!");
+  }
+}
+
+function removeHotelFromBasket(hotelId){
+  if(confirmedHotels.includes(hotelId)){
+    showToast("Confirmed hotels cannot be removed by travelers 🔒");
+    return;
+  }
+  userLikes = userLikes.filter(id => id !== hotelId);
+  saveState();
+  refreshCardStates();
+  updateUI();
+  renderBasketModal();
+}
+
+function recordVote(hotelId){
+  globalVotes[hotelId] = (globalVotes[hotelId] || 0) + 1;
+  localStorage.setItem('chardham_global_votes', JSON.stringify(globalVotes));
+}
+
+function saveState(){
+  localStorage.setItem('chardham_likes', JSON.stringify(userLikes));
+}
+
+function refreshCardStates(){
+  document.querySelectorAll('.hotel-card').forEach(card => {
+    const hId = card.id.replace('card-','');
+    const isConfirmed = confirmedHotels.includes(hId);
+    const isLiked = userLikes.includes(hId) || isConfirmed;
+    card.classList.toggle('liked-highlight', isLiked);
+    card.classList.toggle('is-confirmed', isConfirmed);
+    const btn = card.querySelector('.like-btn');
+    if(btn){
+      btn.classList.toggle('liked', isLiked);
+      btn.textContent = isConfirmed ? '🔒' : (isLiked ? '❤️' : '🤍');
+    }
+  });
+  applySiteDataHotelOverrides();
+}
+
+function triggerCelebration(){
+  const basket = document.getElementById('drop-basket');
+  basket.classList.add('bump');
+  setTimeout(() => basket.classList.remove('bump'), 350);
+}
+
+/* =========================================================
+   TRIP MANAGER PIPELINE ACTIONS
+========================================================= */
+function toggleConfirmHotel(hotelId){
+  if(!isManagerMode) return;
+
+  if(confirmedHotels.includes(hotelId)){
+    confirmedHotels = confirmedHotels.filter(id => id !== hotelId);
+    showToast("Reverted to Shortlisted 🟡");
+  } else {
+    confirmedHotels.push(hotelId);
+    if(!userLikes.includes(hotelId)) userLikes.push(hotelId);
+    playChime('heart');
+    showToast("Hotel Marked CONFIRMED & BOOKED! 🟢");
+  }
+
+  localStorage.setItem('chardham_confirmed_hotels', JSON.stringify(confirmedHotels));
+  saveState();
+  renderSlides();
+}
+
+function editNegotiatedRate(hotelId, currentPrice){
+  if(!isManagerMode) return;
+  
+  const input = prompt("Enter negotiated rate per person (₹):", currentPrice);
+  if(input !== null){
+    const parsed = parseInt(input.trim(), 10);
+    if(!isNaN(parsed) && parsed >= 0){
+      negotiatedRates[hotelId] = parsed;
+      localStorage.setItem('chardham_negotiated_rates', JSON.stringify(negotiatedRates));
+      playChime('pop');
+      showToast(`Rate set to ₹${parsed}/person! 🏷️`);
+      renderSlides();
+    } else {
+      alert("Please enter a valid amount.");
+    }
+  }
+}
+
+/* =========================================================
+   NAVIGATION & SLIDES
+========================================================= */
+function goToSlide(idx){
+  if(idx < 0 || idx >= totalSlides) return;
+  currentSlide = idx;
+  stage.style.transform = `translateX(-${currentSlide * 100}vw)`;
+  playChime('slide');
+  updateUI();
+}
+
+function stepSlide(dir){
+  goToSlide(currentSlide + dir);
+}
+
+function updateUI(){
+  document.getElementById('btn-prev').disabled = currentSlide === 0;
+  document.getElementById('btn-next').disabled = currentSlide === totalSlides - 1;
+  const pct = ((currentSlide + 1) / totalSlides) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('basket-counter').textContent = userLikes.length;
+}
+
+window.addEventListener('keydown', e => {
+  if(e.key === 'ArrowRight') stepSlide(1);
+  if(e.key === 'ArrowLeft') stepSlide(-1);
+  if((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'a'){
+    openAdminModal();
+  }
+});
+
+/* =========================================================
+   FILTERS & SORTING
+========================================================= */
+function applyFilter(stopId, criteria, btn){
+  const stop = YATRA_STOPS.find(s => s.id === stopId);
+  if(!stop) return;
+  const grid = document.getElementById(`grid-${stopId}`);
+  btn.parentNode.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  let list = [...stop.hotels];
+  if(criteria === 'price'){
+    list.sort((a,b) => {
+      const pA = negotiatedRates[a.id] || a.price;
+      const pB = negotiatedRates[b.id] || b.price;
+      return pA - pB;
+    });
+  } else if(criteria === 'rating'){
+    list.sort((a,b) => b.rating - a.rating);
+  }
+  grid.innerHTML = renderHotelCards(list);
+  refreshCardStates();
+}
+
+/* =========================================================
+   BASKET & EXPORT MODAL
+========================================================= */
+function openBasketModal(){
+  renderBasketModal();
+  document.getElementById('basket-modal').classList.add('open');
+}
+
+function renderBasketModal(){
+  const container = document.getElementById('basket-list');
+  const allHotels = YATRA_STOPS.flatMap(s => s.hotels.map(h => ({
+    ...h,
+    stopName: s.title,
+    day: s.day,
+    effectivePrice: (negotiatedRates[h.id] !== undefined ? negotiatedRates[h.id] : h.price),
+    isConfirmed: confirmedHotels.includes(h.id)
+  })));
+  
+  const chosenHotels = allHotels.filter(h => userLikes.includes(h.id));
+
+  if(chosenHotels.length === 0){
+    container.innerHTML = `
+      <div style="text-align:center; padding:1.5rem; color:#7d5c3f;">
+        <div style="font-size:2.5rem; margin-bottom:0.3rem;">📭</div>
+        <p><strong>Your stay basket is empty!</strong></p>
+        <p style="font-size:0.85rem; margin-top:4px;">Tap ❤️ on any hotel card to add it here.</p>
+      </div>
+    `;
+    document.getElementById('basket-total').textContent = '₹0';
+    return;
+  }
+
+  let totalCost = 0;
+  container.innerHTML = chosenHotels.map(h => {
+    totalCost += h.effectivePrice;
+    return `
+      <div class="basket-item ${h.isConfirmed ? 'is-confirmed' : ''}">
+        <div class="basket-item-info">
+          <strong>${h.name} ${h.isConfirmed ? '🟢 (CONFIRMED)' : '🟡 (Shortlist)'}</strong>
+          <span>${h.day} • ₹${h.effectivePrice}/person • 📞 ${h.phone}</span>
+        </div>
+        ${h.isConfirmed 
+          ? `<span title="Locked by Trip Manager" style="font-size:1.1rem; padding:0 6px;">🔒</span>`
+          : `<button class="btn-remove" onclick="removeHotelFromBasket('${h.id}')" title="Remove">✕</button>`
+        }
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById('basket-total').textContent = `₹${totalCost.toLocaleString('en-IN')}`;
+}
+
+function exportWhatsApp(){
+  const allHotels = YATRA_STOPS.flatMap(s => s.hotels.map(h => ({
+    ...h,
+    stopName: s.title,
+    day: s.day,
+    effectivePrice: (negotiatedRates[h.id] !== undefined ? negotiatedRates[h.id] : h.price),
+    isConfirmed: confirmedHotels.includes(h.id)
+  })));
+  
+  const chosen = allHotels.filter(h => userLikes.includes(h.id));
+  if(chosen.length === 0) return alert("Select at least 1 hotel first!");
+
+  let text = `🙏 *Char Dham Yatra Bookings & Itinerary*\n`;
+  text += `Plan for Pilgrim Device (${document.getElementById('user-display').textContent}):\n\n`;
+  chosen.forEach((h, i) => {
+    const statusText = h.isConfirmed ? '🟢 CONFIRMED' : '🟡 SHORTLISTED';
+    text += `${i+1}. *${h.name}* [${statusText}]\n   📍 ${h.location} | ₹${h.effectivePrice}/person\n   📞 ${h.phone} (${h.day})\n\n`;
+  });
+  text += `_Generated via Char Dham Yatra Planner_`;
+  window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+}
+
+/* =========================================================
+   SECRET ADMIN PANEL
+========================================================= */
+let stampClicks = 0;
+function handleStampClick(){
+  stampClicks++;
+  if(stampClicks >= 5){
+    stampClicks = 0;
+    openAdminModal();
+  }
+}
+
+function openAdminModal(){
+  renderLeaderboard();
+  document.getElementById('admin-modal').classList.add('open');
+}
+
+function renderLeaderboard(){
+  const allHotels = YATRA_STOPS.flatMap(s => s.hotels.map(h => ({
+    ...h,
+    dest: s.stayLocation,
+    effectivePrice: (negotiatedRates[h.id] !== undefined ? negotiatedRates[h.id] : h.price),
+    isConfirmed: confirmedHotels.includes(h.id)
+  })));
+
+  allHotels.sort((a,b) => {
+    const votesA = globalVotes[a.id] || 0;
+    const votesB = globalVotes[b.id] || 0;
+    return votesB - votesA;
+  });
+
+  const tbody = document.getElementById('leaderboard-body');
+  tbody.innerHTML = allHotels.map((h, i) => {
+    const votes = globalVotes[h.id] || 0;
+    return `
+      <tr>
+        <td><span class="rank-badge">${i+1}</span></td>
+        <td><strong>${h.name}</strong> ${h.isConfirmed ? '🟢' : ''}</td>
+        <td>${h.dest}</td>
+        <td><strong style="color:var(--crimson);">❤️ ${votes}</strong></td>
+        <td>₹${h.effectivePrice}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function seedSampleVotes(){
+  const allHotels = YATRA_STOPS.flatMap(s => s.hotels);
+  allHotels.forEach(h => {
+    globalVotes[h.id] = (globalVotes[h.id] || 0) + Math.floor(Math.random() * 5) + 1;
+  });
+  localStorage.setItem('chardham_global_votes', JSON.stringify(globalVotes));
+  renderLeaderboard();
+  showToast("Simulated 15 family member votes!");
+}
+
+function resetAllVotes(){
+  if(confirm("Reset all votes, confirmed status, and basket?")){
+    globalVotes = {};
+    userLikes = [];
+    confirmedHotels = [];
+    negotiatedRates = {};
+    localStorage.removeItem('chardham_global_votes');
+    localStorage.removeItem('chardham_likes');
+    localStorage.removeItem('chardham_confirmed_hotels');
+    localStorage.removeItem('chardham_negotiated_rates');
+    renderLeaderboard();
+    renderSlides();
+    showToast("Database reset successfully");
+  }
+}
+
+function closeModals(){
+  document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('open'));
+}
+
+/* TOAST NOTIFIER */
+let toastTimer = null;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+syncConfirmedToBasket();
+syncManagerModeUI();
+renderSlides();
+</script>
+</body>
+</html>
